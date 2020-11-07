@@ -1,0 +1,1 @@
+val androidLibrary get() = "androidLibrary"

@@ -1,0 +1,58 @@
+# TODO: Modify these
+site_name: "kotlin-android-template"
+repo_name: lcdsmao/kotlin-android-template
+repo_url: https://github.com/lcdsmao/kotlin-android-template
+remote_branch: gh-pages
+
+theme:
+  name: material
+  language: "en"
+  palette:
+    primary: red
+    accent: red
+  font:
+    text: Open Sans
+    code: Roboto Mono
+
+extra:
+  manifest: manifest.webmanifest
+
+nav:
+  - "Overview": index.md
+  - "Changelog": changelog.md
+  - "API Docs": api/-modules.html
+
+markdown_extensions:
+  - admonition
+  - smarty
+  - codehilite:
+      guess_lang: false
+      linenums: True
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed
+  - pymdownx.tilde
+  - tables
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
