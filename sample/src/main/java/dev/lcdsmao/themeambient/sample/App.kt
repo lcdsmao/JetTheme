@@ -38,6 +38,7 @@ fun App() {
         val manager = AppThemeAmbient.current
         FloatingActionButton(
           backgroundColor = MaterialTheme.colors.primary,
+          contentColor = MaterialTheme.colors.onPrimary,
           onClick = {
             manager.setTheme(if (manager.theme?.themeId == "default") "dark" else "default")
           }
