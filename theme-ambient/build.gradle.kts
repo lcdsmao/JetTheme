@@ -23,6 +23,8 @@ android {
 
 dependencies {
   implementation(Kotlin.stdlib.jdk8)
+  implementation(KotlinX.coroutines.android)
+
   implementation(AndroidX.appCompat)
   implementation(AndroidX.core.ktx)
   implementation(Libs.AndroidX.DataStore.preferences)
