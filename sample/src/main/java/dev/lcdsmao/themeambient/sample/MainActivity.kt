@@ -1,4 +1,4 @@
-package com.github.lcdsmao.sample
+package dev.lcdsmao.themeambient.sample
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

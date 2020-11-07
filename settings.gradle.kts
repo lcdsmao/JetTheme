@@ -16,10 +16,9 @@ buildscript {
 
 bootstrapRefreshVersions()
 
-rootProject.name = "kotlin-android-template"
+rootProject.name = "ThemeAmbient"
 
 include(
   "sample",
-  "library-android",
-  "library-kotlin"
+  "theme-ambient"
 )

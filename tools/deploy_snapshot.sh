@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# TODO: Modify these
-REPOSITORY="lcdsmao/kotlin-anroid-template"
+REPOSITORY="lcdsmao/theme-ambient"
 REF="refs/heads/master"
 
 set -e
