@@ -1,7 +1,7 @@
 package dev.lcdsmao.themeambient
 
 import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Providers
@@ -17,7 +17,7 @@ val AppThemeAmbient = staticAmbientOf<AppThemeManager>()
 @Composable
 fun ProvideAppTheme(
   themeDataMap: MaterialThemeDataMap,
-  animSpec: AnimationSpec<Color> = remember { spring() },
+  animSpec: AnimationSpec<Color> = remember { tween() },
   children: @Composable () -> Unit,
 ) {
   val context = ContextAmbient.current
@@ -37,7 +37,7 @@ fun ProvideAppTheme(
 
 @Composable
 private fun WrapMaterialTheme(
-  themeColorAnimSpec: AnimationSpec<Color> = remember { spring() },
+  themeColorAnimSpec: AnimationSpec<Color> = remember { tween() },
   children: @Composable () -> Unit,
 ) {
   val themeManager = AppThemeAmbient.current

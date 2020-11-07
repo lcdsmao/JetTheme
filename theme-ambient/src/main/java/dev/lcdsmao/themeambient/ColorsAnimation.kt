@@ -2,7 +2,7 @@ package dev.lcdsmao.themeambient
 
 import androidx.compose.animation.animate
 import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.material.Colors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun animate(
   colors: Colors,
-  animSpec: AnimationSpec<Color> = remember { spring() },
+  animSpec: AnimationSpec<Color> = remember { tween() },
 ): Colors {
 
   @Composable
