@@ -1,4 +1,4 @@
-package dev.lcdsmao.themeambient
+package dev.lcdsmao.jettheme
 
 import androidx.compose.animation.animate
 import androidx.compose.animation.core.AnimationSpec

@@ -1,4 +1,4 @@
-package dev.lcdsmao.themeambient.internal
+package dev.lcdsmao.jettheme.internal
 
 internal class SingletonHolder<out T : Any, in A>(creator: (A) -> T) {
 

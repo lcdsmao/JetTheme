@@ -70,6 +70,9 @@ formatting:
     indentSize: 2
   MaximumLineLength:
     active: true
+  ImportOrdering:
+    active: true
+    layout: idea
 
 naming:
   MemberNameEqualsClassName:

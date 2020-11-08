@@ -1,4 +1,4 @@
-package dev.lcdsmao.themeambient
+package dev.lcdsmao.jettheme
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted

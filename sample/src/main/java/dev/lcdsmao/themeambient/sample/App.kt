@@ -24,9 +24,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import dev.lcdsmao.themeambient.AppThemeAmbient
-import dev.lcdsmao.themeambient.ProvideAppTheme
-import dev.lcdsmao.themeambient.buildMaterialThemeDataMap
+import dev.lcdsmao.jettheme.AppThemeAmbient
+import dev.lcdsmao.jettheme.ProvideAppTheme
+import dev.lcdsmao.jettheme.buildMaterialThemeDataMap
 
 @Composable
 fun App() {

@@ -1,4 +1,4 @@
-package dev.lcdsmao.themeambient
+package dev.lcdsmao.jettheme
 
 import androidx.compose.material.Colors
 import androidx.compose.material.Shapes
