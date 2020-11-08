@@ -26,16 +26,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.lcdsmao.jettheme.JetThemeAmbient
 import dev.lcdsmao.jettheme.JetThemeIds
-import dev.lcdsmao.jettheme.ProvideJetTheme
-import dev.lcdsmao.jettheme.buildMaterialThemes
-import dev.lcdsmao.jettheme.defaultTheme
-import dev.lcdsmao.jettheme.theme
+import dev.lcdsmao.jettheme.material.ProvideMaterialTheme
+import dev.lcdsmao.jettheme.material.buildMaterialThemes
+import dev.lcdsmao.jettheme.material.defaultTheme
+import dev.lcdsmao.jettheme.material.theme
 
 @Composable
-fun App() {
-  ProvideJetTheme(
+fun MaterialApp() {
+  ProvideMaterialTheme(
     themeSpecMap = themes,
-    placeholder = { Box(Modifier.background(MaterialTheme.colors.background)) }
   ) {
     Scaffold(
       floatingActionButton = { ToggleThemeFloatButton() }

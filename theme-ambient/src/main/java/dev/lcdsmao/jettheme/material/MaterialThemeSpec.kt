@@ -1,9 +1,13 @@
-package dev.lcdsmao.jettheme
+package dev.lcdsmao.jettheme.material
 
 import androidx.compose.material.Colors
 import androidx.compose.material.Shapes
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Stable
+import dev.lcdsmao.jettheme.JetThemeIds
+import dev.lcdsmao.jettheme.JetThemeSpec
+import dev.lcdsmao.jettheme.JetThemeSpecMapBuilder
+import dev.lcdsmao.jettheme.buildJetThemes
 
 @Stable
 interface MaterialThemeSpec : JetThemeSpec {
