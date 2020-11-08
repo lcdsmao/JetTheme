@@ -1,41 +1,78 @@
 package dev.lcdsmao.jettheme
 
-import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.tween
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Providers
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.staticAmbientOf
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 
-@Composable
-inline fun <reified T : JetThemeSpec> ProvideJetTheme(
-  themeControllerConfig: JetThemeControllerConfig,
-  crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
-  crossinline content: @Composable (T) -> Unit,
+@Immutable
+data class JetTheme internal constructor(
+  private val themeSpecMap: Map<String, JetThemeSpec>,
 ) {
-  val themeController = JetThemeController(themeControllerConfig)
-  Providers(JetThemeAmbient provides themeController) {
-    val currentTheme = JetThemeAmbient.current.themeState<T>().value
-    Crossfade(currentTheme, animation = crossfadeAnimSpec) { theme ->
-      if (theme != null) {
-        content(theme)
-      }
-    }
+
+  @Stable
+  val default: JetThemeSpec
+    get() = requireNotNull(this[JetThemeIds.Default])
+
+  @Stable
+  val size: Int
+    get() = themeSpecMap.size
+
+  @Stable
+  operator fun get(key: String): JetThemeSpec? = themeSpecMap[key]
+
+  @Stable
+  operator fun contains(key: String): Boolean = key in themeSpecMap
+
+  @Stable
+  fun toList(): List<Pair<String, JetThemeSpec>> = themeSpecMap.toList()
+}
+
+fun JetTheme.nextThemeId(themeId: String): String {
+  val entries = toList()
+  val index = entries.indexOfFirst { it.first == themeId }
+  return when {
+    index < 0 || index + 1 >= size -> entries.first().first
+    else -> entries[index + 1].first
   }
 }
 
-@Composable
-inline fun <reified T : JetThemeSpec> ProvideAppJetTheme(
-  theme: JetTheme,
-  crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
-  crossinline content: @Composable (T) -> Unit,
-) = ProvideJetTheme(
-  themeControllerConfig = JetThemeControllerConfig.Persistence(
-    theme = theme,
-  ),
-  crossfadeAnimSpec = crossfadeAnimSpec,
-  content = content,
-)
+fun buildJetTheme(
+  block: JetThemeSpecMapBuilder.() -> Unit,
+): JetTheme {
+  return JetThemeSpecMapBuilder().apply(block).build()
+}
 
-val JetThemeAmbient = staticAmbientOf<JetThemeController>()
+private typealias ThemeSpecTransformer = (
+  id: String,
+  spec: JetThemeSpec,
+  defaultSpec: JetThemeSpec,
+) -> JetThemeSpec
+
+class JetThemeSpecMapBuilder internal constructor() {
+
+  private val themes = mutableListOf<JetThemeSpec>()
+
+  private var transformer: ThemeSpecTransformer? = null
+
+  fun theme(themeSpec: JetThemeSpec) {
+    themes += themeSpec
+  }
+
+  fun transformer(f: ThemeSpecTransformer) {
+    transformer = f
+  }
+
+  internal fun build(): JetTheme {
+    val themeMap = themes.associateBy { it.id }
+    check(JetThemeIds.Default in themeMap) {
+      "Must provide a default theme using with id ${JetThemeIds.Default}."
+    }
+    check(themeMap.size == themes.size) {
+      "Provided theme data contain duplicate ids: ${themes.map { it.id }}."
+    }
+    val defaultSpec = requireNotNull(themeMap[JetThemeIds.Default])
+    val transformedMap = transformer?.let { f ->
+      themeMap.mapValues { (id, spec) -> f(id, spec, defaultSpec) }
+    } ?: themeMap
+    return JetTheme(transformedMap)
+  }
+}

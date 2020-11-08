@@ -1,52 +1,74 @@
 package dev.lcdsmao.jettheme.material
 
-import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.tween
-import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import dev.lcdsmao.jettheme.JetTheme
-import dev.lcdsmao.jettheme.JetThemeControllerConfig
-import dev.lcdsmao.jettheme.ProvideAppJetTheme
-import dev.lcdsmao.jettheme.ProvideJetTheme
+import androidx.compose.material.Colors
+import androidx.compose.material.Shapes
+import androidx.compose.material.Typography
+import dev.lcdsmao.jettheme.JetThemeIds
+import dev.lcdsmao.jettheme.JetThemeSpec
+import dev.lcdsmao.jettheme.JetThemeSpecMapBuilder
+import dev.lcdsmao.jettheme.buildJetTheme
 
-@Composable
-fun ProvideMaterialTheme(
-  themeControllerConfig: JetThemeControllerConfig,
-  crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
-  content: @Composable () -> Unit,
-) {
-  ProvideJetTheme<MaterialThemeSpec>(
-    themeControllerConfig = themeControllerConfig,
-    crossfadeAnimSpec = crossfadeAnimSpec,
-  ) { themeSpec ->
-    MaterialTheme(themeSpec, content)
+fun buildMaterialTheme(
+  block: JetThemeSpecMapBuilder.() -> Unit,
+) = buildJetTheme {
+  block()
+  transformer { id, spec, defaultSpec ->
+    require(defaultSpec is MaterialThemeSpec) { "Require ${spec.id} to be a MaterialThemeSpec" }
+    if (id == JetThemeIds.Default) {
+      defaultSpec
+    } else {
+      require(spec is PartMaterialThemeSpec) { "Require ${spec.id} to be a PartMaterialThemeSpec" }
+      spec.toMaterialThemeData(defaultSpec)
+    }
   }
 }
 
-@Composable
-fun ProvideAppMaterialTheme(
-  theme: JetTheme,
-  crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
-  content: @Composable () -> Unit,
-) {
-  ProvideAppJetTheme<MaterialThemeSpec>(
-    theme = theme,
-    crossfadeAnimSpec = crossfadeAnimSpec,
-  ) { themeSpec ->
-    MaterialTheme(themeSpec, content)
-  }
-}
-
-@Composable
-fun MaterialTheme(
-  themeSpec: MaterialThemeSpec,
-  content: @Composable () -> Unit,
-) {
-  MaterialTheme(
-    colors = themeSpec.colors,
-    typography = themeSpec.typography,
-    shapes = themeSpec.shapes,
-    content = content,
+fun JetThemeSpecMapBuilder.defaultMaterialTheme(
+  colors: Colors,
+  typography: Typography,
+  shapes: Shapes,
+) = theme(
+  MaterialThemeSpecImpl(
+    id = JetThemeIds.Default,
+    colors = colors,
+    typography = typography,
+    shapes = shapes,
   )
+)
+
+fun JetThemeSpecMapBuilder.materialTheme(
+  id: String,
+  colors: Colors? = null,
+  typography: Typography? = null,
+  shapes: Shapes? = null,
+) = theme(
+  PartMaterialThemeSpec(
+    id = id,
+    colors = colors,
+    typography = typography,
+    shapes = shapes,
+  )
+)
+
+private class MaterialThemeSpecImpl(
+  override val id: String,
+  override val colors: Colors,
+  override val typography: Typography,
+  override val shapes: Shapes,
+) : MaterialThemeSpec
+
+private class PartMaterialThemeSpec(
+  override val id: String,
+  val colors: Colors?,
+  val typography: Typography?,
+  val shapes: Shapes?,
+) : JetThemeSpec {
+  fun toMaterialThemeData(defaultTheme: MaterialThemeSpec): MaterialThemeSpec {
+    return MaterialThemeSpecImpl(
+      id = id,
+      colors = colors ?: defaultTheme.colors,
+      typography = typography ?: defaultTheme.typography,
+      shapes = shapes ?: defaultTheme.shapes,
+    )
+  }
 }
