@@ -3,13 +3,13 @@ package dev.lcdsmao.jettheme.material
 import androidx.compose.material.Colors
 import androidx.compose.material.Shapes
 import androidx.compose.material.Typography
+import dev.lcdsmao.jettheme.JetThemeBuilder
 import dev.lcdsmao.jettheme.JetThemeIds
 import dev.lcdsmao.jettheme.JetThemeSpec
-import dev.lcdsmao.jettheme.JetThemeSpecMapBuilder
 import dev.lcdsmao.jettheme.buildJetTheme
 
 fun buildMaterialTheme(
-  block: JetThemeSpecMapBuilder.() -> Unit,
+  block: JetThemeBuilder.() -> Unit,
 ) = buildJetTheme {
   block()
   transformer { id, spec, defaultSpec ->
@@ -23,11 +23,11 @@ fun buildMaterialTheme(
   }
 }
 
-fun JetThemeSpecMapBuilder.defaultMaterialTheme(
+fun JetThemeBuilder.defaultMaterialSpec(
   colors: Colors,
   typography: Typography,
   shapes: Shapes,
-) = theme(
+) = spec(
   MaterialThemeSpecImpl(
     id = JetThemeIds.Default,
     colors = colors,
@@ -36,12 +36,12 @@ fun JetThemeSpecMapBuilder.defaultMaterialTheme(
   )
 )
 
-fun JetThemeSpecMapBuilder.materialTheme(
+fun JetThemeBuilder.materialSpec(
   id: String,
   colors: Colors? = null,
   typography: Typography? = null,
   shapes: Shapes? = null,
-) = theme(
+) = spec(
   PartMaterialThemeSpec(
     id = id,
     colors = colors,

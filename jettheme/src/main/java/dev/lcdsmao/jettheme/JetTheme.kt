@@ -36,38 +36,38 @@ fun JetTheme.nextThemeId(themeId: String): String {
 }
 
 fun buildJetTheme(
-  block: JetThemeSpecMapBuilder.() -> Unit,
+  block: JetThemeBuilder.() -> Unit,
 ): JetTheme {
-  return JetThemeSpecMapBuilder().apply(block).build()
+  return JetThemeBuilder().apply(block).build()
 }
 
-private typealias ThemeSpecTransformer = (
+private typealias JetThemeSpecTransformer = (
   id: String,
   spec: JetThemeSpec,
   defaultSpec: JetThemeSpec,
 ) -> JetThemeSpec
 
-class JetThemeSpecMapBuilder internal constructor() {
+class JetThemeBuilder internal constructor() {
 
-  private val themes = mutableListOf<JetThemeSpec>()
+  private val specs = mutableListOf<JetThemeSpec>()
 
-  private var transformer: ThemeSpecTransformer? = null
+  private var transformer: JetThemeSpecTransformer? = null
 
-  fun theme(themeSpec: JetThemeSpec) {
-    themes += themeSpec
+  fun spec(themeSpec: JetThemeSpec) {
+    specs += themeSpec
   }
 
-  fun transformer(f: ThemeSpecTransformer) {
+  fun transformer(f: JetThemeSpecTransformer) {
     transformer = f
   }
 
   internal fun build(): JetTheme {
-    val themeMap = themes.associateBy { it.id }
+    val themeMap = specs.associateBy { it.id }
     check(JetThemeIds.Default in themeMap) {
       "Must provide a default theme using with id ${JetThemeIds.Default}."
     }
-    check(themeMap.size == themes.size) {
-      "Provided theme data contain duplicate ids: ${themes.map { it.id }}."
+    check(themeMap.size == specs.size) {
+      "Provided theme data contain duplicate ids: ${specs.map { it.id }}."
     }
     val defaultSpec = requireNotNull(themeMap[JetThemeIds.Default])
     val transformedMap = transformer?.let { f ->
@@ -76,3 +76,11 @@ class JetThemeSpecMapBuilder internal constructor() {
     return JetTheme(transformedMap)
   }
 }
+
+@Suppress("unused")
+val JetThemeBuilder.defaultId
+  get() = JetThemeIds.Default
+
+@Suppress("unused")
+val JetThemeBuilder.darkId
+  get() = JetThemeIds.Dark
