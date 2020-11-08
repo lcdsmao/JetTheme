@@ -6,6 +6,8 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlin.reflect.cast
 
 @Stable
 interface JetThemeController {
@@ -55,8 +57,8 @@ internal fun JetThemeController(
 }
 
 @Composable
-fun JetThemeController.themeState(): State<JetThemeSpec?> {
-  return themeSpecFlow.collectAsState(initial = null)
+inline fun <reified T : JetThemeSpec> JetThemeController.themeState(): State<T?> {
+  return themeSpecFlow.map { T::class.cast(it) }.collectAsState(initial = null)
 }
 
 fun JetThemeController.setThemeBasedOnSystemSettings() {
