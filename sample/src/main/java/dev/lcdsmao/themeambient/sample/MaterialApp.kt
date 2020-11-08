@@ -25,13 +25,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.lcdsmao.jettheme.JetThemeAmbient
-import dev.lcdsmao.jettheme.JetThemeIds
 import dev.lcdsmao.jettheme.component1
 import dev.lcdsmao.jettheme.component2
+import dev.lcdsmao.jettheme.darkId
 import dev.lcdsmao.jettheme.material.ProvideAppMaterialTheme
 import dev.lcdsmao.jettheme.material.buildMaterialTheme
-import dev.lcdsmao.jettheme.material.defaultMaterialTheme
-import dev.lcdsmao.jettheme.material.materialTheme
+import dev.lcdsmao.jettheme.material.defaultMaterialSpec
+import dev.lcdsmao.jettheme.material.materialSpec
 import dev.lcdsmao.jettheme.nextThemeId
 
 @Composable
@@ -105,13 +105,13 @@ private val lightColorPalette = lightColors(
 )
 
 private val appTheme = buildMaterialTheme {
-  defaultMaterialTheme(
+  defaultMaterialSpec(
     colors = lightColorPalette,
     typography = typography,
     shapes = shapes,
   )
-  materialTheme(
-    id = JetThemeIds.Dark,
+  materialSpec(
+    id = darkId,
     colors = darkColorPalette,
   )
 }

@@ -30,4 +30,5 @@ dependencies {
 
   implementation(AndroidX.compose.ui)
   implementation(AndroidX.compose.material)
+  implementation(Libs.AndroidX.Compose.navigation)
 }
