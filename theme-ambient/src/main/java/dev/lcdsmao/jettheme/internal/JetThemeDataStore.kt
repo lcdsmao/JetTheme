@@ -9,29 +9,29 @@ import androidx.datastore.preferences.preferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-internal class JetThemeSpecDataStore(
+internal class JetThemeDataStore(
   private val dataStore: DataStore<Preferences>,
 ) {
 
-  val themeIdFlow: Flow<String?> = dataStore.data
-    .map { preferences -> preferences[ThemeIdKey] }
+  fun themeIdFlow(key: Preferences.Key<String>): Flow<String?> = dataStore.data
+    .map { preferences -> preferences[key] }
 
-  suspend fun setThemeId(themeId: String) {
+  suspend fun setThemeId(key: Preferences.Key<String>, themeId: String) {
     dataStore.edit { preferences ->
-      preferences[ThemeIdKey] = themeId
+      preferences[key] = themeId
     }
   }
 
   companion object {
-    private val ThemeIdKey = preferencesKey<String>("theme-id")
+    val AppThemeKey = preferencesKey<String>("com.lcdsmao.dev.app.jettheme.key")
 
     private val instanceHolder = SingletonHolder { context: Context ->
       val dataStore = context.createDataStore(
         name = "dev.lcdsmao.themeambient"
       )
-      JetThemeSpecDataStore(dataStore)
+      JetThemeDataStore(dataStore)
     }
 
-    fun get(context: Context): JetThemeSpecDataStore = instanceHolder.getInstance(context)
+    fun get(context: Context): JetThemeDataStore = instanceHolder.getInstance(context)
   }
 }

@@ -26,14 +26,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.lcdsmao.jettheme.JetThemeAmbient
 import dev.lcdsmao.jettheme.JetThemeIds
-import dev.lcdsmao.jettheme.material.ProvideMaterialTheme
+import dev.lcdsmao.jettheme.component1
+import dev.lcdsmao.jettheme.component2
+import dev.lcdsmao.jettheme.material.ProvideAppMaterialTheme
 import dev.lcdsmao.jettheme.material.buildMaterialThemes
 import dev.lcdsmao.jettheme.material.defaultTheme
 import dev.lcdsmao.jettheme.material.theme
 
 @Composable
 fun MaterialApp() {
-  ProvideMaterialTheme(
+  ProvideAppMaterialTheme(
     themeSpecMap = themes,
   ) {
     Scaffold(

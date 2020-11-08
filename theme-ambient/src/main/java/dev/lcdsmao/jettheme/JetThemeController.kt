@@ -1,64 +1,62 @@
 package dev.lcdsmao.jettheme
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.platform.ContextAmbient
-import dev.lcdsmao.jettheme.internal.JetThemeSpecDataStore
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 
+@Stable
+interface JetThemeController {
+
+  val themeSpecFlow: Flow<JetThemeSpec>
+
+  val themeId: String
+
+  fun setThemeId(themeId: String)
+}
+
+@Immutable
+sealed class JetThemeControllerConfig {
+
+  @Immutable
+  data class Persistence(
+    val themeSpecMap: JetThemeSpecMap,
+    val persistenceKey: String? = null,
+  ) : JetThemeControllerConfig()
+
+  @Immutable
+  data class InMemory(
+    val themeSpecMap: JetThemeSpecMap,
+    val initialThemeId: String = JetThemeIds.Default,
+  ) : JetThemeControllerConfig()
+}
+
+@PublishedApi
 @Composable
-fun JetThemeController(
-  themeSpecMap: JetThemeSpecMap,
-): JetThemeController {
-  val context = ContextAmbient.current
-  val coroutineScope = rememberCoroutineScope()
-  return remember(themeSpecMap) {
-    JetThemeController(
-      coroutineScope = coroutineScope,
-      themeDataStore = JetThemeSpecDataStore.get(context),
-      themeSpecMap = themeSpecMap,
+internal fun JetThemeController(
+  config: JetThemeControllerConfig,
+): JetThemeController = when (config) {
+  is JetThemeControllerConfig.Persistence -> {
+    PersistentJetThemeController(
+      themeSpecMap = config.themeSpecMap,
+      key = config.persistenceKey,
+    )
+  }
+  is JetThemeControllerConfig.InMemory -> {
+    InMemoryJetThemeController(
+      themeSpecMap = config.themeSpecMap,
+      initialThemeId = config.initialThemeId,
     )
   }
 }
 
 @Composable
 fun JetThemeController.themeState(): State<JetThemeSpec?> {
-  return themeFlow.collectAsState(initial = null)
+  return themeSpecFlow.collectAsState(initial = null)
 }
 
-class JetThemeController internal constructor(
-  private val coroutineScope: CoroutineScope,
-  private val themeDataStore: JetThemeSpecDataStore,
-  private val themeSpecMap: JetThemeSpecMap,
-) {
+operator fun JetThemeController.component2(): (themeId: String) -> Unit = ::setThemeId
 
-  private val themeIdFlow: StateFlow<String?> = themeDataStore.themeIdFlow
-    .stateIn(coroutineScope, started = SharingStarted.Eagerly, null)
-
-  internal val themeFlow: Flow<JetThemeSpec?> = themeDataStore.themeIdFlow
-    .map { id ->
-      if (id == null) themeSpecMap.default else themeSpecMap[id]
-    }
-
-  val themeId: String?
-    get() = themeIdFlow.value
-
-  fun setThemeId(themeId: String) {
-    coroutineScope.launch {
-      themeDataStore.setThemeId(themeId)
-    }
-  }
-
-  operator fun component1(): String? = themeId
-
-  operator fun component2(): (themeId: String) -> Unit = ::setThemeId
-}
+operator fun JetThemeController.component1(): String? = themeId
