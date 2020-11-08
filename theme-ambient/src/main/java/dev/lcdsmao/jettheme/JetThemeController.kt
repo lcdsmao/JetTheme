@@ -24,6 +24,7 @@ sealed class JetThemeControllerConfig {
   data class Persistence(
     val themeSpecMap: JetThemeSpecMap,
     val persistenceKey: String? = null,
+    val darkModeThemeId: String = JetThemeIds.Dark,
   ) : JetThemeControllerConfig()
 
   @Immutable
@@ -42,6 +43,7 @@ internal fun JetThemeController(
     PersistentJetThemeController(
       themeSpecMap = config.themeSpecMap,
       key = config.persistenceKey,
+      darkModeThemeId = config.darkModeThemeId,
     )
   }
   is JetThemeControllerConfig.InMemory -> {

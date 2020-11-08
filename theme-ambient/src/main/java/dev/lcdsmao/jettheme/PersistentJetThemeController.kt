@@ -17,13 +17,14 @@ import kotlinx.coroutines.launch
 internal fun PersistentJetThemeController(
   themeSpecMap: JetThemeSpecMap,
   key: String? = null,
+  darkModeThemeId: String = JetThemeIds.Dark,
 ): JetThemeController {
   val context = ContextAmbient.current
   val coroutineScope = rememberCoroutineScope()
   val themeIdBasedOnSystem = if (isSystemInDarkTheme()) {
     JetThemeIds.Dark
   } else {
-    JetThemeIds.Default
+    darkModeThemeId
   }
   return PersistentJetThemeControllerImpl(
     coroutineScope = coroutineScope,
