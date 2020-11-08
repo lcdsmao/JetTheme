@@ -29,6 +29,7 @@ dependencies {
   implementation(AndroidX.core.ktx)
   implementation(Libs.AndroidX.DataStore.preferences)
 
-  implementation(AndroidX.compose.ui)
-  implementation(AndroidX.compose.material)
+  implementation(AndroidX.compose.runtime)
+  implementation(AndroidX.compose.foundation)
+  implementation(AndroidX.compose.animation)
 }

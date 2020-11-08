@@ -1,8 +1,9 @@
 plugins {
   `module-config`
-  com.android.application
+  com.android.library
   `kotlin-android`
-  `kotlin-android-extensions`
+  id("com.vanniktech.maven.publish")
+  `bintray-publish-config`
 }
 
 android {
@@ -21,12 +22,11 @@ android {
 }
 
 dependencies {
-  implementation(project(":jettheme-material"))
+  api(project(":jettheme"))
 
   implementation(Kotlin.stdlib.jdk8)
   implementation(AndroidX.appCompat)
   implementation(AndroidX.core.ktx)
-  implementation(Libs.AndroidX.DataStore.preferences)
 
   implementation(AndroidX.compose.ui)
   implementation(AndroidX.compose.material)

@@ -20,5 +20,6 @@ rootProject.name = "ThemeAmbient"
 
 include(
   "sample",
-  "theme-ambient"
+  "jettheme",
+  "jettheme-material"
 )
