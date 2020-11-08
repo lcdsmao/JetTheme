@@ -16,7 +16,7 @@
  * Forked from: https://github.com/android/compose-samples/
  */
 
-package dev.lcdsmao.themeambient.sample
+package dev.lcdsmao.jettheme.sample
 
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.background

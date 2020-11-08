@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  package="dev.lcdsmao.themeambient.sample"
+  package="dev.lcdsmao.jettheme.sample"
   >
 
   <application
@@ -13,7 +13,7 @@
     android:theme="@style/Theme.AppCompat.NoActionBar"
     tools:ignore="AllowBackup"
     >
-    <activity android:name="dev.lcdsmao.themeambient.sample.MainActivity">
+    <activity android:name="dev.lcdsmao.jettheme.sample.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 

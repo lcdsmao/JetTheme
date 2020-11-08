@@ -1,6 +1,6 @@
-# Theme Ambient
+# JetTheme
 
-TODO
+JetTheme is a library for creating themeable user interfaces in Jetpack Compose.
 
 ## Contributing
 

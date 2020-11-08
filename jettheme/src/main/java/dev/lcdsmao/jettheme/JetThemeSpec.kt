@@ -8,7 +8,7 @@ interface JetThemeSpec {
 }
 
 object JetThemeIds {
-  const val Default = "jet-theme-default"
-  const val Dark = "jet-theme-dark"
+  const val Default = "jettheme-default"
+  const val Dark = "jettheme-dark"
   internal const val SystemSettings = "dev.lcdsmao.jettheme.system.settings"
 }

@@ -1,6 +1,6 @@
-site_name: "Theme Ambient"
-repo_name: lcdsmao/theme-ambient
-repo_url: https://github.com/lcdsmao/theme-ambient
+site_name: "JetTheme"
+repo_name: lcdsmao/jettheme
+repo_url: https://github.com/lcdsmao/jettheme
 remote_branch: gh-pages
 
 theme:

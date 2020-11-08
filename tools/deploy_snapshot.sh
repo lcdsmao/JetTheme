@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPOSITORY="lcdsmao/theme-ambient"
+REPOSITORY="lcdsmao/jettheme"
 REF="refs/heads/master"
 
 set -e

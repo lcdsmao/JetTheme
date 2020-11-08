@@ -1,4 +1,4 @@
-package dev.lcdsmao.themeambient.sample
+package dev.lcdsmao.jettheme.sample
 
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.background

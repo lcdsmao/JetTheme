@@ -1,4 +1,4 @@
-package dev.lcdsmao.themeambient.sample
+package dev.lcdsmao.jettheme.sample
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

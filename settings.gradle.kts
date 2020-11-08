@@ -16,7 +16,7 @@ buildscript {
 
 bootstrapRefreshVersions()
 
-rootProject.name = "ThemeAmbient"
+rootProject.name = "JetTheme"
 
 include(
   "sample",
