@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import dev.lcdsmao.jettheme.JetThemeControllerConfig
 import dev.lcdsmao.jettheme.JetThemeSpecMap
+import dev.lcdsmao.jettheme.ProvideAppJetTheme
 import dev.lcdsmao.jettheme.ProvideJetTheme
 
 @Composable
@@ -19,12 +20,7 @@ fun ProvideMaterialTheme(
     themeControllerConfig = themeControllerConfig,
     crossfadeAnimSpec = crossfadeAnimSpec,
   ) { themeSpec ->
-    MaterialTheme(
-      colors = themeSpec.colors,
-      typography = themeSpec.typography,
-      shapes = themeSpec.shapes,
-      content = content,
-    )
+    MaterialTheme(themeSpec, content)
   }
 }
 
@@ -34,11 +30,23 @@ fun ProvideAppMaterialTheme(
   crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
   content: @Composable () -> Unit,
 ) {
-  ProvideMaterialTheme(
-    themeControllerConfig = JetThemeControllerConfig.Persistence(
-      themeSpecMap = themeSpecMap
-    ),
+  ProvideAppJetTheme<MaterialThemeSpec>(
+    themeSpecMap = themeSpecMap,
     crossfadeAnimSpec = crossfadeAnimSpec,
+  ) { themeSpec ->
+    MaterialTheme(themeSpec, content)
+  }
+}
+
+@Composable
+fun MaterialTheme(
+  themeSpec: MaterialThemeSpec,
+  content: @Composable () -> Unit,
+) {
+  MaterialTheme(
+    colors = themeSpec.colors,
+    typography = themeSpec.typography,
+    shapes = themeSpec.shapes,
     content = content,
   )
 }
