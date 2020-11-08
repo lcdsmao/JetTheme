@@ -24,28 +24,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import dev.lcdsmao.jettheme.AppThemeAmbient
-import dev.lcdsmao.jettheme.ProvideAppTheme
-import dev.lcdsmao.jettheme.buildMaterialThemeDataMap
+import dev.lcdsmao.jettheme.JetThemeAmbient
+import dev.lcdsmao.jettheme.JetThemeIds
+import dev.lcdsmao.jettheme.ProvideJetTheme
+import dev.lcdsmao.jettheme.buildMaterialThemes
+import dev.lcdsmao.jettheme.defaultTheme
+import dev.lcdsmao.jettheme.theme
 
 @Composable
 fun App() {
-  ProvideAppTheme(
-    themeDataMap = themes,
+  ProvideJetTheme(
+    themeSpecMap = themes,
+    placeholder = { Box(Modifier.background(MaterialTheme.colors.background)) }
   ) {
     Scaffold(
-      floatingActionButton = {
-        val manager = AppThemeAmbient.current
-        FloatingActionButton(
-          backgroundColor = MaterialTheme.colors.primary,
-          contentColor = MaterialTheme.colors.onPrimary,
-          onClick = {
-            manager.setTheme(if (manager.theme?.themeId == "default") "dark" else "default")
-          }
-        ) {
-          Icon(asset = Icons.Default.Refresh)
-        }
-      }
+      floatingActionButton = { ToggleThemeFloatButton() }
     ) {
       Column(
         modifier = Modifier.fillMaxWidth().padding(32.dp)
@@ -76,6 +69,21 @@ fun App() {
   }
 }
 
+@Composable
+private fun ToggleThemeFloatButton() {
+  val (themeId, setThemeId) = JetThemeAmbient.current
+  FloatingActionButton(
+    backgroundColor = MaterialTheme.colors.primary,
+    // contentColor = MaterialTheme.colors.onPrimary,
+    onClick = {
+      val id = if (themeId == JetThemeIds.Default) "dark" else JetThemeIds.Default
+      setThemeId(id)
+    }
+  ) {
+    Icon(asset = Icons.Default.Refresh)
+  }
+}
+
 private val shapes = Shapes(
   small = RoundedCornerShape(4.dp),
   medium = RoundedCornerShape(4.dp),
@@ -97,14 +105,14 @@ private val lightColorPalette = lightColors(
   onPrimary = Color(0xFF442C2E),
 )
 
-private val themes = buildMaterialThemeDataMap {
+private val themes = buildMaterialThemes {
   defaultTheme(
     colors = lightColorPalette,
     typography = typography,
     shapes = shapes,
   )
   theme(
-    themeId = "dark",
+    id = "dark",
     colors = darkColorPalette,
   )
 }

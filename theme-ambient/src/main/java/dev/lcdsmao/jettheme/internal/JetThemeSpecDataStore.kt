@@ -1,4 +1,4 @@
-package dev.lcdsmao.jettheme
+package dev.lcdsmao.jettheme.internal
 
 import android.content.Context
 import androidx.datastore.DataStore
@@ -6,11 +6,10 @@ import androidx.datastore.preferences.Preferences
 import androidx.datastore.preferences.createDataStore
 import androidx.datastore.preferences.edit
 import androidx.datastore.preferences.preferencesKey
-import dev.lcdsmao.jettheme.internal.SingletonHolder
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class AppThemeDataStore(
+internal class JetThemeSpecDataStore(
   private val dataStore: DataStore<Preferences>,
 ) {
 
@@ -30,9 +29,9 @@ class AppThemeDataStore(
       val dataStore = context.createDataStore(
         name = "dev.lcdsmao.themeambient"
       )
-      AppThemeDataStore(dataStore)
+      JetThemeSpecDataStore(dataStore)
     }
 
-    fun get(context: Context): AppThemeDataStore = instanceHolder.getInstance(context)
+    fun get(context: Context): JetThemeSpecDataStore = instanceHolder.getInstance(context)
   }
 }
