@@ -1,9 +1,7 @@
 package dev.lcdsmao.jettheme
 
 import androidx.compose.runtime.Composable
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.map
 
 @Composable
 internal fun InMemoryJetThemeController(
@@ -21,15 +19,17 @@ private class InMemoryJetThemeControllerImpl(
   initialThemeId: String,
 ) : JetThemeController {
 
-  private val themeIdFlow: MutableStateFlow<String> = MutableStateFlow(initialThemeId)
-
-  override val themeSpecFlow: Flow<JetThemeSpec> = themeIdFlow
-    .map { id -> themeSpecMap[id] ?: themeSpecMap.default }
+  override val themeSpecFlow: MutableStateFlow<JetThemeSpec> = MutableStateFlow(
+    themeSpecMap[initialThemeId] ?: themeSpecMap.default
+  )
 
   override val themeId: String
-    get() = themeIdFlow.value
+    get() = themeSpecFlow.value.id
 
   override fun setThemeId(themeId: String) {
-    themeIdFlow.value = themeId
+    check(themeId in themeSpecMap) {
+      "ThemeId $themeId does not existed in themeSpecMap $themeSpecMap."
+    }
+    themeSpecFlow.value = themeSpecMap[themeId]!!
   }
 }

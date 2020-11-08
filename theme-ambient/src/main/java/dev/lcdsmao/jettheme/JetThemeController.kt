@@ -68,6 +68,6 @@ fun JetThemeController.setThemeBasedOnSystemSettings() {
   setThemeId(JetThemeIds.SystemSettings)
 }
 
-operator fun JetThemeController.component2(): (themeId: String) -> Unit = ::setThemeId
-
 operator fun JetThemeController.component1(): String = themeId
+
+operator fun JetThemeController.component2(): (themeId: String) -> Unit = ::setThemeId
