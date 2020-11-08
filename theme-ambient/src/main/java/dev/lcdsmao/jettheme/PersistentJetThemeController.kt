@@ -7,12 +7,10 @@ import androidx.compose.ui.platform.ContextAmbient
 import androidx.datastore.preferences.preferencesKey
 import dev.lcdsmao.jettheme.internal.JetThemeDataStore
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
 @Composable
@@ -47,18 +45,15 @@ internal class PersistentJetThemeControllerImpl(
   private val key = dataStoreKey?.let { preferencesKey(it) }
     ?: JetThemeDataStore.AppThemeKey
 
-  private val themeIdFlow: StateFlow<String> = themeDataStore.themeIdFlow(key)
-    .filterNotNull()
-    .stateIn(coroutineScope, started = SharingStarted.Eagerly, JetThemeIds.Default)
-
-  override val themeSpecFlow: Flow<JetThemeSpec> = themeDataStore.themeIdFlow(key)
+  override val themeSpecFlow: SharedFlow<JetThemeSpec> = themeDataStore.themeIdFlow(key)
     .map { id ->
       val themeId = id ?: themeIdBasedOnSystem
       themeSpecMap[themeId] ?: themeSpecMap.default
     }
+    .shareIn(coroutineScope, started = SharingStarted.Eagerly, replay = 1)
 
   override val themeId: String
-    get() = themeIdFlow.value
+    get() = themeSpecFlow.replayCache.firstOrNull()?.id ?: JetThemeIds.Default
 
   override fun setThemeId(themeId: String) {
     if (themeId == JetThemeIds.SystemSettings) {

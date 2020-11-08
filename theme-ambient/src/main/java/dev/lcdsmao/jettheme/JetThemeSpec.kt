@@ -16,11 +16,20 @@ object JetThemeIds {
 @Stable
 class JetThemeSpecMap internal constructor(
   map: Map<String, JetThemeSpec>,
-) : Map<String, JetThemeSpec> by map {
+) : Map<String, JetThemeSpec> by map
 
-  val default: JetThemeSpec
-    get() = requireNotNull(this[JetThemeIds.Default])
+fun JetThemeSpecMap.nextThemeId(themeId: String): String {
+  check(size > 0)
+  val entries = entries.toList()
+  val index = entries.indexOfFirst { it.key == themeId }
+  return when {
+    index < 0 || index + 1 >= size -> entries.first().key
+    else -> entries[index + 1].key
+  }
 }
+
+internal val JetThemeSpecMap.default: JetThemeSpec
+  get() = requireNotNull(this[JetThemeIds.Default])
 
 fun buildJetThemes(
   block: JetThemeSpecMapBuilder.() -> Unit,
@@ -28,7 +37,7 @@ fun buildJetThemes(
   return JetThemeSpecMapBuilder().apply(block).build()
 }
 
-typealias ThemeSpecTransformer = (
+private typealias ThemeSpecTransformer = (
   id: String,
   spec: JetThemeSpec,
   defaultSpec: JetThemeSpec,

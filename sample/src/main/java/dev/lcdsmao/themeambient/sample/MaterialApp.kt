@@ -32,6 +32,7 @@ import dev.lcdsmao.jettheme.material.ProvideAppMaterialTheme
 import dev.lcdsmao.jettheme.material.buildMaterialThemes
 import dev.lcdsmao.jettheme.material.defaultTheme
 import dev.lcdsmao.jettheme.material.theme
+import dev.lcdsmao.jettheme.nextThemeId
 
 @Composable
 fun MaterialApp() {
@@ -76,10 +77,7 @@ private fun ToggleThemeFloatButton() {
   FloatingActionButton(
     backgroundColor = MaterialTheme.colors.primary,
     // contentColor = MaterialTheme.colors.onPrimary,
-    onClick = {
-      val id = if (themeId == JetThemeIds.Default) "dark" else JetThemeIds.Default
-      setThemeId(id)
-    }
+    onClick = { setThemeId(themes.nextThemeId(themeId)) }
   ) {
     Icon(asset = Icons.Default.Refresh)
   }
@@ -113,7 +111,7 @@ private val themes = buildMaterialThemes {
     shapes = shapes,
   )
   theme(
-    id = "dark",
+    id = JetThemeIds.Dark,
     colors = darkColorPalette,
   )
 }
