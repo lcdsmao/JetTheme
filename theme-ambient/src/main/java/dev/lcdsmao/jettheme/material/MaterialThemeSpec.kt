@@ -7,7 +7,7 @@ import androidx.compose.runtime.Stable
 import dev.lcdsmao.jettheme.JetThemeIds
 import dev.lcdsmao.jettheme.JetThemeSpec
 import dev.lcdsmao.jettheme.JetThemeSpecMapBuilder
-import dev.lcdsmao.jettheme.buildJetThemes
+import dev.lcdsmao.jettheme.buildJetTheme
 
 @Stable
 interface MaterialThemeSpec : JetThemeSpec {
@@ -16,9 +16,9 @@ interface MaterialThemeSpec : JetThemeSpec {
   val shapes: Shapes
 }
 
-fun buildMaterialThemes(
+fun buildMaterialTheme(
   block: JetThemeSpecMapBuilder.() -> Unit,
-) = buildJetThemes {
+) = buildJetTheme {
   block()
   transformer { id, spec, defaultSpec ->
     require(defaultSpec is MaterialThemeSpec) { "Require ${spec.id} to be a MaterialThemeSpec" }
@@ -31,7 +31,7 @@ fun buildMaterialThemes(
   }
 }
 
-fun JetThemeSpecMapBuilder.defaultTheme(
+fun JetThemeSpecMapBuilder.defaultMaterialTheme(
   colors: Colors,
   typography: Typography,
   shapes: Shapes,
@@ -44,7 +44,7 @@ fun JetThemeSpecMapBuilder.defaultTheme(
   )
 )
 
-fun JetThemeSpecMapBuilder.theme(
+fun JetThemeSpecMapBuilder.materialTheme(
   id: String,
   colors: Colors? = null,
   typography: Typography? = null,

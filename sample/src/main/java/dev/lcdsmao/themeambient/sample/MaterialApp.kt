@@ -29,15 +29,15 @@ import dev.lcdsmao.jettheme.JetThemeIds
 import dev.lcdsmao.jettheme.component1
 import dev.lcdsmao.jettheme.component2
 import dev.lcdsmao.jettheme.material.ProvideAppMaterialTheme
-import dev.lcdsmao.jettheme.material.buildMaterialThemes
-import dev.lcdsmao.jettheme.material.defaultTheme
-import dev.lcdsmao.jettheme.material.theme
+import dev.lcdsmao.jettheme.material.buildMaterialTheme
+import dev.lcdsmao.jettheme.material.defaultMaterialTheme
+import dev.lcdsmao.jettheme.material.materialTheme
 import dev.lcdsmao.jettheme.nextThemeId
 
 @Composable
 fun MaterialApp() {
   ProvideAppMaterialTheme(
-    themeSpecMap = themes,
+    theme = appTheme,
   ) {
     Scaffold(
       floatingActionButton = { ToggleThemeFloatButton() }
@@ -77,7 +77,7 @@ private fun ToggleThemeFloatButton() {
   FloatingActionButton(
     backgroundColor = MaterialTheme.colors.primary,
     // contentColor = MaterialTheme.colors.onPrimary,
-    onClick = { setThemeId(themes.nextThemeId(themeId)) }
+    onClick = { setThemeId(appTheme.nextThemeId(themeId)) }
   ) {
     Icon(asset = Icons.Default.Refresh)
   }
@@ -104,13 +104,13 @@ private val lightColorPalette = lightColors(
   onPrimary = Color(0xFF442C2E),
 )
 
-private val themes = buildMaterialThemes {
-  defaultTheme(
+private val appTheme = buildMaterialTheme {
+  defaultMaterialTheme(
     colors = lightColorPalette,
     typography = typography,
     shapes = shapes,
   )
-  theme(
+  materialTheme(
     id = JetThemeIds.Dark,
     colors = darkColorPalette,
   )

@@ -27,12 +27,12 @@ inline fun <reified T : JetThemeSpec> ProvideJetTheme(
 
 @Composable
 inline fun <reified T : JetThemeSpec> ProvideAppJetTheme(
-  themeSpecMap: JetThemeSpecMap,
+  theme: JetTheme,
   crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
   crossinline content: @Composable (T) -> Unit,
 ) = ProvideJetTheme(
   themeControllerConfig = JetThemeControllerConfig.Persistence(
-    themeSpecMap = themeSpecMap,
+    theme = theme,
   ),
   crossfadeAnimSpec = crossfadeAnimSpec,
   content = content,

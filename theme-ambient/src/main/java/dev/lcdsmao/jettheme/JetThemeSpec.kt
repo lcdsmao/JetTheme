@@ -1,5 +1,6 @@
 package dev.lcdsmao.jettheme
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 
 @Stable
@@ -13,27 +14,41 @@ object JetThemeIds {
   internal const val SystemSettings = "dev.lcdsmao.jettheme.system.settings"
 }
 
-@Stable
-class JetThemeSpecMap internal constructor(
-  map: Map<String, JetThemeSpec>,
-) : Map<String, JetThemeSpec> by map
+@Immutable
+data class JetTheme internal constructor(
+  private val themeSpecMap: Map<String, JetThemeSpec>,
+) {
 
-fun JetThemeSpecMap.nextThemeId(themeId: String): String {
-  check(size > 0)
-  val entries = entries.toList()
-  val index = entries.indexOfFirst { it.key == themeId }
+  @Stable
+  val default: JetThemeSpec
+    get() = requireNotNull(this[JetThemeIds.Default])
+
+  @Stable
+  val size: Int
+    get() = themeSpecMap.size
+
+  @Stable
+  operator fun get(key: String): JetThemeSpec? = themeSpecMap[key]
+
+  @Stable
+  operator fun contains(key: String): Boolean = key in themeSpecMap
+
+  @Stable
+  fun toList(): List<Pair<String, JetThemeSpec>> = themeSpecMap.toList()
+}
+
+fun JetTheme.nextThemeId(themeId: String): String {
+  val entries = toList()
+  val index = entries.indexOfFirst { it.first == themeId }
   return when {
-    index < 0 || index + 1 >= size -> entries.first().key
-    else -> entries[index + 1].key
+    index < 0 || index + 1 >= size -> entries.first().first
+    else -> entries[index + 1].first
   }
 }
 
-internal val JetThemeSpecMap.default: JetThemeSpec
-  get() = requireNotNull(this[JetThemeIds.Default])
-
-fun buildJetThemes(
+fun buildJetTheme(
   block: JetThemeSpecMapBuilder.() -> Unit,
-): JetThemeSpecMap {
+): JetTheme {
   return JetThemeSpecMapBuilder().apply(block).build()
 }
 
@@ -57,7 +72,7 @@ class JetThemeSpecMapBuilder internal constructor() {
     transformer = f
   }
 
-  internal fun build(): JetThemeSpecMap {
+  internal fun build(): JetTheme {
     val themeMap = themes.associateBy { it.id }
     check(JetThemeIds.Default in themeMap) {
       "Must provide a default theme using with id ${JetThemeIds.Default}."
@@ -69,6 +84,6 @@ class JetThemeSpecMapBuilder internal constructor() {
     val transformedMap = transformer?.let { f ->
       themeMap.mapValues { (id, spec) -> f(id, spec, defaultSpec) }
     } ?: themeMap
-    return JetThemeSpecMap(transformedMap)
+    return JetTheme(transformedMap)
   }
 }

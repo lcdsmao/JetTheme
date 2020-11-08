@@ -5,6 +5,9 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import dev.lcdsmao.jettheme.internal.InMemoryJetThemeController
+import dev.lcdsmao.jettheme.internal.PersistentJetThemeController
+import dev.lcdsmao.jettheme.internal.PersistentJetThemeControllerImpl
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlin.reflect.cast
@@ -22,16 +25,18 @@ interface JetThemeController {
 @Immutable
 sealed class JetThemeControllerConfig {
 
+  abstract val theme: JetTheme
+
   @Immutable
   data class Persistence(
-    val themeSpecMap: JetThemeSpecMap,
+    override val theme: JetTheme,
     val persistenceKey: String? = null,
     val darkModeThemeId: String = JetThemeIds.Dark,
   ) : JetThemeControllerConfig()
 
   @Immutable
   data class InMemory(
-    val themeSpecMap: JetThemeSpecMap,
+    override val theme: JetTheme,
     val initialThemeId: String = JetThemeIds.Default,
   ) : JetThemeControllerConfig()
 }
@@ -41,19 +46,8 @@ sealed class JetThemeControllerConfig {
 internal fun JetThemeController(
   config: JetThemeControllerConfig,
 ): JetThemeController = when (config) {
-  is JetThemeControllerConfig.Persistence -> {
-    PersistentJetThemeController(
-      themeSpecMap = config.themeSpecMap,
-      key = config.persistenceKey,
-      darkModeThemeId = config.darkModeThemeId,
-    )
-  }
-  is JetThemeControllerConfig.InMemory -> {
-    InMemoryJetThemeController(
-      themeSpecMap = config.themeSpecMap,
-      initialThemeId = config.initialThemeId,
-    )
-  }
+  is JetThemeControllerConfig.Persistence -> PersistentJetThemeController(config)
+  is JetThemeControllerConfig.InMemory -> InMemoryJetThemeController(config)
 }
 
 @Composable
