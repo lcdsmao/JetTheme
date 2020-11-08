@@ -6,6 +6,7 @@ import androidx.datastore.preferences.Preferences
 import androidx.datastore.preferences.createDataStore
 import androidx.datastore.preferences.edit
 import androidx.datastore.preferences.preferencesKey
+import androidx.datastore.preferences.remove
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -22,12 +23,20 @@ internal class JetThemeDataStore(
     }
   }
 
+  suspend fun clear(key: Preferences.Key<String>) {
+    dataStore.edit { preferences ->
+      if (key in preferences) preferences.remove(key)
+    }
+  }
+
   companion object {
-    val AppThemeKey = preferencesKey<String>("com.lcdsmao.dev.app.jettheme.key")
+    private const val Prefix = "dev.lcdsmao.jettheme"
+
+    val AppThemeKey = preferencesKey<String>("$Prefix.app.theme.key")
 
     private val instanceHolder = SingletonHolder { context: Context ->
       val dataStore = context.createDataStore(
-        name = "dev.lcdsmao.themeambient"
+        name = "$Prefix.datastore"
       )
       JetThemeDataStore(dataStore)
     }

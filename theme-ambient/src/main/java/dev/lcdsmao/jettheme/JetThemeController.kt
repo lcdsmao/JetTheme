@@ -57,6 +57,13 @@ fun JetThemeController.themeState(): State<JetThemeSpec?> {
   return themeSpecFlow.collectAsState(initial = null)
 }
 
+fun JetThemeController.setThemeBasedOnSystemSettings() {
+  check(this is PersistentJetThemeControllerImpl) {
+    "Only PersistenceJetThemeController supports change theme based on system settings."
+  }
+  setThemeId(JetThemeIds.SystemSettings)
+}
+
 operator fun JetThemeController.component2(): (themeId: String) -> Unit = ::setThemeId
 
 operator fun JetThemeController.component1(): String? = themeId
