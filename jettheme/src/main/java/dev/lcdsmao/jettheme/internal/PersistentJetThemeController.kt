@@ -7,8 +7,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.datastore.preferences.preferencesKey
 import dev.lcdsmao.jettheme.JetTheme
+import dev.lcdsmao.jettheme.JetThemeConfig
 import dev.lcdsmao.jettheme.JetThemeController
-import dev.lcdsmao.jettheme.JetThemeControllerConfig
 import dev.lcdsmao.jettheme.JetThemeIds
 import dev.lcdsmao.jettheme.JetThemeSpec
 import kotlinx.coroutines.CoroutineScope
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 internal fun rememberPersistentJetThemeController(
-  config: JetThemeControllerConfig.Persistence,
+  config: JetThemeConfig.Persistence,
 ): JetThemeController {
   val context = ContextAmbient.current
   val coroutineScope = rememberCoroutineScope()

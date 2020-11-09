@@ -10,11 +10,11 @@ import androidx.compose.runtime.staticAmbientOf
 
 @Composable
 inline fun <reified T : JetThemeSpec> ProvideJetTheme(
-  themeControllerConfig: JetThemeControllerConfig,
+  themeConfig: JetThemeConfig,
   crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
   crossinline content: @Composable (T) -> Unit,
 ) {
-  val themeController = rememberJetThemeController(themeControllerConfig)
+  val themeController = rememberJetThemeController(themeConfig)
   Providers(JetThemeAmbient provides themeController) {
     val currentTheme = JetThemeAmbient.current.themeState<T>().value
     Crossfade(currentTheme, animation = crossfadeAnimSpec) { theme ->
@@ -31,9 +31,7 @@ inline fun <reified T : JetThemeSpec> ProvideAppJetTheme(
   crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
   crossinline content: @Composable (T) -> Unit,
 ) = ProvideJetTheme(
-  themeControllerConfig = JetThemeControllerConfig.Persistence(
-    theme = theme,
-  ),
+  themeConfig = theme.persistentConfig(),
   crossfadeAnimSpec = crossfadeAnimSpec,
   content = content,
 )

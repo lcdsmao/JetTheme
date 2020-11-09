@@ -3,14 +3,14 @@ package dev.lcdsmao.jettheme.internal
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import dev.lcdsmao.jettheme.JetTheme
+import dev.lcdsmao.jettheme.JetThemeConfig
 import dev.lcdsmao.jettheme.JetThemeController
-import dev.lcdsmao.jettheme.JetThemeControllerConfig
 import dev.lcdsmao.jettheme.JetThemeSpec
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 internal fun rememberInMemoryJetThemeController(
-  config: JetThemeControllerConfig.InMemory,
+  config: JetThemeConfig.InMemory,
 ): JetThemeController {
   return remember(config) {
     InMemoryJetThemeControllerImpl(
