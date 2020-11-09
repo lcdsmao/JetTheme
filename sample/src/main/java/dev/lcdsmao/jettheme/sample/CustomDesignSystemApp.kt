@@ -48,7 +48,7 @@ import dev.lcdsmao.jettheme.component1
 import dev.lcdsmao.jettheme.component2
 import dev.lcdsmao.jettheme.darkId
 import dev.lcdsmao.jettheme.defaultId
-import dev.lcdsmao.jettheme.nextThemeId
+import dev.lcdsmao.jettheme.nextThemeSpecId
 
 private val LightColorPalette = SimpleColors(
   background = Color.White,
@@ -94,12 +94,12 @@ fun CustomDesignSystemApp() {
         .background(SimpleTheme.colors.background)
         .padding(32.dp),
     ) {
-      val (themeId, setThemeId) = JetThemeAmbient.current
+      val (themeSpecId, setThemeSpecId) = JetThemeAmbient.current
       Text(
         text = "Custom Design System",
         modifier = Modifier
           .align(Alignment.Center)
-          .clickable(onClick = { setThemeId(AppTheme.nextThemeId(themeId)) }),
+          .clickable(onClick = { setThemeSpecId(AppTheme.nextThemeSpecId(themeSpecId)) }),
         color = SimpleTheme.colors.text,
         style = SimpleTheme.typography.h3,
       )

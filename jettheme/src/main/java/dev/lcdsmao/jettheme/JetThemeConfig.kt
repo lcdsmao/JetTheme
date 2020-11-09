@@ -4,21 +4,21 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 
 @Stable
-fun JetTheme.persistentConfig(
+fun JetTheme.persistenceConfig(
   persistenceKey: String? = null,
-  darkModeThemeId: String = JetThemeIds.Dark,
+  darkModeThemeSpecId: String = JetThemeSpecIds.Dark,
 ) = JetThemeConfig.Persistence(
   theme = this,
   persistenceKey = persistenceKey,
-  darkModeThemeId = darkModeThemeId,
+  darkModeThemeSpecId = darkModeThemeSpecId,
 )
 
 @Stable
 fun JetTheme.inMemoryConfig(
-  initialThemeId: String = JetThemeIds.Default,
+  initialThemeSpecId: String = JetThemeSpecIds.Default,
 ) = JetThemeConfig.InMemory(
   theme = this,
-  initialThemeId = initialThemeId,
+  initialThemeSpecId = initialThemeSpecId,
 )
 
 @Immutable
@@ -30,12 +30,12 @@ sealed class JetThemeConfig {
   data class Persistence(
     override val theme: JetTheme,
     val persistenceKey: String? = null,
-    val darkModeThemeId: String = JetThemeIds.Dark,
+    val darkModeThemeSpecId: String = JetThemeSpecIds.Dark,
   ) : JetThemeConfig()
 
   @Immutable
   data class InMemory(
     override val theme: JetTheme,
-    val initialThemeId: String = JetThemeIds.Default,
+    val initialThemeSpecId: String = JetThemeSpecIds.Default,
   ) : JetThemeConfig()
 }

@@ -31,7 +31,7 @@ inline fun <reified T : JetThemeSpec> ProvideAppJetTheme(
   crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
   crossinline content: @Composable (T) -> Unit,
 ) = ProvideJetTheme(
-  themeConfig = theme.persistentConfig(),
+  themeConfig = theme.persistenceConfig(),
   crossfadeAnimSpec = crossfadeAnimSpec,
   content = content,
 )

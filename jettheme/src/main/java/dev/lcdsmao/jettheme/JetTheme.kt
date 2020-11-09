@@ -13,25 +13,28 @@ data class JetTheme internal constructor(
 
   @Stable
   val default: JetThemeSpec
-    get() = requireNotNull(this[JetThemeIds.Default])
+    get() = requireNotNull(themeSpecMap[JetThemeSpecIds.Default])
 
   @Stable
   val size: Int
     get() = themeSpecMap.size
 
   @Stable
-  operator fun get(key: String): JetThemeSpec? = themeSpecMap[key]
+  operator fun get(specId: String): JetThemeSpec = themeSpecMap[specId] ?: default
 
   @Stable
-  operator fun contains(key: String): Boolean = key in themeSpecMap
+  operator fun contains(specId: String): Boolean = specId in themeSpecMap
 
   @Stable
   fun toList(): List<Pair<String, JetThemeSpec>> = themeSpecMap.toList()
+
+  @Stable
+  override fun toString(): String = "JetTheme: $themeSpecMap"
 }
 
-fun JetTheme.nextThemeId(themeId: String): String {
+fun JetTheme.nextThemeSpecId(id: String): String {
   val entries = toList()
-  val index = entries.indexOfFirst { it.first == themeId }
+  val index = entries.indexOfFirst { it.first == id }
   return when {
     index < 0 || index + 1 >= size -> entries.first().first
     else -> entries[index + 1].first
@@ -70,13 +73,13 @@ class JetThemeBuilder internal constructor() {
 
   internal fun build(): JetTheme {
     val themeMap = specs.associateBy { it.id }
-    check(JetThemeIds.Default in themeMap) {
-      "Must provide a default theme using with id ${JetThemeIds.Default}."
+    check(JetThemeSpecIds.Default in themeMap) {
+      "Must provide a default theme spec using with id ${JetThemeSpecIds.Default}."
     }
     check(themeMap.size == specs.size) {
-      "Provided theme data contain duplicate ids: ${specs.map { it.id }}."
+      "Provided theme specs has duplication: ${specs.map { it.id }}."
     }
-    val defaultSpec = requireNotNull(themeMap[JetThemeIds.Default])
+    val defaultSpec = requireNotNull(themeMap[JetThemeSpecIds.Default])
     val transformedMap = transformer?.let { f ->
       themeMap.mapValues { (id, spec) -> f(id, spec, defaultSpec) }
     } ?: themeMap
@@ -86,8 +89,8 @@ class JetThemeBuilder internal constructor() {
 
 @Suppress("unused")
 val JetThemeBuilder.defaultId
-  get() = JetThemeIds.Default
+  get() = JetThemeSpecIds.Default
 
 @Suppress("unused")
 val JetThemeBuilder.darkId
-  get() = JetThemeIds.Dark
+  get() = JetThemeSpecIds.Dark

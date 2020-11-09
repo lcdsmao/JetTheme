@@ -1,6 +1,5 @@
 package dev.lcdsmao.jettheme.internal
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -9,8 +8,9 @@ import androidx.datastore.preferences.preferencesKey
 import dev.lcdsmao.jettheme.JetTheme
 import dev.lcdsmao.jettheme.JetThemeConfig
 import dev.lcdsmao.jettheme.JetThemeController
-import dev.lcdsmao.jettheme.JetThemeIds
 import dev.lcdsmao.jettheme.JetThemeSpec
+import dev.lcdsmao.jettheme.JetThemeSpecIds
+import dev.lcdsmao.jettheme.themeSpecIdBasedOnSystemSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -24,17 +24,13 @@ internal fun rememberPersistentJetThemeController(
 ): JetThemeController {
   val context = ContextAmbient.current
   val coroutineScope = rememberCoroutineScope()
-  val themeIdBasedOnSystem = if (isSystemInDarkTheme()) {
-    JetThemeIds.Dark
-  } else {
-    config.darkModeThemeId
-  }
-  return remember(config, themeIdBasedOnSystem) {
+  val themeSpecIdBasedOnSystem = themeSpecIdBasedOnSystemSettings(config.darkModeThemeSpecId)
+  return remember(config, themeSpecIdBasedOnSystem) {
     PersistentJetThemeControllerImpl(
       coroutineScope = coroutineScope,
       themeDataStore = JetThemeDataStore.get(context),
       theme = config.theme,
-      themeIdBasedOnSystem = themeIdBasedOnSystem,
+      themeSpecIdBasedOnSystem = themeSpecIdBasedOnSystem,
       dataStoreKey = config.persistenceKey,
     )
   }
@@ -44,36 +40,33 @@ internal class PersistentJetThemeControllerImpl(
   private val coroutineScope: CoroutineScope,
   private val themeDataStore: JetThemeDataStore,
   private val theme: JetTheme,
-  private val themeIdBasedOnSystem: String,
+  private val themeSpecIdBasedOnSystem: String,
   dataStoreKey: String?,
 ) : JetThemeController {
 
   private val key = dataStoreKey?.let { preferencesKey(it) }
     ?: JetThemeDataStore.AppThemeKey
 
-  override val themeSpecFlow: SharedFlow<JetThemeSpec> = themeDataStore.themeIdFlow(key)
-    .map { id ->
-      val themeId = id ?: themeIdBasedOnSystem
-      theme[themeId] ?: theme.default
-    }
+  override val themeSpecFlow: SharedFlow<JetThemeSpec> = themeDataStore.themeSpecIdFlow(key)
+    .map { id -> getTheme(id) }
     .shareIn(coroutineScope, started = SharingStarted.Eagerly, replay = 1)
 
-  override val themeId: String
-    get() = themeSpecFlow.replayCache.firstOrNull()?.id ?: JetThemeIds.Default
+  override val themeSpecId: String
+    get() = themeSpecFlow.replayCache.firstOrNull()?.id ?: JetThemeSpecIds.Default
 
-  override fun setThemeId(themeId: String) {
-    if (themeId == JetThemeIds.SystemSettings) {
-      coroutineScope.launch {
-        themeDataStore.clear(key)
-      }
-      return
-    }
-
-    check(themeId in theme) {
-      "ThemeId $themeId does not existed in themeSpecMap $theme."
-    }
+  override fun setThemeSpecId(id: String) {
+    checkCanSetSpecId(theme, id)
     coroutineScope.launch {
-      themeDataStore.setThemeId(key, themeId)
+      themeDataStore.setThemeSpecId(key, id)
     }
+  }
+
+  private fun getTheme(id: String?): JetThemeSpec {
+    val specId = if (id == null || id == JetThemeSpecIds.SystemSettings) {
+      themeSpecIdBasedOnSystem
+    } else {
+      id
+    }
+    return theme[specId]
   }
 }

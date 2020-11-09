@@ -15,27 +15,25 @@ internal fun rememberInMemoryJetThemeController(
   return remember(config) {
     InMemoryJetThemeControllerImpl(
       theme = config.theme,
-      initialThemeId = config.initialThemeId,
+      initialThemeSpecId = config.initialThemeSpecId,
     )
   }
 }
 
 private class InMemoryJetThemeControllerImpl(
   private val theme: JetTheme,
-  initialThemeId: String,
+  initialThemeSpecId: String,
 ) : JetThemeController {
 
   override val themeSpecFlow: MutableStateFlow<JetThemeSpec> = MutableStateFlow(
-    theme[initialThemeId] ?: theme.default
+    theme[initialThemeSpecId]
   )
 
-  override val themeId: String
+  override val themeSpecId: String
     get() = themeSpecFlow.value.id
 
-  override fun setThemeId(themeId: String) {
-    check(themeId in theme) {
-      "ThemeId $themeId does not existed in themeSpecMap $theme."
-    }
-    themeSpecFlow.value = theme[themeId]!!
+  override fun setThemeSpecId(id: String) {
+    checkCanSetSpecId(theme, id)
+    themeSpecFlow.value = theme[id]
   }
 }
