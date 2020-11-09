@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun PersistentJetThemeController(
+internal fun rememberPersistentJetThemeController(
   config: JetThemeControllerConfig.Persistence,
 ): JetThemeController {
   val context = ContextAmbient.current

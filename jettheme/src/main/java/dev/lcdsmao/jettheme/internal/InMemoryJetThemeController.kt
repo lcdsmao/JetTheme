@@ -9,7 +9,7 @@ import dev.lcdsmao.jettheme.JetThemeSpec
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
-internal fun InMemoryJetThemeController(
+internal fun rememberInMemoryJetThemeController(
   config: JetThemeControllerConfig.InMemory,
 ): JetThemeController {
   return remember(config) {

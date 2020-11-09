@@ -5,8 +5,8 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import dev.lcdsmao.jettheme.internal.InMemoryJetThemeController
-import dev.lcdsmao.jettheme.internal.PersistentJetThemeController
+import dev.lcdsmao.jettheme.internal.rememberInMemoryJetThemeController
+import dev.lcdsmao.jettheme.internal.rememberPersistentJetThemeController
 import dev.lcdsmao.jettheme.internal.PersistentJetThemeControllerImpl
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -43,11 +43,11 @@ sealed class JetThemeControllerConfig {
 
 @PublishedApi
 @Composable
-internal fun JetThemeController(
+internal fun rememberJetThemeController(
   config: JetThemeControllerConfig,
 ): JetThemeController = when (config) {
-  is JetThemeControllerConfig.Persistence -> PersistentJetThemeController(config)
-  is JetThemeControllerConfig.InMemory -> InMemoryJetThemeController(config)
+  is JetThemeControllerConfig.Persistence -> rememberPersistentJetThemeController(config)
+  is JetThemeControllerConfig.InMemory -> rememberInMemoryJetThemeController(config)
 }
 
 @Composable

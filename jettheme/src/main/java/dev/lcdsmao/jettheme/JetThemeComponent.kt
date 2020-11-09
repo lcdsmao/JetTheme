@@ -14,7 +14,7 @@ inline fun <reified T : JetThemeSpec> ProvideJetTheme(
   crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
   crossinline content: @Composable (T) -> Unit,
 ) {
-  val themeController = JetThemeController(themeControllerConfig)
+  val themeController = rememberJetThemeController(themeControllerConfig)
   Providers(JetThemeAmbient provides themeController) {
     val currentTheme = JetThemeAmbient.current.themeState<T>().value
     Crossfade(currentTheme, animation = crossfadeAnimSpec) { theme ->
