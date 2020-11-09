@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
   `module-config`
   com.android.library
@@ -32,4 +34,8 @@ dependencies {
   implementation(AndroidX.compose.runtime)
   implementation(AndroidX.compose.foundation)
   implementation(AndroidX.compose.animation)
+}
+
+tasks.withType<KotlinCompile> {
+  kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
 }

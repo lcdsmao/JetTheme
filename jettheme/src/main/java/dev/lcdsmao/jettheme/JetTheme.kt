@@ -2,6 +2,9 @@ package dev.lcdsmao.jettheme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 @Immutable
 data class JetTheme internal constructor(
@@ -35,9 +38,13 @@ fun JetTheme.nextThemeId(themeId: String): String {
   }
 }
 
+@OptIn(ExperimentalContracts::class)
 fun buildJetTheme(
   block: JetThemeBuilder.() -> Unit,
 ): JetTheme {
+  contract {
+    callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+  }
   return JetThemeBuilder().apply(block).build()
 }
 

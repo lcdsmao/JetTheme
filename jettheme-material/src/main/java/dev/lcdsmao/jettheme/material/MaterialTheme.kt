@@ -3,22 +3,32 @@ package dev.lcdsmao.jettheme.material
 import androidx.compose.material.Colors
 import androidx.compose.material.Shapes
 import androidx.compose.material.Typography
+import dev.lcdsmao.jettheme.JetTheme
 import dev.lcdsmao.jettheme.JetThemeBuilder
 import dev.lcdsmao.jettheme.JetThemeIds
 import dev.lcdsmao.jettheme.JetThemeSpec
 import dev.lcdsmao.jettheme.buildJetTheme
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
+@OptIn(ExperimentalContracts::class)
 fun buildMaterialTheme(
   block: JetThemeBuilder.() -> Unit,
-) = buildJetTheme {
-  block()
-  transformer { id, spec, defaultSpec ->
-    require(defaultSpec is MaterialThemeSpec) { "Require ${spec.id} to be a MaterialThemeSpec" }
-    if (id == JetThemeIds.Default) {
-      defaultSpec
-    } else {
-      require(spec is PartMaterialThemeSpec) { "Require ${spec.id} to be a PartMaterialThemeSpec" }
-      spec.toMaterialThemeData(defaultSpec)
+): JetTheme {
+  contract {
+    callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+  }
+  return buildJetTheme {
+    block()
+    transformer { id, spec, defaultSpec ->
+      require(defaultSpec is MaterialThemeSpec) { "Require ${spec.id} to be a MaterialThemeSpec" }
+      if (id == JetThemeIds.Default) {
+        defaultSpec
+      } else {
+        require(spec is PartMaterialThemeSpec) { "Require ${spec.id} to be a PartMaterialThemeSpec" }
+        spec.toMaterialThemeData(defaultSpec)
+      }
     }
   }
 }
