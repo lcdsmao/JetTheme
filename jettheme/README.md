@@ -1,3 +1,3 @@
-# Library Android
+# JetTheme
 
-TODO
+The core of JetTheme.

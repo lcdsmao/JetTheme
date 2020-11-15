@@ -1,3 +1,3 @@
-# Library Android
+# JetTheme Material
 
-TODO
+Material design wrapper for JetTheme.
