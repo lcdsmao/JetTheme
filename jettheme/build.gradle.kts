@@ -45,7 +45,10 @@ dependencies {
   testImplementation(Testing.Kotest.runner.junit5)
   testImplementation(Testing.Kotest.assertions.core)
 
+  androidTestImplementation(AndroidX.test.coreKtx)
+  androidTestImplementation(AndroidX.test.runner)
   androidTestImplementation(Libs.AndroidX.Compose.uiTest)
+  androidTestUtil(AndroidX.test.orchestrator)
 }
 
 tasks.withType<KotlinCompile> {
