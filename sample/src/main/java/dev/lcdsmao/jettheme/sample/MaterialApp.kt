@@ -1,6 +1,5 @@
 package dev.lcdsmao.jettheme.sample
 
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +14,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Shapes
+import androidx.compose.material.Text
 import androidx.compose.material.Typography
 import androidx.compose.material.darkColors
 import androidx.compose.material.icons.Icons
@@ -24,20 +24,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import dev.lcdsmao.jettheme.JetThemeAmbient
-import dev.lcdsmao.jettheme.component1
-import dev.lcdsmao.jettheme.component2
+import dev.lcdsmao.jettheme.ThemeAmbient
 import dev.lcdsmao.jettheme.darkId
 import dev.lcdsmao.jettheme.material.ProvideAppMaterialTheme
 import dev.lcdsmao.jettheme.material.buildMaterialTheme
 import dev.lcdsmao.jettheme.material.defaultMaterialSpec
 import dev.lcdsmao.jettheme.material.materialSpec
-import dev.lcdsmao.jettheme.nextThemeSpecId
+import dev.lcdsmao.jettheme.nextThemeId
 
 @Composable
 fun MaterialApp() {
   ProvideAppMaterialTheme(
-    theme = appTheme,
+    themePack = appTheme,
   ) {
     Scaffold(
       floatingActionButton = { ToggleThemeFloatButton() }
@@ -73,11 +71,11 @@ fun MaterialApp() {
 
 @Composable
 private fun ToggleThemeFloatButton() {
-  val controller = JetThemeAmbient.current
+  val controller = ThemeAmbient.current
   FloatingActionButton(
     backgroundColor = MaterialTheme.colors.primary,
     // contentColor = MaterialTheme.colors.onPrimary,
-    onClick = { controller.setThemeSpecId(appTheme.nextThemeSpecId(controller.themeSpecId)) }
+    onClick = { controller.setThemeId(appTheme.nextThemeId(controller.themeId)) }
   ) {
     Icon(asset = Icons.Default.Refresh)
   }

@@ -4,10 +4,10 @@ import androidx.compose.material.Colors
 import androidx.compose.material.Shapes
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Stable
-import dev.lcdsmao.jettheme.JetThemeSpec
+import dev.lcdsmao.jettheme.ThemeSpec
 
 @Stable
-interface MaterialThemeSpec : JetThemeSpec {
+interface MaterialThemeSpec : ThemeSpec {
   val colors: Colors
   val typography: Typography
   val shapes: Shapes

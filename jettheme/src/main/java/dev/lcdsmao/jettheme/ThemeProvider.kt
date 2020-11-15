@@ -9,14 +9,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticAmbientOf
 
 @Composable
-inline fun <reified T : JetThemeSpec> ProvideJetTheme(
-  themeConfig: JetThemeConfig,
+inline fun <reified T : ThemeSpec> ProvideTheme(
+  themeConfig: ThemeConfig,
   crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
   crossinline content: @Composable (T) -> Unit,
 ) {
-  val themeController = rememberJetThemeController(themeConfig)
-  Providers(JetThemeAmbient provides themeController) {
-    val currentTheme = JetThemeAmbient.current.themeState<T>().value
+  val themeController = rememberThemeController(themeConfig)
+  Providers(ThemeAmbient provides themeController) {
+    val currentTheme = ThemeAmbient.current.themeState<T>().value
     Crossfade(currentTheme, animation = crossfadeAnimSpec) { theme ->
       if (theme != null) {
         content(theme)
@@ -26,14 +26,14 @@ inline fun <reified T : JetThemeSpec> ProvideJetTheme(
 }
 
 @Composable
-inline fun <reified T : JetThemeSpec> ProvideAppJetTheme(
-  theme: JetTheme,
+inline fun <reified T : ThemeSpec> ProvideAppTheme(
+  themePack: ThemePack,
   crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
   crossinline content: @Composable (T) -> Unit,
-) = ProvideJetTheme(
-  themeConfig = theme.persistenceConfig(),
+) = ProvideTheme(
+  themeConfig = themePack.persistenceConfig(),
   crossfadeAnimSpec = crossfadeAnimSpec,
   content = content,
 )
 
-val JetThemeAmbient = staticAmbientOf<JetThemeController>()
+val ThemeAmbient = staticAmbientOf<ThemeController>()

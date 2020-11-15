@@ -1,10 +1,10 @@
 package dev.lcdsmao.jettheme.internal
 
-import dev.lcdsmao.jettheme.JetTheme
-import dev.lcdsmao.jettheme.JetThemeSpecIds
+import dev.lcdsmao.jettheme.ThemeIds
+import dev.lcdsmao.jettheme.ThemePack
 
-internal fun checkCanSetSpecId(theme: JetTheme, id: String) {
-  check(id == JetThemeSpecIds.SystemSettings || id in theme) {
-    "ThemeSpecId $id does not existed in $theme."
+internal fun checkCanSetSpecId(themePack: ThemePack, id: String) {
+  check(id == ThemeIds.SystemSettings || id in themePack) {
+    "ThemeId $id does not existed in $themePack."
   }
 }

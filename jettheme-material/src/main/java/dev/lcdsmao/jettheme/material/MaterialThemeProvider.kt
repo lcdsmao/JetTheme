@@ -5,48 +5,48 @@ import androidx.compose.animation.core.tween
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import dev.lcdsmao.jettheme.JetTheme
-import dev.lcdsmao.jettheme.JetThemeConfig
-import dev.lcdsmao.jettheme.ProvideAppJetTheme
-import dev.lcdsmao.jettheme.ProvideJetTheme
+import dev.lcdsmao.jettheme.ProvideAppTheme
+import dev.lcdsmao.jettheme.ProvideTheme
+import dev.lcdsmao.jettheme.ThemeConfig
+import dev.lcdsmao.jettheme.ThemePack
 
 @Composable
 fun ProvideMaterialTheme(
-  themeConfig: JetThemeConfig,
+  themeConfig: ThemeConfig,
   crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
   content: @Composable () -> Unit,
 ) {
-  ProvideJetTheme<MaterialThemeSpec>(
+  ProvideTheme<MaterialThemeSpec>(
     themeConfig = themeConfig,
     crossfadeAnimSpec = crossfadeAnimSpec,
-  ) { themeSpec ->
-    MaterialTheme(themeSpec, content)
+  ) { theme ->
+    MaterialTheme(theme, content)
   }
 }
 
 @Composable
 fun ProvideAppMaterialTheme(
-  theme: JetTheme,
+  themePack: ThemePack,
   crossfadeAnimSpec: AnimationSpec<Float> = remember { tween() },
   content: @Composable () -> Unit,
 ) {
-  ProvideAppJetTheme<MaterialThemeSpec>(
-    theme = theme,
+  ProvideAppTheme<MaterialThemeSpec>(
+    themePack = themePack,
     crossfadeAnimSpec = crossfadeAnimSpec,
-  ) { themeSpec ->
-    MaterialTheme(themeSpec, content)
+  ) { theme ->
+    MaterialTheme(theme, content)
   }
 }
 
 @Composable
-fun MaterialTheme(
-  themeSpec: MaterialThemeSpec,
+private fun MaterialTheme(
+  theme: MaterialThemeSpec,
   content: @Composable () -> Unit,
 ) {
   MaterialTheme(
-    colors = themeSpec.colors,
-    typography = themeSpec.typography,
-    shapes = themeSpec.shapes,
+    colors = theme.colors,
+    typography = theme.typography,
+    shapes = theme.shapes,
     content = content,
   )
 }

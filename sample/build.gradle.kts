@@ -26,7 +26,6 @@ dependencies {
   implementation(Kotlin.stdlib.jdk8)
   implementation(AndroidX.appCompat)
   implementation(AndroidX.core.ktx)
-  implementation(Libs.AndroidX.DataStore.preferences)
 
   implementation(AndroidX.compose.ui)
   implementation(AndroidX.compose.material)

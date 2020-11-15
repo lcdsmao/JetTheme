@@ -3,55 +3,55 @@ package dev.lcdsmao.jettheme.material
 import androidx.compose.material.Colors
 import androidx.compose.material.Shapes
 import androidx.compose.material.Typography
-import dev.lcdsmao.jettheme.JetTheme
-import dev.lcdsmao.jettheme.JetThemeBuilder
-import dev.lcdsmao.jettheme.JetThemeSpec
-import dev.lcdsmao.jettheme.JetThemeSpecIds
-import dev.lcdsmao.jettheme.buildJetTheme
+import dev.lcdsmao.jettheme.ThemeIds
+import dev.lcdsmao.jettheme.ThemePack
+import dev.lcdsmao.jettheme.ThemePackBuilder
+import dev.lcdsmao.jettheme.ThemeSpec
+import dev.lcdsmao.jettheme.buildThemePack
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 @OptIn(ExperimentalContracts::class)
 fun buildMaterialTheme(
-  block: JetThemeBuilder.() -> Unit,
-): JetTheme {
+  block: ThemePackBuilder.() -> Unit,
+): ThemePack {
   contract {
     callsInPlace(block, InvocationKind.EXACTLY_ONCE)
   }
-  return buildJetTheme {
+  return buildThemePack {
     block()
     transformer { id, spec, defaultSpec ->
       require(defaultSpec is MaterialThemeSpec) { "Require ${spec.id} to be a MaterialThemeSpec" }
-      if (id == JetThemeSpecIds.Default) {
+      if (id == ThemeIds.Default) {
         defaultSpec
       } else {
         require(spec is PartMaterialThemeSpec) { "Require ${spec.id} to be a PartMaterialThemeSpec" }
-        spec.toMaterialThemeData(defaultSpec)
+        spec.toMaterialTheme(defaultSpec)
       }
     }
   }
 }
 
-fun JetThemeBuilder.defaultMaterialSpec(
+fun ThemePackBuilder.defaultMaterialSpec(
   colors: Colors,
   typography: Typography,
   shapes: Shapes,
-) = spec(
+) = theme(
   MaterialThemeSpecImpl(
-    id = JetThemeSpecIds.Default,
+    id = ThemeIds.Default,
     colors = colors,
     typography = typography,
     shapes = shapes,
   )
 )
 
-fun JetThemeBuilder.materialSpec(
+fun ThemePackBuilder.materialSpec(
   id: String,
   colors: Colors? = null,
   typography: Typography? = null,
   shapes: Shapes? = null,
-) = spec(
+) = theme(
   PartMaterialThemeSpec(
     id = id,
     colors = colors,
@@ -72,8 +72,8 @@ private class PartMaterialThemeSpec(
   val colors: Colors?,
   val typography: Typography?,
   val shapes: Shapes?,
-) : JetThemeSpec {
-  fun toMaterialThemeData(defaultTheme: MaterialThemeSpec): MaterialThemeSpec {
+) : ThemeSpec {
+  fun toMaterialTheme(defaultTheme: MaterialThemeSpec): MaterialThemeSpec {
     return MaterialThemeSpecImpl(
       id = id,
       colors = colors ?: defaultTheme.colors,
