@@ -20,7 +20,7 @@ class InMemoryThemeControllerTest : StringSpec({
   beforeEach {
     controller = InMemoryThemeController(
       themePack = themePack,
-      initialThemeSpecId = "id_other"
+      initialThemeId = "id_other"
     )
   }
 

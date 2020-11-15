@@ -16,18 +16,18 @@ internal fun rememberInMemoryThemeController(
   return remember(config) {
     InMemoryThemeController(
       themePack = config.themePack,
-      initialThemeSpecId = config.initialThemeId,
+      initialThemeId = config.initialThemeId,
     )
   }
 }
 
 internal class InMemoryThemeController(
   private val themePack: ThemePack,
-  initialThemeSpecId: String,
+  initialThemeId: String,
 ) : ThemeController {
 
   override val themeFlow: MutableStateFlow<ThemeSpec> = MutableStateFlow(
-    themePack[initialThemeSpecId]
+    themePack[initialThemeId]
   )
 
   override val themeId: String

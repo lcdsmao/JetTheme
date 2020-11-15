@@ -138,6 +138,6 @@ val ThemePackBuilder.darkId
   get() = ThemeIds.Dark
 
 private typealias ThemeSpecTransformer = (
-  spec: ThemeSpec,
-  defaultSpec: ThemeSpec,
+  theme: ThemeSpec,
+  defaultTheme: ThemeSpec,
 ) -> ThemeSpec

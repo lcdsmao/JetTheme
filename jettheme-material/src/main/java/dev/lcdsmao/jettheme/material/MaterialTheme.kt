@@ -26,7 +26,7 @@ fun buildMaterialThemePack(
     block()
     transformer { spec, defaultSpec ->
       require(defaultSpec is MaterialThemeSpec) { "Require ${spec.id} to be a MaterialThemeSpec" }
-      require(spec is PartMaterialThemeSpec) { "Require ${spec.id} to be a PartMaterialThemeSpec" }
+      require(spec is PartialMaterialThemeSpec) { "Require ${spec.id} to be a PartMaterialThemeSpec" }
       spec.toMaterialTheme(defaultSpec)
     }
   }
@@ -57,7 +57,7 @@ fun ThemePackBuilder.materialTheme(
   typography: Typography? = null,
   shapes: Shapes? = null,
 ) = theme(
-  PartMaterialThemeSpec(
+  PartialMaterialThemeSpec(
     id = id,
     colors = colors,
     typography = typography,
@@ -72,7 +72,7 @@ private class MaterialThemeSpecImpl(
   override val shapes: Shapes,
 ) : MaterialThemeSpec
 
-private class PartMaterialThemeSpec(
+private class PartialMaterialThemeSpec(
   override val id: String,
   val colors: Colors?,
   val typography: Typography?,
