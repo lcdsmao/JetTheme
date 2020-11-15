@@ -21,14 +21,10 @@ fun buildMaterialTheme(
   }
   return buildThemePack {
     block()
-    transformer { id, spec, defaultSpec ->
+    transformer { spec, defaultSpec ->
       require(defaultSpec is MaterialThemeSpec) { "Require ${spec.id} to be a MaterialThemeSpec" }
-      if (id == ThemeIds.Default) {
-        defaultSpec
-      } else {
-        require(spec is PartMaterialThemeSpec) { "Require ${spec.id} to be a PartMaterialThemeSpec" }
-        spec.toMaterialTheme(defaultSpec)
-      }
+      require(spec is PartMaterialThemeSpec) { "Require ${spec.id} to be a PartMaterialThemeSpec" }
+      spec.toMaterialTheme(defaultSpec)
     }
   }
 }

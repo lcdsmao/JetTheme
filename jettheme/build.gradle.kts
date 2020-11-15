@@ -21,6 +21,12 @@ android {
     kotlinCompilerExtensionVersion = composeVersion
     kotlinCompilerVersion = kotlinVersion
   }
+
+  testOptions {
+    unitTests.all {
+      it.useJUnitPlatform()
+    }
+  }
 }
 
 dependencies {
@@ -34,6 +40,9 @@ dependencies {
   implementation(AndroidX.compose.runtime)
   implementation(AndroidX.compose.foundation)
   implementation(AndroidX.compose.animation)
+
+  testImplementation(Testing.Kotest.runner.junit5)
+  testImplementation(Testing.Kotest.assertions.core)
 }
 
 tasks.withType<KotlinCompile> {
