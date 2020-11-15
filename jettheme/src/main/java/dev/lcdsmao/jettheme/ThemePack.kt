@@ -76,6 +76,9 @@ class ThemePackBuilder internal constructor() {
     check(ThemeIds.Default in themeMap) {
       "Must provide a default theme spec using with id ${ThemeIds.Default}."
     }
+    check(ThemeIds.SystemSettings !in themeMap) {
+      "Id ${ThemeIds.SystemSettings} should not be used in a real theme."
+    }
     check(themeMap.size == themes.size) {
       "Provided theme specs has duplication: ${themes.map { it.id }}."
     }
