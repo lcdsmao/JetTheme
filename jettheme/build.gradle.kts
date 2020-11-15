@@ -41,6 +41,7 @@ dependencies {
   implementation(AndroidX.compose.foundation)
   implementation(AndroidX.compose.animation)
 
+  testImplementation(KotlinX.coroutines.test)
   testImplementation(Testing.Kotest.runner.junit5)
   testImplementation(Testing.Kotest.assertions.core)
 }

@@ -28,7 +28,7 @@ internal fun rememberPersistentThemeController(
   return remember(config, themeIdBasedOnSystem) {
     PersistentThemeControllerImpl(
       coroutineScope = coroutineScope,
-      themeDataStore = ThemeDataStore.get(context),
+      themeDataStore = ThemeDataStore(context),
       themePack = config.themePack,
       themeIdBasedOnSystem = themeIdBasedOnSystem,
       dataStoreKey = config.persistenceKey,

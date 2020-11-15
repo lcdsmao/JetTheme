@@ -9,31 +9,44 @@ import androidx.datastore.preferences.preferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-internal class ThemeDataStore(
-  private val dataStore: DataStore<Preferences>,
-) {
+internal interface ThemeDataStore {
 
-  fun themeIdFlow(key: Preferences.Key<String>): Flow<String?> = dataStore.data
+  fun themeIdFlow(key: Preferences.Key<String>): Flow<String?>
+
+  suspend fun setThemeId(key: Preferences.Key<String>, themeId: String)
+
+  companion object {
+
+    internal const val Prefix = "dev.lcdsmao.jettheme"
+
+    internal val AppThemeKey = preferencesKey<String>("$Prefix.app.theme.key")
+  }
+}
+
+@Suppress("FunctionName")
+internal fun ThemeDataStore(context: Context) = ThemeDataStoreImpl.get(context)
+
+internal class ThemeDataStoreImpl(
+  private val dataStore: DataStore<Preferences>,
+) : ThemeDataStore {
+
+  override fun themeIdFlow(key: Preferences.Key<String>): Flow<String?> = dataStore.data
     .map { preferences -> preferences[key] }
 
-  suspend fun setThemeId(key: Preferences.Key<String>, themeId: String) {
+  override suspend fun setThemeId(key: Preferences.Key<String>, themeId: String) {
     dataStore.edit { preferences ->
       preferences[key] = themeId
     }
   }
 
   companion object {
-    private const val Prefix = "dev.lcdsmao.jettheme"
-
-    val AppThemeKey = preferencesKey<String>("$Prefix.app.theme.key")
-
     private val instanceHolder = SingletonHolder { context: Context ->
       val dataStore = context.createDataStore(
-        name = "$Prefix.datastore"
+        name = "${ThemeDataStore.Prefix}.datastore"
       )
-      ThemeDataStore(dataStore)
+      ThemeDataStoreImpl(dataStore)
     }
 
-    fun get(context: Context): ThemeDataStore = instanceHolder.getInstance(context)
+    fun get(context: Context): ThemeDataStoreImpl = instanceHolder.getInstance(context)
   }
 }
