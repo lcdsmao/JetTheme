@@ -3,17 +3,16 @@ name: Android CI
 on:
   push:
     branches:
-      - master
+      - main
+    paths-ignore:
+      - '**.md'
   pull_request:
-    branches:
-      - '*'
+    paths-ignore:
+      - '**.md'
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: macos-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -28,5 +27,11 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: ${{ runner.os }}-gradle-
 
-      - name: Run Gradle Tasks
-        run: ./gradlew build check publishToMavenLocal --continue
+      - name: Check
+        run: ./gradlew check
+
+      - name: Connected Check
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedCheck
