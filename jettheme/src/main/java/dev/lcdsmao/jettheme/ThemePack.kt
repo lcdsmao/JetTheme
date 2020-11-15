@@ -105,7 +105,7 @@ class ThemePackBuilder internal constructor() {
   internal fun build(): ThemePack {
     val defaultSpec = themes.find { it.id == ThemeIds.Default }
     check(defaultSpec != null) {
-      "Must provide a default theme spec using with id ${ThemeIds.Default}."
+      "Must provide a default theme with id ${ThemeIds.Default}."
     }
     val transformedList = transformer?.let { f ->
       themes.map { spec ->
@@ -117,7 +117,7 @@ class ThemePackBuilder internal constructor() {
       "Id ${ThemeIds.SystemSettings} should not be used in a real theme."
     }
     check(themeMap.size == themes.size) {
-      "Provided theme specs has duplication: ${themes.map { it.id }}."
+      "Provided themes has duplication: ${themes.map { it.id }}."
     }
     return ThemePack(themeMap)
   }

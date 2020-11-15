@@ -6,6 +6,7 @@ object Libs {
 
     object Compose {
       const val navigation = "androidx.navigation:navigation-compose:_"
+      const val uiTest = "androidx.ui:ui-test:_"
     }
   }
 

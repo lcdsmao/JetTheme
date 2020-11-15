@@ -49,6 +49,7 @@ fun TestedExtension.androidCommonConfig(startParameter: StartParameter) {
     }
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunnerArgument("clearPackageData", "true")
 
     consumerProguardFiles("consumer-rules.pro")
   }
@@ -68,7 +69,15 @@ fun TestedExtension.androidCommonConfig(startParameter: StartParameter) {
     isAbortOnError = true
   }
 
-  testOptions.animationsDisabled = true
+  testOptions {
+    animationsDisabled = true
+    execution = "ANDROIDX_TEST_ORCHESTRATOR"
+  }
+
+  packagingOptions {
+    exclude("META-INF/AL2.0")
+    exclude("META-INF/LGPL2.1")
+  }
 }
 
 fun BaseAppModuleExtension.androidAppConfig() {
