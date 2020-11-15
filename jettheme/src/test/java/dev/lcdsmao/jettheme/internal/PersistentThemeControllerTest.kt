@@ -29,11 +29,11 @@ class PersistentThemeControllerTest : StringSpec({
   val themeIdBasedOnSystem = ThemeIds.Dark
   val dataStoreKey = preferencesKey<String>("Test")
   lateinit var themeDataStore: FakeThemeDataStore
-  lateinit var controller: PersistentThemeControllerImpl
+  lateinit var controller: PersistentThemeController
 
   beforeEach {
     themeDataStore = FakeThemeDataStore()
-    controller = PersistentThemeControllerImpl(
+    controller = PersistentThemeController(
       coroutineScope = coroutineScope,
       themePack = themePack,
       themeIdBasedOnSystem = themeIdBasedOnSystem,

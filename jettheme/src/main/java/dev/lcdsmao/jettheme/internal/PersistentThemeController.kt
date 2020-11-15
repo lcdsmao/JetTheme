@@ -26,7 +26,7 @@ internal fun rememberPersistentThemeController(
   val coroutineScope = rememberCoroutineScope()
   val themeIdBasedOnSystem = themeIdBasedOnSystemSettings(config.darkModeThemeId)
   return remember(config, themeIdBasedOnSystem) {
-    PersistentThemeControllerImpl(
+    PersistentThemeController(
       coroutineScope = coroutineScope,
       themeDataStore = ThemeDataStore(context),
       themePack = config.themePack,
@@ -36,7 +36,7 @@ internal fun rememberPersistentThemeController(
   }
 }
 
-internal class PersistentThemeControllerImpl(
+internal class PersistentThemeController(
   private val coroutineScope: CoroutineScope,
   private val themeDataStore: ThemeDataStore,
   private val themePack: ThemePack,
