@@ -24,12 +24,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import dev.lcdsmao.jettheme.ThemeAmbient
+import dev.lcdsmao.jettheme.ThemeControllerAmbient
 import dev.lcdsmao.jettheme.darkId
 import dev.lcdsmao.jettheme.material.ProvideAppMaterialTheme
-import dev.lcdsmao.jettheme.material.buildMaterialTheme
-import dev.lcdsmao.jettheme.material.defaultMaterialSpec
-import dev.lcdsmao.jettheme.material.materialSpec
+import dev.lcdsmao.jettheme.material.buildMaterialThemePack
+import dev.lcdsmao.jettheme.material.defaultMaterialTheme
+import dev.lcdsmao.jettheme.material.materialTheme
 import dev.lcdsmao.jettheme.nextThemeId
 
 @Composable
@@ -71,7 +71,7 @@ fun MaterialApp() {
 
 @Composable
 private fun ToggleThemeFloatButton() {
-  val controller = ThemeAmbient.current
+  val controller = ThemeControllerAmbient.current
   FloatingActionButton(
     backgroundColor = MaterialTheme.colors.primary,
     // contentColor = MaterialTheme.colors.onPrimary,
@@ -102,13 +102,13 @@ private val lightColorPalette = lightColors(
   onPrimary = Color(0xFF442C2E),
 )
 
-private val appTheme = buildMaterialTheme {
-  defaultMaterialSpec(
+private val appTheme = buildMaterialThemePack {
+  defaultMaterialTheme(
     colors = lightColorPalette,
     typography = typography,
     shapes = shapes,
   )
-  materialSpec(
+  materialTheme(
     id = darkId,
     colors = darkColorPalette,
   )

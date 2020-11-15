@@ -1,5 +1,6 @@
 package dev.lcdsmao.jettheme.material
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.tween
 import androidx.compose.material.MaterialTheme
@@ -8,8 +9,18 @@ import androidx.compose.runtime.remember
 import dev.lcdsmao.jettheme.ProvideAppTheme
 import dev.lcdsmao.jettheme.ProvideTheme
 import dev.lcdsmao.jettheme.ThemeConfig
+import dev.lcdsmao.jettheme.ThemeController
+import dev.lcdsmao.jettheme.ThemeControllerAmbient
 import dev.lcdsmao.jettheme.ThemePack
 
+/**
+ * Theme material design version of [ProvideTheme].
+ * Binds a [ThemeController] with configuration [themeConfig] to the [ThemeControllerAmbient] key.
+ * Recompose the [content] with a crossfade animation when [ThemeController.themeFlow] value changed.
+ *
+ * @param themeConfig the configuration for the [ThemeController].
+ * @param crossfadeAnimSpec the [AnimationSpec] to configure [Crossfade].
+ */
 @Composable
 fun ProvideMaterialTheme(
   themeConfig: ThemeConfig,
@@ -24,6 +35,15 @@ fun ProvideMaterialTheme(
   }
 }
 
+/**
+ * Theme material design version of [ProvideAppTheme].
+ * A convenient version of [ProvideMaterialTheme] suited to provide global app theme.
+ * Configure the [ThemeController] by [ThemeConfig.Persistence], so theme preference will be
+ * persisted in the local storage.
+ *
+ * @param themePack the [ThemePack] to construct a [ThemeConfig.Persistence]
+ * @param crossfadeAnimSpec the [AnimationSpec] to configure [Crossfade].
+ */
 @Composable
 fun ProvideAppMaterialTheme(
   themePack: ThemePack,

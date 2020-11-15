@@ -9,8 +9,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterIsInstance
 
 /**
- * [ThemeController] manages the theme of a component tree under the [ProvideTheme].
- * Using [ThemeAmbient] to retrieve the controller.
+ * [ThemeController] manages the theme for the component tree under the [ProvideTheme].
+ *
+ * @see ProvideTheme
+ * @see ThemeControllerAmbient
  */
 interface ThemeController {
 

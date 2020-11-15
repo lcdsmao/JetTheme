@@ -12,8 +12,11 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
+/**
+ * Construct a new material design [ThemePack].
+ */
 @OptIn(ExperimentalContracts::class)
-fun buildMaterialTheme(
+fun buildMaterialThemePack(
   block: ThemePackBuilder.() -> Unit,
 ): ThemePack {
   contract {
@@ -29,7 +32,10 @@ fun buildMaterialTheme(
   }
 }
 
-fun ThemePackBuilder.defaultMaterialSpec(
+/**
+ * Add a default [MaterialThemeSpec] to this [ThemePack].
+ */
+fun ThemePackBuilder.defaultMaterialTheme(
   colors: Colors,
   typography: Typography,
   shapes: Shapes,
@@ -42,7 +48,10 @@ fun ThemePackBuilder.defaultMaterialSpec(
   )
 )
 
-fun ThemePackBuilder.materialSpec(
+/**
+ * Add a new [MaterialThemeSpec] to this [ThemePack].
+ */
+fun ThemePackBuilder.materialTheme(
   id: String,
   colors: Colors? = null,
   typography: Typography? = null,

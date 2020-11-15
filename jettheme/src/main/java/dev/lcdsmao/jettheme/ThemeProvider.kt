@@ -8,6 +8,13 @@ import androidx.compose.runtime.Providers
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticAmbientOf
 
+/**
+ * Binds a [ThemeController] with configuration [themeConfig] to the [ThemeControllerAmbient] key.
+ * Recompose the [content] with a crossfade animation when [ThemeController.themeFlow] value changed.
+ *
+ * @param themeConfig the configuration for the [ThemeController].
+ * @param crossfadeAnimSpec the [AnimationSpec] to configure [Crossfade].
+ */
 @Composable
 inline fun <reified T : ThemeSpec> ProvideTheme(
   themeConfig: ThemeConfig,
@@ -15,8 +22,8 @@ inline fun <reified T : ThemeSpec> ProvideTheme(
   crossinline content: @Composable (T) -> Unit,
 ) {
   val themeController = rememberThemeController(themeConfig)
-  Providers(ThemeAmbient provides themeController) {
-    val currentTheme = ThemeAmbient.current.themeState<T>().value
+  Providers(ThemeControllerAmbient provides themeController) {
+    val currentTheme = ThemeControllerAmbient.current.themeState<T>().value
     Crossfade(currentTheme, animation = crossfadeAnimSpec) { theme ->
       if (theme != null) {
         content(theme)
@@ -25,6 +32,14 @@ inline fun <reified T : ThemeSpec> ProvideTheme(
   }
 }
 
+/**
+ * A convenient version of [ProvideTheme] suited to provide global app theme.
+ * Configure the [ThemeController] by [ThemeConfig.Persistence], so theme preference will be
+ * persisted in the local storage.
+ *
+ * @param themePack the [ThemePack] to construct a [ThemeConfig.Persistence]
+ * @param crossfadeAnimSpec the [AnimationSpec] to configure [Crossfade].
+ */
 @Composable
 inline fun <reified T : ThemeSpec> ProvideAppTheme(
   themePack: ThemePack,
@@ -36,4 +51,9 @@ inline fun <reified T : ThemeSpec> ProvideAppTheme(
   content = content,
 )
 
-val ThemeAmbient = staticAmbientOf<ThemeController>()
+/**
+ * Uses this ambient to retrieve the [ThemeController] in current component tree.
+ */
+val ThemeControllerAmbient = staticAmbientOf<ThemeController> {
+  error("No ThemeController provided.")
+}
