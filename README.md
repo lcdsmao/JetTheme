@@ -1,3 +1,9 @@
+<p>
+  <a href="https://github.com/lcdsmao/JetTheme">
+    <img src="https://raw.githubusercontent.com/lcdsmao/JetTheme/main/art/logo.svg" width="128px">
+  </a>
+</p>
+
 # JetTheme
 
 <p>
@@ -17,10 +23,8 @@ JetTheme is a flexible theme provider for Jetpack Compose.
 
 ```gradle
 dependencies {
-
   // Use this if you want material design support (recommended)
   implementation "dev.lcdsmao.jettheme:jettheme-material:$latestVersion"
-
   // Use this if you want to build custom design system
   implementation "dev.lcdsmao.jettheme:jettheme:$latestVersion"
 }
