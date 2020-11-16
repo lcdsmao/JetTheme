@@ -48,11 +48,13 @@ class ThemeProviderTest {
       .assertTextEquals("Default")
       .performClick()
 
+    composeRule.waitForIdle()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Dark")
       .also { toThemeId = "id_other" }
       .performClick()
 
+    composeRule.waitForIdle()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Other")
   }
@@ -81,11 +83,13 @@ class ThemeProviderTest {
       .assertTextEquals("Dark")
       .performClick()
 
+    composeRule.waitForIdle()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Dark")
       .also { toThemeId = "id_other" }
       .performClick()
 
+    composeRule.waitForIdle()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Other")
   }
