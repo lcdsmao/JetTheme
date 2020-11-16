@@ -9,9 +9,17 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@ExperimentalCoroutinesApi
 class ThemeProviderTest {
 
   @get:Rule
@@ -21,6 +29,16 @@ class ThemeProviderTest {
     theme(DummyTheme(id = defaultId, value = "Default"))
     theme(DummyTheme(id = darkId, value = "Dark"))
     theme(DummyTheme(id = "id_other", value = "Other"))
+  }
+
+  @Before
+  fun setUp() {
+    Dispatchers.setMain(TestCoroutineDispatcher())
+  }
+
+  @After
+  fun tearDown() {
+    Dispatchers.resetMain()
   }
 
   @Test
@@ -44,6 +62,7 @@ class ThemeProviderTest {
       }
     }
 
+    composeRule.waitForIdle()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Default")
       .performClick()
@@ -79,6 +98,7 @@ class ThemeProviderTest {
       }
     }
 
+    composeRule.waitForIdle()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Dark")
       .performClick()
