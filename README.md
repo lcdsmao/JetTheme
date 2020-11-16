@@ -44,7 +44,7 @@ val AppTheme = buildMaterialThemePack {
     colors = darkColors(...),
   )
   materialTheme(
-    id = "other_theme_spec",
+    id = "other_theme",
     colors = otherColors(...),
   )
 }
@@ -65,8 +65,8 @@ fun App() {
 
 ```kotlin
 val themeController = ThemeControllerAmbient.current
-themeController.setDarkThemeSpec()
-themeController.setThemeSpecId("other_theme_spec")
+themeController.setDarkTheme()
+themeController.setThemeId("other_theme")
 ```
 
 4. Access current theme values using `MaterialTheme` (from `androidx.compose.material`):
