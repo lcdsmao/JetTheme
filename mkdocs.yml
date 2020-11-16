@@ -12,12 +12,16 @@ theme:
   font:
     text: Open Sans
     code: Roboto Mono
+  icon:
+    logo: fontawesome/solid/rocket
 
 extra:
   manifest: manifest.webmanifest
 
 nav:
   - "Overview": index.md
+  - "JetTheme": jettheme.md
+  - "JetTheme Material": jettheme-material.md
   - "Changelog": changelog.md
   - "API Docs": api/-modules.html
 

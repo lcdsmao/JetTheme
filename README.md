@@ -1,10 +1,17 @@
-# JetTheme
+<h1 style="text-align: center;">JetTheme</h1>
+
+<div style="margin-bottom: 24px; text-align: center;">
+  <img src="https://github.com/lcdsmao/JetTheme/workflows/Android%20CI/badge.svg"/>
+  <a href="https://bintray.com/lcdsmao/maven/jettheme/_latestVersion">
+    <img src="https://api.bintray.com/packages/lcdsmao/maven/jettheme/images/download.svg"/>
+  </a>
+</div>
 
 JetTheme is a flexible theme provider for Jetpack Compose.
 
-- Change theme specification values (e.g. colors) and recompose the UI dynamically.
-- Save theme settings to local storage.
-- Support building with a custom design system.
+- Change the theme and recompose the UI dynamically.
+- Save theme preference to local storage.
+- Support custom design system.
 
 ## Installation
 
