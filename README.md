@@ -1,11 +1,11 @@
-<h1 style="text-align: center;">JetTheme</h1>
+# JetTheme
 
-<div style="margin-bottom: 24px; text-align: center;">
+<p>
   <img src="https://github.com/lcdsmao/JetTheme/workflows/Android%20CI/badge.svg"/>
   <a href="https://bintray.com/lcdsmao/maven/jettheme/_latestVersion">
     <img src="https://api.bintray.com/packages/lcdsmao/maven/jettheme/images/download.svg"/>
   </a>
-</div>
+</p>
 
 JetTheme is a flexible theme provider for Jetpack Compose.
 
