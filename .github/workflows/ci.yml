@@ -27,7 +27,7 @@ jobs:
           key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle.kts') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/versions.properties') }}
 
       - name: Check
-        run: ./gradlew check
+        run: ./gradlew lint detekt
 
       # Check if there has been a binary incompatible change to the API.
       # If this change is intentional, run `./gradlew apiDump` and commit the new API files.
@@ -50,11 +50,11 @@ jobs:
           key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle.kts') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/versions.properties') }}
 
       - name: Unit tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew testReleaseUnitTest
 
   instrumentation-tests:
     name: Instrumentation tests
-    runs-on: macOS-latest
+    runs-on: macos-latest
     timeout-minutes: 60
     strategy:
       fail-fast: true
@@ -76,4 +76,4 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           arch: x86
-          script: ./gradlew connectedDebugAndroidTest --stacktrace
+          script: ./gradlew connectedReleaseAndroidTest
