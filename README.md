@@ -7,7 +7,9 @@
 # JetTheme
 
 <p>
-  <img src="https://github.com/lcdsmao/JetTheme/workflows/Android%20CI/badge.svg"/>
+  <a href="https://github.com/lcdsmao/JetTheme/actions">
+    <img src="https://github.com/lcdsmao/JetTheme/workflows/CI/badge.svg"/>
+  </a>
   <a href="https://bintray.com/lcdsmao/maven/jettheme/_latestVersion">
     <img src="https://api.bintray.com/packages/lcdsmao/maven/jettheme/images/download.svg"/>
   </a>
