@@ -50,7 +50,7 @@ jobs:
           key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle.kts') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/versions.properties') }}
 
       - name: Unit tests
-        run: ./gradlew testReleaseUnitTest
+        run: ./gradlew testDebugUnitTest
 
   instrumentation-tests:
     name: Instrumentation tests
@@ -76,7 +76,7 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           arch: x86
-          script: ./gradlew connectedReleaseAndroidTest
+          script: ./gradlew connectedDebugAndroidTest
 
   deploy-snapshot:
     name: Deploy snapshot
