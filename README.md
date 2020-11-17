@@ -36,7 +36,7 @@ dependencies {
 
 ### Provide Themes
 
-1. Define your material themes themes using `buildMaterialThemePack`.
+Define your material themes themes using `buildMaterialThemePack`.
 
 ```kotlin
 val AppTheme = buildMaterialThemePack {
@@ -56,7 +56,7 @@ val AppTheme = buildMaterialThemePack {
 }
 ```
 
-2. For child components can correctly access defined `AppTheme` via `MaterialTheme`,
+For child components can correctly access defined `AppTheme` via `MaterialTheme`,
 wrap your child components in a `ProvideAppMaterialTheme`.
 
 ```kotlin

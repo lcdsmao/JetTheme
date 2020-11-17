@@ -2,10 +2,14 @@
 
 You can use JetTheme to implement your own design system.
 
+## Example
+
 For example, we want to create a Simple Design System which has different color scheme from Material Design.
 The color scheme contains two colors, the background color and text color.
 
-1. Define the `ThemeSpec` of our Simple Design System:
+### Usage
+
+Define the `ThemeSpec` of our Simple Design System:
 
 ```kotlin
 data class SimpleThemeSpec(
@@ -35,7 +39,7 @@ class SimpleColors(
 }
 ```
 
-2. Construct a `ThemePack` with the `SimpleThemeSpec`:
+Construct a `ThemePack` of our `SimpleThemeSpec`:
 
 ```kotlin
 val AppTheme = buildThemePack {
@@ -54,7 +58,7 @@ val AppTheme = buildThemePack {
 }
 ```
 
-3. Create a `SimpleTheme` object which can retrieve current theme colors:
+Create a `SimpleTheme` object which can retrieve current theme colors:
 
 ```kotlin
 private val AmbientSimpleColors = staticAmbientOf<SimpleColors>()
@@ -66,7 +70,7 @@ object SimpleTheme {
 }
 ```
 
-4. Create a Simple Design System provider by the `ProvideAppTheme`:
+Create a Simple Design System provider by the `ProvideAppTheme`:
 
 ```kotlin
 @Composable
@@ -111,7 +115,7 @@ private fun debugColors(
 )
 ```
 
-5. Access current theme values from `SimpleTheme` and change themes using `ThemeController`:
+Access current theme values from `SimpleTheme` and change themes using `ThemeController`:
 
 ```kotlin
 @Composable
