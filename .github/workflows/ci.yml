@@ -5,10 +5,10 @@ on:
     branches:
       - main
     paths-ignore:
-      - '**.md'
+      - "**.md"
   pull_request:
     paths-ignore:
-      - '**.md'
+      - "**.md"
 
 jobs:
   check:
@@ -59,7 +59,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        api-level: [ 21, 25, 29 ]
+        api-level: [21, 27]
     steps:
       - uses: actions/checkout@v2
       - uses: gradle/wrapper-validation-action@v1

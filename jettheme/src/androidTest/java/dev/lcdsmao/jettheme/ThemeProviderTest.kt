@@ -1,5 +1,6 @@
 package dev.lcdsmao.jettheme
 
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
@@ -9,13 +10,7 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
-import org.junit.After
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -31,16 +26,6 @@ class ThemeProviderTest {
     theme(DummyTheme(id = "id_other", value = "Other"))
   }
 
-  @Before
-  fun setUp() {
-    Dispatchers.setMain(TestCoroutineDispatcher())
-  }
-
-  @After
-  fun tearDown() {
-    Dispatchers.resetMain()
-  }
-
   @Test
   fun testPersistenceThemeController() {
     var toThemeId = ThemeIds.Dark
@@ -50,7 +35,8 @@ class ThemeProviderTest {
         themePack.persistenceConfig(
           persistenceKey = "test_key",
           darkModeThemeId = ThemeIds.Default,
-        )
+        ),
+        crossfadeAnimSpec = tween(durationMillis = 0)
       ) { theme ->
         val controller = ThemeControllerAmbient.current
         TestTextNode(
@@ -62,18 +48,15 @@ class ThemeProviderTest {
       }
     }
 
-    composeRule.waitForIdle()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Default")
       .performClick()
 
-    composeRule.waitForIdle()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Dark")
       .also { toThemeId = "id_other" }
       .performClick()
 
-    composeRule.waitForIdle()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Other")
   }
@@ -86,7 +69,8 @@ class ThemeProviderTest {
       ProvideTheme<DummyTheme>(
         themePack.inMemoryConfig(
           initialThemeSpecId = ThemeIds.Dark
-        )
+        ),
+        crossfadeAnimSpec = tween(durationMillis = 0)
       ) { theme ->
         val controller = ThemeControllerAmbient.current
         TestTextNode(
@@ -98,18 +82,15 @@ class ThemeProviderTest {
       }
     }
 
-    composeRule.waitForIdle()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Dark")
       .performClick()
 
-    composeRule.waitForIdle()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Dark")
       .also { toThemeId = "id_other" }
       .performClick()
 
-    composeRule.waitForIdle()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Other")
   }
@@ -126,7 +107,7 @@ class ThemeProviderTest {
     )
   }
 
-  data class DummyTheme(override val id: String, val value: String = "") : ThemeSpec
+  private data class DummyTheme(override val id: String, val value: String = "") : ThemeSpec
 
   companion object {
     private const val TestTag = "test_tag"
