@@ -20,10 +20,11 @@ extra:
 
 nav:
   - "Overview": index.md
-  - "JetTheme": jettheme.md
-  - "JetTheme Material": jettheme-material.md
+  - "Own Design System": own_design_system.md
   - "Changelog": changelog.md
-  - "API Docs": api/-modules.html
+  - "API Docs":
+      - "jettheme": api/jettheme/index.html
+      - "jettheme-material": api/jettheme-material/index.html
 
 markdown_extensions:
   - admonition
