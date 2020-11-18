@@ -1,6 +1,5 @@
 package dev.lcdsmao.jettheme
 
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
@@ -36,7 +35,6 @@ class ThemeProviderTest {
           persistenceKey = "test_key",
           darkModeThemeId = ThemeIds.Default,
         ),
-        crossfadeAnimSpec = tween(durationMillis = 0)
       ) { theme ->
         val controller = ThemeControllerAmbient.current
         TestTextNode(
@@ -48,17 +46,18 @@ class ThemeProviderTest {
       }
     }
 
+    composeRule.sleepAndWait()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Default")
       .performClick()
 
-    composeRule.waitForIdle()
+    composeRule.sleepAndWait()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Dark")
       .also { toThemeId = "id_other" }
       .performClick()
 
-    composeRule.waitForIdle()
+    composeRule.sleepAndWait()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Other")
   }
@@ -72,7 +71,6 @@ class ThemeProviderTest {
         themePack.inMemoryConfig(
           initialThemeSpecId = ThemeIds.Dark
         ),
-        crossfadeAnimSpec = tween(durationMillis = 0)
       ) { theme ->
         val controller = ThemeControllerAmbient.current
         TestTextNode(
@@ -84,17 +82,18 @@ class ThemeProviderTest {
       }
     }
 
+    composeRule.sleepAndWait()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Dark")
       .performClick()
 
-    composeRule.waitForIdle()
+    composeRule.sleepAndWait()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Dark")
       .also { toThemeId = "id_other" }
       .performClick()
 
-    composeRule.waitForIdle()
+    composeRule.sleepAndWait()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Other")
   }
