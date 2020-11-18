@@ -1,7 +1,7 @@
 package dev.lcdsmao.jettheme.internal
 
-import androidx.datastore.preferences.Preferences
-import androidx.datastore.preferences.preferencesKey
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.preferencesKey
 import dev.lcdsmao.jettheme.DummyTheme
 import dev.lcdsmao.jettheme.ThemeIds
 import dev.lcdsmao.jettheme.buildThemePack

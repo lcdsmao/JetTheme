@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.ContextAmbient
-import androidx.datastore.preferences.preferencesKey
+import androidx.datastore.preferences.core.preferencesKey
 import dev.lcdsmao.jettheme.ThemeConfig
 import dev.lcdsmao.jettheme.ThemeController
 import dev.lcdsmao.jettheme.ThemeIds
