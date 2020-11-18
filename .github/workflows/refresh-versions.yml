@@ -1,0 +1,30 @@
+name: Weekly Refresh Versions
+
+on:
+  schedule:
+    - cron: "0 12 * * 2"
+
+jobs:
+  refresh-versions:
+    name: Refresh Versions and Push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Cache Gradle
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle.kts') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/versions.properties') }}
+
+      - name: Refresh Versions
+        run: |
+          branch_name=build/weekly-refresh-versions
+          git checkout -b $branch_name
+          ./gradlew refreshVersions
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Refresh Versions"
+          git push -u origin $branch_name
