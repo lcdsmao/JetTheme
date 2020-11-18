@@ -20,7 +20,7 @@ jobs:
 
       - name: Refresh Versions
         run: |
-          branch_name=weekly-refresh-versions
+          branch_name=build/weekly-refresh-versions
           git checkout -b $branch_name
           ./gradlew refreshVersions
           git config user.name github-actions
