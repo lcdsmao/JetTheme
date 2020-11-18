@@ -2,6 +2,6 @@ Changelog
 =========
 
 
-#### 0.0.1
+#### [1.0.0-alpha03] - Nov 18, 2020
 
-* Feature: TODO
+* Update DataStore to 1.0.0-alpha04
