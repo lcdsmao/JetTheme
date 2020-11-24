@@ -2,7 +2,7 @@ name: Weekly Refresh Versions
 
 on:
   schedule:
-    - cron: "0 12 * * 2"
+    - cron: "0 0 * * 2"
 
 jobs:
   refresh-versions:
@@ -27,4 +27,4 @@ jobs:
           git config user.email github-actions@github.com
           git add .
           git commit -m "Refresh Versions"
-          git push -u origin $branch_name
+          git push -u origin $branch_name -f
