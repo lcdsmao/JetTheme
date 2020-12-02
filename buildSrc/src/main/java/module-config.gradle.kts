@@ -1,10 +1,10 @@
 @file:Suppress("UnstableApiUsage")
 
+import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
 import com.android.build.gradle.TestedExtension
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -17,7 +17,7 @@ project.afterEvaluate {
         extensions.getByType<TestedExtension>().androidCommonConfig(project.gradle.startParameter)
       }
       is AppPlugin -> {
-        extensions.getByType<BaseAppModuleExtension>().androidAppConfig()
+        extensions.getByType<AppExtension>().androidAppConfig()
         extensions.getByType<TestedExtension>().androidCommonConfig(project.gradle.startParameter)
       }
     }
@@ -80,7 +80,7 @@ fun TestedExtension.androidCommonConfig(startParameter: StartParameter) {
   }
 }
 
-fun BaseAppModuleExtension.androidAppConfig() {
+fun AppExtension.androidAppConfig() {
   defaultConfig {
     applicationId = AppCoordinates.APP_ID
     versionCode = AppCoordinates.VERSION_CODE
@@ -101,16 +101,16 @@ fun Project.commonConfig() {
     explicitApi()
   }
 
-  tasks.withType<JavaCompile>().configureEach {
+  tasks.withType<JavaCompile> {
     sourceCompatibility = JavaVersion.VERSION_1_8.toString()
     targetCompatibility = JavaVersion.VERSION_1_8.toString()
   }
 
-  tasks.withType<KotlinCompile>().configureEach {
+  tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
   }
 
-  tasks.withType<Test>().configureEach {
+  tasks.withType<Test> {
     maxParallelForks = Runtime.getRuntime().availableProcessors() * 2
     testLogging {
       events(TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED)
