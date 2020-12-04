@@ -21,5 +21,6 @@ rootProject.name = "JetTheme"
 include(
   "sample",
   "jettheme",
-  "jettheme-material"
+  "jettheme-material",
+  "jettheme-styleguide"
 )
