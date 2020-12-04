@@ -41,7 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.lcdsmao.jettheme.ProvideAppTheme
-import dev.lcdsmao.jettheme.ThemeControllerAmbient
+import dev.lcdsmao.jettheme.AmbientThemeController
 import dev.lcdsmao.jettheme.ThemeSpec
 import dev.lcdsmao.jettheme.buildThemePack
 import dev.lcdsmao.jettheme.component1
@@ -94,7 +94,7 @@ fun CustomDesignSystemApp() {
         .background(SimpleTheme.colors.background)
         .padding(32.dp),
     ) {
-      val (themeId, setThemeId) = ThemeControllerAmbient.current
+      val (themeId, setThemeId) = AmbientThemeController.current
       Text(
         "Custom Design System",
         modifier = Modifier

@@ -10,12 +10,12 @@ import dev.lcdsmao.jettheme.ProvideAppTheme
 import dev.lcdsmao.jettheme.ProvideTheme
 import dev.lcdsmao.jettheme.ThemeConfig
 import dev.lcdsmao.jettheme.ThemeController
-import dev.lcdsmao.jettheme.ThemeControllerAmbient
+import dev.lcdsmao.jettheme.AmbientThemeController
 import dev.lcdsmao.jettheme.ThemePack
 
 /**
  * Theme material design version of [ProvideTheme].
- * Binds a [ThemeController] with configuration [themeConfig] to the [ThemeControllerAmbient] key.
+ * Binds a [ThemeController] with configuration [themeConfig] to the [AmbientThemeController] key.
  * Recompose the [content] with a crossfade animation when [ThemeController.themeFlow] value changed.
  *
  * @param themeConfig the configuration for the [ThemeController].

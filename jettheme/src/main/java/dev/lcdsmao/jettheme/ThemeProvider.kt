@@ -9,7 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticAmbientOf
 
 /**
- * Binds a [ThemeController] with configuration [themeConfig] to the [ThemeControllerAmbient] key.
+ * Binds a [ThemeController] with configuration [themeConfig] to the [AmbientThemeController] key.
  * Recompose the [content] with a crossfade animation when [ThemeController.themeFlow] value changed.
  *
  * @param themeConfig the configuration for the [ThemeController].
@@ -22,8 +22,8 @@ inline fun <reified T : ThemeSpec> ProvideTheme(
   crossinline content: @Composable (T) -> Unit,
 ) {
   val themeController = rememberThemeController(themeConfig)
-  Providers(ThemeControllerAmbient provides themeController) {
-    val currentTheme = ThemeControllerAmbient.current.themeState<T>().value
+  Providers(AmbientThemeController provides themeController) {
+    val currentTheme = AmbientThemeController.current.themeState<T>().value
     Crossfade(currentTheme, animation = crossfadeAnimSpec) { theme ->
       if (theme != null) {
         content(theme)
@@ -54,6 +54,16 @@ inline fun <reified T : ThemeSpec> ProvideAppTheme(
 /**
  * Uses this ambient to retrieve the [ThemeController] in current component tree.
  */
-val ThemeControllerAmbient = staticAmbientOf<ThemeController> {
+val AmbientThemeController = staticAmbientOf<ThemeController> {
   error("No ThemeController provided.")
 }
+
+/**
+ * Uses this ambient to retrieve the [ThemeController] in current component tree.
+ */
+@Deprecated(
+  "Replace with AmbientThemeController",
+  ReplaceWith("AmbientThemeController"),
+)
+val ThemeControllerAmbient
+  get() = AmbientThemeController

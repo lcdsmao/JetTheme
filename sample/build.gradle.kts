@@ -2,7 +2,6 @@ plugins {
   `module-config`
   com.android.application
   `kotlin-android`
-  `kotlin-android-extensions`
 }
 
 android {

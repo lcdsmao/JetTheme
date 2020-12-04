@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.filterIsInstance
  * [ThemeController] manages the theme for the component tree under the [ProvideTheme].
  *
  * @see ProvideTheme
- * @see ThemeControllerAmbient
+ * @see AmbientThemeController
  */
 interface ThemeController {
 
