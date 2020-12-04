@@ -3,7 +3,7 @@ package dev.lcdsmao.jettheme.internal
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.platform.ContextAmbient
+import androidx.compose.ui.platform.AmbientContext
 import androidx.datastore.preferences.core.preferencesKey
 import dev.lcdsmao.jettheme.ThemeConfig
 import dev.lcdsmao.jettheme.ThemeController
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 internal fun rememberPersistentThemeController(
   config: ThemeConfig.Persistence,
 ): ThemeController {
-  val context = ContextAmbient.current
+  val context = AmbientContext.current
   val coroutineScope = rememberCoroutineScope()
   val themeIdBasedOnSystem = themeIdBasedOnSystemSettings(config.darkModeThemeId)
   return remember(config, themeIdBasedOnSystem) {

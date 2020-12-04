@@ -49,6 +49,7 @@ dependencies {
   androidTestImplementation(AndroidX.test.coreKtx)
   androidTestImplementation(AndroidX.test.runner)
   androidTestImplementation(Libs.AndroidX.Compose.uiTest)
+  androidTestImplementation(Libs.AndroidX.Compose.uiTestJunit4)
   androidTestUtil(AndroidX.test.orchestrator)
 }
 

@@ -24,7 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import dev.lcdsmao.jettheme.ThemeControllerAmbient
+import dev.lcdsmao.jettheme.AmbientThemeController
 import dev.lcdsmao.jettheme.darkId
 import dev.lcdsmao.jettheme.material.ProvideAppMaterialTheme
 import dev.lcdsmao.jettheme.material.buildMaterialThemePack
@@ -71,13 +71,13 @@ fun MaterialApp() {
 
 @Composable
 private fun ToggleThemeFloatButton() {
-  val controller = ThemeControllerAmbient.current
+  val controller = AmbientThemeController.current
   FloatingActionButton(
     backgroundColor = MaterialTheme.colors.primary,
     // contentColor = MaterialTheme.colors.onPrimary,
     onClick = { controller.setThemeId(appTheme.nextThemeId(controller.themeId)) }
   ) {
-    Icon(asset = Icons.Default.Refresh)
+    Icon(Icons.Default.Refresh)
   }
 }
 
