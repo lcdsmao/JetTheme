@@ -36,7 +36,7 @@ class ThemeProviderTest {
           darkModeThemeId = ThemeIds.Default,
         ),
       ) { theme ->
-        val controller = AmbientThemeController.current
+        val controller = ThemeControllerAmbient.current
         TestTextNode(
           theme = theme,
           modifier = Modifier.clickable(onClick = {
@@ -46,15 +46,18 @@ class ThemeProviderTest {
       }
     }
 
+    composeRule.sleepAndWait()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Default")
       .performClick()
 
+    composeRule.sleepAndWait()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Dark")
       .also { toThemeId = "id_other" }
       .performClick()
 
+    composeRule.sleepAndWait()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Other")
   }
@@ -69,7 +72,7 @@ class ThemeProviderTest {
           initialThemeSpecId = ThemeIds.Dark
         ),
       ) { theme ->
-        val controller = AmbientThemeController.current
+        val controller = ThemeControllerAmbient.current
         TestTextNode(
           theme = theme,
           modifier = Modifier.clickable(onClick = {
@@ -79,15 +82,18 @@ class ThemeProviderTest {
       }
     }
 
+    composeRule.sleepAndWait()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Dark")
       .performClick()
 
+    composeRule.sleepAndWait()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Dark")
       .also { toThemeId = "id_other" }
       .performClick()
 
+    composeRule.sleepAndWait()
     composeRule.onNodeWithTag(TestTag)
       .assertTextEquals("Other")
   }
