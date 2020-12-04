@@ -40,8 +40,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import dev.lcdsmao.jettheme.ProvideAppTheme
 import dev.lcdsmao.jettheme.AmbientThemeController
+import dev.lcdsmao.jettheme.ProvideAppTheme
 import dev.lcdsmao.jettheme.ThemeSpec
 import dev.lcdsmao.jettheme.buildThemePack
 import dev.lcdsmao.jettheme.component1

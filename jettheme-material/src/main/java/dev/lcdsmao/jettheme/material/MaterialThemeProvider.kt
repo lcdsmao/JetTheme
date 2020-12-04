@@ -6,11 +6,11 @@ import androidx.compose.animation.core.tween
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import dev.lcdsmao.jettheme.AmbientThemeController
 import dev.lcdsmao.jettheme.ProvideAppTheme
 import dev.lcdsmao.jettheme.ProvideTheme
 import dev.lcdsmao.jettheme.ThemeConfig
 import dev.lcdsmao.jettheme.ThemeController
-import dev.lcdsmao.jettheme.AmbientThemeController
 import dev.lcdsmao.jettheme.ThemePack
 
 /**
