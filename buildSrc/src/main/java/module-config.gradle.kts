@@ -14,33 +14,22 @@ project.afterEvaluate {
     when (this) {
       is LibraryPlugin -> {
         extensions.getByType<LibraryExtension>().androidLibraryConfig()
-        extensions.getByType<TestedExtension>().androidCommonConfig(project.gradle.startParameter)
+        extensions.getByType<TestedExtension>().androidCommonConfig()
       }
       is AppPlugin -> {
         extensions.getByType<AppExtension>().androidAppConfig()
-        extensions.getByType<TestedExtension>().androidCommonConfig(project.gradle.startParameter)
+        extensions.getByType<TestedExtension>().androidCommonConfig()
       }
     }
   }
   commonConfig()
 }
 
-fun TestedExtension.androidCommonConfig(startParameter: StartParameter) {
+fun TestedExtension.androidCommonConfig() {
   setCompileSdkVersion(AndroidSdk.compileSdk)
 
   defaultConfig {
-    // set minSdkVersion to 21 for android tests to avoid multi-dexing.
-    val testTaskKeywords = listOf("androidTest", "connectedCheck")
-    val isTestBuild = startParameter.taskNames.any { taskName ->
-      testTaskKeywords.any { keyword ->
-        taskName.contains(keyword, ignoreCase = true)
-      }
-    }
-    if (!isTestBuild) {
-      minSdkVersion(AndroidSdk.minSdk)
-    } else {
-      minSdkVersion(AndroidSdk.testMinSdk)
-    }
+    minSdkVersion(AndroidSdk.minSdk)
     targetSdkVersion(AndroidSdk.targetSdk)
 
     compileOptions {
