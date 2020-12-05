@@ -17,6 +17,10 @@ android {
     kotlinCompilerExtensionVersion = composeVersion
     kotlinCompilerVersion = kotlinVersion
   }
+
+  lintOptions {
+    disable("InvalidPackage")
+  }
 }
 
 dependencies {
