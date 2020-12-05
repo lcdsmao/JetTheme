@@ -76,7 +76,10 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           arch: x86
-          script: ./gradlew connectedDebugAndroidTest
+          script: |
+            adb logcat -c
+            adb logcat *:E &
+            ./gradlew connectedDebugAndroidTest
 
   deploy-snapshot:
     name: Deploy snapshot
