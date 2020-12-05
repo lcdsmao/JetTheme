@@ -33,6 +33,17 @@ dependencies {
 
   implementation(AndroidX.compose.ui)
   implementation(AndroidX.compose.material)
+
+  testImplementation(Testing.Kotest.runner.junit5)
+  testImplementation(Testing.Kotest.assertions.core)
+
+  androidTestImplementation(project(":testfixtures-android"))
+  androidTestImplementation(AndroidX.test.coreKtx)
+  androidTestImplementation(AndroidX.test.runner)
+  androidTestImplementation(Libs.AndroidX.Compose.uiTest)
+  androidTestImplementation(Libs.AndroidX.Compose.uiTestJunit4)
+  androidTestImplementation(Kotlin.Test.junit)
+  androidTestUtil(AndroidX.test.orchestrator)
 }
 
 tasks.withType<KotlinCompile> {

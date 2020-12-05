@@ -9,11 +9,10 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import dev.lcdsmao.jettheme.testfixtures.android.sleepAndWait
 import org.junit.Rule
 import org.junit.Test
 
-@ExperimentalCoroutinesApi
 class ThemeProviderTest {
 
   @get:Rule

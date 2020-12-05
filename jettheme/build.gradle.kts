@@ -22,12 +22,6 @@ android {
     kotlinCompilerExtensionVersion = composeVersion
     kotlinCompilerVersion = kotlinVersion
   }
-
-  testOptions {
-    unitTests.all {
-      it.useJUnitPlatform()
-    }
-  }
 }
 
 dependencies {
@@ -46,6 +40,7 @@ dependencies {
   testImplementation(Testing.Kotest.runner.junit5)
   testImplementation(Testing.Kotest.assertions.core)
 
+  androidTestImplementation(project(":testfixtures-android"))
   androidTestImplementation(AndroidX.test.coreKtx)
   androidTestImplementation(AndroidX.test.runner)
   androidTestImplementation(Libs.AndroidX.Compose.uiTest)
