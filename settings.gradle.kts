@@ -20,6 +20,7 @@ rootProject.name = "JetTheme"
 
 include(
   "sample",
+  "testfixtures-android",
   "jettheme",
   "jettheme-material"
 )

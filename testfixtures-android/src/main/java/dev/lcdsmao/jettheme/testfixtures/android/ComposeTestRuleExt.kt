@@ -1,4 +1,4 @@
-package dev.lcdsmao.jettheme
+package dev.lcdsmao.jettheme.testfixtures.android
 
 import androidx.compose.ui.test.junit4.ComposeTestRule
 
