@@ -22,12 +22,6 @@ android {
     kotlinCompilerExtensionVersion = composeVersion
     kotlinCompilerVersion = kotlinVersion
   }
-
-  testOptions {
-    unitTests.all {
-      it.useJUnitPlatform()
-    }
-  }
 }
 
 dependencies {

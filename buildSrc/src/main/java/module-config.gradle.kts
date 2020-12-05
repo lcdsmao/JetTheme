@@ -113,6 +113,7 @@ fun Project.commonConfig() {
     testLogging {
       events(TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED)
     }
+    useJUnitPlatform()
   }
 }
 
