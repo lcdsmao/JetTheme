@@ -36,7 +36,7 @@ class ThemeProviderTest {
           darkModeThemeId = ThemeIds.Default,
         ),
       ) { theme ->
-        val controller = ThemeControllerAmbient.current
+        val controller = AmbientThemeController.current
         TestTextNode(
           theme = theme,
           modifier = Modifier.clickable(onClick = {
@@ -72,7 +72,7 @@ class ThemeProviderTest {
           initialThemeSpecId = ThemeIds.Dark
         ),
       ) { theme ->
-        val controller = ThemeControllerAmbient.current
+        val controller = AmbientThemeController.current
         TestTextNode(
           theme = theme,
           modifier = Modifier.clickable(onClick = {
