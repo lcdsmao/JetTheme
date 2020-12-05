@@ -1,26 +1,17 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.android.build.gradle.AppExtension
-import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryExtension
-import com.android.build.gradle.LibraryPlugin
 import com.android.build.gradle.TestedExtension
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 project.afterEvaluate {
-  plugins.forEach { plugin ->
-    when (plugin) {
-      is LibraryPlugin -> {
-        extensions.getByType<LibraryExtension>().androidLibraryConfig()
-        extensions.getByType<TestedExtension>().androidCommonConfig()
-      }
-      is AppPlugin -> {
-        extensions.getByType<AppExtension>().androidAppConfig()
-        extensions.getByType<TestedExtension>().androidCommonConfig()
-      }
-    }
+  with(extensions) {
+    findByType<AppExtension>()?.androidAppConfig()
+    findByType<LibraryExtension>()?.androidLibraryConfig()
+    findByType<TestedExtension>()?.androidCommonConfig()
   }
   commonConfig()
 }
