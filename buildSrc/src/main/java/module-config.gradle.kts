@@ -10,8 +10,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 project.afterEvaluate {
-  plugins.all {
-    when (this) {
+  plugins.forEach { plugin ->
+    when (plugin) {
       is LibraryPlugin -> {
         extensions.getByType<LibraryExtension>().androidLibraryConfig()
         extensions.getByType<TestedExtension>().androidCommonConfig()
@@ -108,5 +108,6 @@ fun Project.commonConfig() {
     testLogging {
       events(TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED)
     }
+    useJUnitPlatform()
   }
 }
