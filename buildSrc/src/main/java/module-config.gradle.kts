@@ -1,9 +1,13 @@
 @file:Suppress("UnstableApiUsage")
 
+import com.android.build.api.extension.AndroidComponentsExtension
+import com.android.build.api.variant.Variant
+import com.android.build.api.variant.VariantBuilder
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.TestedExtension
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -12,6 +16,7 @@ project.afterEvaluate {
     findByType<AppExtension>()?.androidAppConfig()
     findByType<LibraryExtension>()?.androidLibraryConfig()
     findByType<TestedExtension>()?.androidCommonConfig()
+    findByType(AndroidComponentsExtension::class)?.androidComponentsConfig()
   }
   commonConfig()
 }
@@ -78,6 +83,15 @@ fun LibraryExtension.androidLibraryConfig() {
   }
 }
 
+fun AndroidComponentsExtension<out VariantBuilder, out Variant>.androidComponentsConfig() {
+  if (isKotlinSourceSetsEmpty("test")) {
+    beforeUnitTest { it.enabled = false }
+  }
+  if (isKotlinSourceSetsEmpty("androidTest")) {
+    beforeAndroidTest { it.enabled = false }
+  }
+}
+
 fun Project.commonConfig() {
 
   extensions.findByType<KotlinProjectExtension>()?.apply {
@@ -100,4 +114,9 @@ fun Project.commonConfig() {
       events(TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED)
     }
   }
+}
+
+fun Project.isKotlinSourceSetsEmpty(name: String): Boolean {
+  return extensions.findByType<KotlinAndroidProjectExtension>()?.sourceSets
+    ?.findByName(name)?.kotlin?.files.isNullOrEmpty()
 }
