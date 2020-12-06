@@ -1,7 +1,7 @@
 #!/bin/bash
 
 REPOSITORY="lcdsmao/jettheme"
-REF="refs/heads/master"
+REF="refs/heads/main"
 
 set -e
 
