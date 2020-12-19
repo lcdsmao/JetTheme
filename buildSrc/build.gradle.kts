@@ -13,9 +13,6 @@ dependencies {
   implementation(GradlePlugin.bintray)
   implementation(GradlePlugin.artifactory)
   implementation(GradlePlugin.detekt)
-  // FIXME: Remove these two transitive dependencies
-  implementation("com.android.tools.build:builder:_")
-  implementation("com.android.tools.build:builder-model:_")
 }
 
 object GradlePlugin {
