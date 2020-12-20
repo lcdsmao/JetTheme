@@ -1,4 +1,4 @@
-import java.util.Properties
+import org.jetbrains.kotlin.konan.properties.loadProperties
 
 plugins {
   `detekt-config`
@@ -16,24 +16,20 @@ allprojects {
 
 subprojects {
   val signingPropsFile = file("$rootDir/release/signing.properties")
-  if (signingPropsFile.exists()) {
-    Properties().apply {
-      load(signingPropsFile.inputStream())
-    }.forEach { (key, value) ->
-      key as String
-      if (key == "signing.secretKeyRingFile") {
+    .takeIf { it.exists() } ?: return@subprojects
+
+  loadProperties(signingPropsFile.path).forEach { (key, value) ->
+    extra[key as String] = when (key) {
+      "signing.secretKeyRingFile" -> {
         // If this is the key ring, treat it as a relative path
-        project.ext.set(key, rootProject.file(value).absolutePath)
-      } else {
-        project.ext.set(key, value)
+        rootProject.file(value).absolutePath
       }
+      else -> value
     }
   }
 }
 
-val versionProperties = Properties().apply {
-  load(file("versions.properties").inputStream())
-}
+val versionProperties = loadProperties("versions.properties")
 val kotlinVersion by extra(versionProperties["version.kotlin"])
 val composeVersion by extra(versionProperties["version.androidx.compose.ui"])
 
