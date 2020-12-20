@@ -44,11 +44,10 @@ import dev.lcdsmao.jettheme.AmbientThemeController
 import dev.lcdsmao.jettheme.ProvideAppTheme
 import dev.lcdsmao.jettheme.ThemeSpec
 import dev.lcdsmao.jettheme.buildThemePack
-import dev.lcdsmao.jettheme.component1
-import dev.lcdsmao.jettheme.component2
 import dev.lcdsmao.jettheme.darkId
 import dev.lcdsmao.jettheme.defaultId
 import dev.lcdsmao.jettheme.nextThemeId
+import dev.lcdsmao.jettheme.provideDelegate
 
 private val LightColorPalette = SimpleColors(
   background = Color.White,
@@ -94,12 +93,12 @@ fun CustomDesignSystemApp() {
         .background(SimpleTheme.colors.background)
         .padding(32.dp),
     ) {
-      val (themeId, setThemeId) = AmbientThemeController.current
+      var themeId by AmbientThemeController.current
       Text(
         "Custom Design System",
         modifier = Modifier
           .align(Alignment.Center)
-          .clickable(onClick = { setThemeId(AppTheme.nextThemeId(themeId)) }),
+          .clickable(onClick = { themeId = AppTheme.nextThemeId(themeId) }),
         color = SimpleTheme.colors.text,
         style = SimpleTheme.typography.h3,
       )
@@ -114,7 +113,7 @@ private fun ProvideSimpleTheme(
   ProvideAppTheme<SimpleThemeSpec>(
     themePack = AppTheme,
   ) { theme ->
-    val colorPalette = remember { theme.colors }
+    val colorPalette = remember { theme.colors.copy() }
     colorPalette.update(theme.colors)
     Providers(AmbientSimpleColors provides colorPalette) {
       MaterialTheme(
@@ -149,6 +148,14 @@ class SimpleColors(
     private set
   var isDark by mutableStateOf(isDark)
     private set
+
+  fun copy(): SimpleColors {
+    return SimpleColors(
+      background = background,
+      text = text,
+      isDark = isDark,
+    )
+  }
 
   fun update(other: SimpleColors) {
     background = other.background
