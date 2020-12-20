@@ -57,13 +57,3 @@ inline fun <reified T : ThemeSpec> ProvideAppTheme(
 val AmbientThemeController = staticAmbientOf<ThemeController> {
   error("No ThemeController provided.")
 }
-
-/**
- * Uses this ambient to retrieve the [ThemeController] in current component tree.
- */
-@Deprecated(
-  "Replace with AmbientThemeController",
-  ReplaceWith("AmbientThemeController"),
-)
-val ThemeControllerAmbient
-  get() = AmbientThemeController
