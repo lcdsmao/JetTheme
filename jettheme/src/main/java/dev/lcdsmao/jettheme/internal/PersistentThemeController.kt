@@ -1,8 +1,11 @@
 package dev.lcdsmao.jettheme.internal
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.AmbientContext
 import androidx.datastore.preferences.core.preferencesKey
 import dev.lcdsmao.jettheme.ThemeConfig
@@ -15,6 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
@@ -49,10 +53,11 @@ internal class PersistentThemeController(
 
   override val themeFlow: SharedFlow<ThemeSpec> = themeDataStore.themeIdFlow(key)
     .map { id -> getTheme(id) }
+    .onEach { _themeId = it.id }
     .shareIn(coroutineScope, started = SharingStarted.Eagerly, replay = 1)
 
-  override val themeId: String
-    get() = themeFlow.replayCache.firstOrNull()?.id ?: ThemeIds.Default
+  private var _themeId: String by mutableStateOf(ThemeIds.Default)
+  override val themeId: String get() = _themeId
 
   override fun setThemeId(id: String) {
     checkCanSetSpecId(themePack, id)
