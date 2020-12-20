@@ -17,8 +17,8 @@ import kotlin.contracts.contract
  */
 @OptIn(ExperimentalContracts::class)
 fun buildMaterialThemePack(
-  block: ThemePackBuilder.() -> Unit,
-): ThemePack {
+  block: ThemePackBuilder<MaterialThemeSpec>.() -> Unit,
+): ThemePack<MaterialThemeSpec> {
   contract {
     callsInPlace(block, InvocationKind.EXACTLY_ONCE)
   }
@@ -35,7 +35,7 @@ fun buildMaterialThemePack(
 /**
  * Add a default [MaterialThemeSpec] to this [ThemePack].
  */
-fun ThemePackBuilder.defaultMaterialTheme(
+fun ThemePackBuilder<MaterialThemeSpec>.defaultMaterialTheme(
   colors: Colors,
   typography: Typography,
   shapes: Shapes,
@@ -51,7 +51,7 @@ fun ThemePackBuilder.defaultMaterialTheme(
 /**
  * Add a new [MaterialThemeSpec] to this [ThemePack].
  */
-fun ThemePackBuilder.materialTheme(
+fun ThemePackBuilder<MaterialThemeSpec>.materialTheme(
   id: String,
   colors: Colors? = null,
   typography: Typography? = null,

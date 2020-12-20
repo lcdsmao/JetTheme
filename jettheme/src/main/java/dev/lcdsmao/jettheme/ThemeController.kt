@@ -17,12 +17,12 @@ import kotlin.reflect.KProperty
  * @see ProvideTheme
  * @see AmbientThemeController
  */
-interface ThemeController {
+interface ThemeController<T : ThemeSpec> {
 
   /**
    * Gets current theme as a [Flow].
    */
-  val themeFlow: Flow<ThemeSpec>
+  val themeFlow: Flow<T>
 
   /**
    * Gets the current theme id.
@@ -41,7 +41,9 @@ interface ThemeController {
  * The state will only contain values that are instance of specified type [T].
  */
 @Composable
-inline fun <reified T : ThemeSpec?> ThemeController.themeState(initial: T): State<T> {
+inline fun <reified T : ThemeSpec?> ThemeController<out ThemeSpec>.themeState(
+  initial: T,
+): State<T> {
   val themeFlow = themeFlow
   val replay = (themeFlow as? SharedFlow)?.replayCache?.firstOrNull() as? T
   return themeFlow.filterIsInstance<T>().collectAsState(initial = replay ?: initial)
@@ -50,28 +52,28 @@ inline fun <reified T : ThemeSpec?> ThemeController.themeState(initial: T): Stat
 /**
  * Selects the theme with id [ThemeIds.Default].
  */
-fun ThemeController.setDefaultTheme() {
+fun ThemeController<*>.setDefaultTheme() {
   setThemeId(ThemeIds.Default)
 }
 
 /**
  * Selects the theme with id [ThemeIds.Dark].
  */
-fun ThemeController.setDarkModeTheme() {
+fun ThemeController<*>.setDarkModeTheme() {
   setThemeId(ThemeIds.Dark)
 }
 
 /**
  * Selects the theme with id [ThemeIds.SystemSettings].
  */
-fun ThemeController.setThemeBasedOnSystemSettings() {
+fun ThemeController<*>.setThemeBasedOnSystemSettings() {
   setThemeId(ThemeIds.SystemSettings)
 }
 
 /**
  * Returns a property delegate to set/get themeId.
  */
-operator fun ThemeController.provideDelegate(
+operator fun ThemeController<*>.provideDelegate(
   thisRef: Any?,
   prop: KProperty<*>,
 ): ReadWriteProperty<Any?, String> = object : ReadWriteProperty<Any?, String> {
@@ -87,9 +89,9 @@ operator fun ThemeController.provideDelegate(
 
 @PublishedApi
 @Composable
-internal fun rememberThemeController(
-  config: ThemeConfig,
-): ThemeController = when (config) {
+internal fun <T : ThemeSpec> rememberThemeController(
+  config: ThemeConfig<T>,
+): ThemeController<T> = when (config) {
   is ThemeConfig.Persistence -> rememberPersistentThemeController(config)
   is ThemeConfig.InMemory -> rememberInMemoryThemeController(config)
 }

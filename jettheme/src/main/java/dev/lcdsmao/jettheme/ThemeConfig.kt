@@ -8,7 +8,7 @@ import androidx.compose.runtime.Stable
  * Construct a [ThemeConfig.Persistence].
  */
 @Stable
-fun ThemePack.persistenceConfig(
+fun <T : ThemeSpec> ThemePack<T>.persistenceConfig(
   persistenceKey: String? = null,
   darkModeThemeId: String = ThemeIds.Dark,
 ) = ThemeConfig.Persistence(
@@ -21,7 +21,7 @@ fun ThemePack.persistenceConfig(
  * Construct a [ThemeConfig.InMemory].
  */
 @Stable
-fun ThemePack.inMemoryConfig(
+fun <T : ThemeSpec> ThemePack<T>.inMemoryConfig(
   initialThemeSpecId: String = ThemeIds.Default,
 ) = ThemeConfig.InMemory(
   themePack = this,
@@ -32,12 +32,12 @@ fun ThemePack.inMemoryConfig(
  * Configuration for the [ThemeController].
  */
 @Immutable
-sealed class ThemeConfig {
+sealed class ThemeConfig<T : ThemeSpec> {
 
   /**
    * Available themes for the [ThemeController].
    */
-  abstract val themePack: ThemePack
+  abstract val themePack: ThemePack<T>
 
   /**
    * Configure the [ThemeController] to save theme preference (theme id) into local storage.
@@ -48,11 +48,11 @@ sealed class ThemeConfig {
    * @param darkModeThemeId use this theme if there is no preference and [isSystemInDarkTheme] is true.
    */
   @Immutable
-  data class Persistence(
-    override val themePack: ThemePack,
+  data class Persistence<T : ThemeSpec>(
+    override val themePack: ThemePack<T>,
     val persistenceKey: String? = null,
     val darkModeThemeId: String = ThemeIds.Dark,
-  ) : ThemeConfig()
+  ) : ThemeConfig<T>()
 
   /**
    * Configure the [ThemeController] to save theme preference in current component tree.
@@ -60,8 +60,8 @@ sealed class ThemeConfig {
    * @param initialThemeId initial theme for the component tree.
    */
   @Immutable
-  data class InMemory(
-    override val themePack: ThemePack,
+  data class InMemory<T : ThemeSpec>(
+    override val themePack: ThemePack<T>,
     val initialThemeId: String = ThemeIds.Default,
-  ) : ThemeConfig()
+  ) : ThemeConfig<T>()
 }

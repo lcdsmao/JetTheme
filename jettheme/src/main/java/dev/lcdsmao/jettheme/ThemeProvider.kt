@@ -12,7 +12,7 @@ import androidx.compose.runtime.staticAmbientOf
  */
 @Composable
 inline fun <reified T : ThemeSpec> ProvideTheme(
-  themeConfig: ThemeConfig,
+  themeConfig: ThemeConfig<T>,
   crossinline content: @Composable (T) -> Unit,
 ) {
   val themeController = rememberThemeController(themeConfig)
@@ -33,7 +33,7 @@ inline fun <reified T : ThemeSpec> ProvideTheme(
  */
 @Composable
 inline fun <reified T : ThemeSpec> ProvideAppTheme(
-  themePack: ThemePack,
+  themePack: ThemePack<T>,
   crossinline content: @Composable (T) -> Unit,
 ) = ProvideTheme(
   themeConfig = themePack.persistenceConfig(),
@@ -43,6 +43,6 @@ inline fun <reified T : ThemeSpec> ProvideAppTheme(
 /**
  * Uses this ambient to retrieve the [ThemeController] in current component tree.
  */
-val AmbientThemeController = staticAmbientOf<ThemeController> {
+val AmbientThemeController = staticAmbientOf<ThemeController<out ThemeSpec>> {
   error("No ThemeController provided.")
 }

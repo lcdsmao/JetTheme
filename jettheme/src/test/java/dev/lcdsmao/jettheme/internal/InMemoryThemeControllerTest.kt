@@ -11,12 +11,12 @@ import kotlinx.coroutines.flow.first
 
 @ExperimentalCoroutinesApi
 class InMemoryThemeControllerTest : StringSpec({
-  val themePack = buildThemePack {
+  val themePack = buildThemePack<DummyTheme> {
     theme(DummyTheme(ThemeIds.Default))
     theme(DummyTheme(ThemeIds.Dark))
     theme(DummyTheme("id_other"))
   }
-  lateinit var controller: InMemoryThemeController
+  lateinit var controller: InMemoryThemeController<DummyTheme>
 
   beforeEach {
     controller = InMemoryThemeController(

@@ -69,7 +69,7 @@ data class SimpleThemeSpec(
   val shapes: Shapes = Shapes(),
 ) : ThemeSpec
 
-private val AppTheme = buildThemePack {
+private val AppTheme = buildThemePack<SimpleThemeSpec> {
   theme(
     SimpleThemeSpec(
       id = defaultId,

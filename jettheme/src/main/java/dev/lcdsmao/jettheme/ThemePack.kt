@@ -5,20 +5,21 @@ import androidx.compose.runtime.Stable
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
+import kotlin.reflect.KClass
 
 /**
  * Defines the available themes for an app or a subcomponent within the app.
  */
 @Immutable
-data class ThemePack internal constructor(
-  private val themeMap: Map<String, ThemeSpec>,
+data class ThemePack<T : ThemeSpec> internal constructor(
+  private val themeMap: Map<String, T>,
 ) {
 
   /**
    * The theme with id [ThemeIds.Dark] in this [ThemePack].
    */
   @Stable
-  val default: ThemeSpec
+  val default: T
     get() = requireNotNull(themeMap[ThemeIds.Default])
 
   /**
@@ -33,7 +34,7 @@ data class ThemePack internal constructor(
    * If the [themeId] does not existed in this [ThemePack], returns [default] theme.
    */
   @Stable
-  operator fun get(themeId: String): ThemeSpec = themeMap[themeId] ?: default
+  operator fun get(themeId: String): T = themeMap[themeId] ?: default
 
   /**
    * Check the [themeId] existed in this [ThemePack] or not.
@@ -45,7 +46,7 @@ data class ThemePack internal constructor(
    * Convert the available themes into a list of theme id and [ThemeSpec] pairs.
    */
   @Stable
-  fun toList(): List<Pair<String, ThemeSpec>> = themeMap.toList()
+  fun toList(): List<Pair<String, T>> = themeMap.toList()
 
   @Stable
   override fun toString(): String = "ThemePack: $themeMap"
@@ -55,7 +56,7 @@ data class ThemePack internal constructor(
  * Convenient method for retrieving next theme id after [id] in [this] ThemePack.
  * If the [id] is the last theme id, then returns the first theme id.
  */
-fun ThemePack.nextThemeId(id: String): String {
+fun ThemePack<*>.nextThemeId(id: String): String {
   val entries = toList()
   val index = entries.indexOfFirst { it.first == id }
   return when {
@@ -68,23 +69,25 @@ fun ThemePack.nextThemeId(id: String): String {
  * Construct a new [ThemePack].
  */
 @OptIn(ExperimentalContracts::class)
-fun buildThemePack(
-  block: ThemePackBuilder.() -> Unit,
-): ThemePack {
+inline fun <reified T : ThemeSpec> buildThemePack(
+  block: ThemePackBuilder<T>.() -> Unit,
+): ThemePack<T> {
   contract {
     callsInPlace(block, InvocationKind.EXACTLY_ONCE)
   }
-  return ThemePackBuilder().apply(block).build()
+  return ThemePackBuilder(T::class).apply(block).build()
 }
 
 /**
  * DSL for constructing a new [ThemePack].
  */
-class ThemePackBuilder internal constructor() {
+class ThemePackBuilder<T : ThemeSpec> @PublishedApi internal constructor(
+  private val kClass: KClass<T>,
+) {
 
   private val themes = mutableListOf<ThemeSpec>()
 
-  private var transformer: ThemeSpecTransformer? = null
+  private var transformer: ThemeSpecTransformer<T>? = null
 
   /**
    * Add a new [ThemeSpec] to this [ThemePack].
@@ -98,11 +101,12 @@ class ThemePackBuilder internal constructor() {
    * Optional transformer for all added [ThemeSpec] expect the theme with id [ThemeIds.Default].
    * The transformer [f] will be invoked before constructing the [ThemePack].
    */
-  fun transformer(f: ThemeSpecTransformer) {
+  fun transformer(f: ThemeSpecTransformer<T>) {
     transformer = f
   }
 
-  internal fun build(): ThemePack {
+  @PublishedApi
+  internal fun build(): ThemePack<T> {
     val defaultSpec = themes.find { it.id == ThemeIds.Default }
     check(defaultSpec != null) {
       "Must provide a default theme with id ${ThemeIds.Default}."
@@ -112,7 +116,7 @@ class ThemePackBuilder internal constructor() {
         if (spec.id != ThemeIds.Default) f(spec, defaultSpec) else spec
       }
     } ?: themes
-    val themeMap = transformedList.associateBy { it.id }
+    val themeMap = transformedList.filterIsInstance(kClass.java).associateBy { it.id }
     check(ThemeIds.SystemSettings !in themeMap) {
       "Id ${ThemeIds.SystemSettings} should not be used in a real theme."
     }
@@ -127,17 +131,17 @@ class ThemePackBuilder internal constructor() {
  * Returns the [ThemeIds.Default].
  */
 @Suppress("unused")
-val ThemePackBuilder.defaultId
+val ThemePackBuilder<*>.defaultId
   get() = ThemeIds.Default
 
 /**
  * Returns the [ThemeIds.Dark].
  */
 @Suppress("unused")
-val ThemePackBuilder.darkId
+val ThemePackBuilder<*>.darkId
   get() = ThemeIds.Dark
 
-private typealias ThemeSpecTransformer = (
+private typealias ThemeSpecTransformer<T> = (
   theme: ThemeSpec,
   defaultTheme: ThemeSpec,
-) -> ThemeSpec
+) -> T

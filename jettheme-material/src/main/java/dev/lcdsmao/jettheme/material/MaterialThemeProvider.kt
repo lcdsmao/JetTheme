@@ -18,10 +18,10 @@ import dev.lcdsmao.jettheme.ThemePack
  */
 @Composable
 fun ProvideMaterialTheme(
-  themeConfig: ThemeConfig,
+  themeConfig: ThemeConfig<MaterialThemeSpec>,
   content: @Composable () -> Unit,
 ) {
-  ProvideTheme<MaterialThemeSpec>(
+  ProvideTheme(
     themeConfig = themeConfig,
   ) { theme ->
     MaterialTheme(theme, content)
@@ -38,10 +38,10 @@ fun ProvideMaterialTheme(
  */
 @Composable
 fun ProvideAppMaterialTheme(
-  themePack: ThemePack,
+  themePack: ThemePack<MaterialThemeSpec>,
   content: @Composable () -> Unit,
 ) {
-  ProvideAppTheme<MaterialThemeSpec>(
+  ProvideAppTheme(
     themePack = themePack,
   ) { theme ->
     MaterialTheme(theme, content)
