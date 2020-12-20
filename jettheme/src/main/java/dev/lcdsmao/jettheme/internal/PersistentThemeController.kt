@@ -15,7 +15,7 @@ import dev.lcdsmao.jettheme.ThemePack
 import dev.lcdsmao.jettheme.ThemeSpec
 import dev.lcdsmao.jettheme.themeIdBasedOnSystemSettings
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -51,13 +51,13 @@ internal class PersistentThemeController(
   private val key = dataStoreKey?.let { preferencesKey(it) }
     ?: ThemeDataStore.AppThemeKey
 
-  override val themeFlow: SharedFlow<ThemeSpec> = themeDataStore.themeIdFlow(key)
+  private var _themeId: String by mutableStateOf(ThemeIds.Default)
+  override val themeId: String get() = _themeId
+
+  override val themeFlow: Flow<ThemeSpec> = themeDataStore.themeIdFlow(key)
     .map { id -> getTheme(id) }
     .onEach { _themeId = it.id }
     .shareIn(coroutineScope, started = SharingStarted.Eagerly, replay = 1)
-
-  private var _themeId: String by mutableStateOf(ThemeIds.Default)
-  override val themeId: String get() = _themeId
 
   override fun setThemeId(id: String) {
     checkCanSetSpecId(themePack, id)
