@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
-import kotlin.reflect.safeCast
 
 /**
  * [ThemeController] manages the theme for the component tree under the [ProvideTheme].
@@ -42,14 +41,10 @@ interface ThemeController {
  * The state will only contain values that are instance of specified type [T].
  */
 @Composable
-inline fun <reified T : ThemeSpec> ThemeController.themeState(initial: T? = null): State<T?> {
+inline fun <reified T : ThemeSpec?> ThemeController.themeState(initial: T): State<T> {
   val themeFlow = themeFlow
-  val initialValue = if (themeFlow is SharedFlow) {
-    themeFlow.replayCache.firstOrNull()?.let { T::class.safeCast(it) } ?: initial
-  } else {
-    initial
-  }
-  return themeFlow.filterIsInstance<T>().collectAsState(initial = initialValue)
+  val replay = (themeFlow as? SharedFlow)?.replayCache?.firstOrNull() as? T
+  return themeFlow.filterIsInstance<T>().collectAsState(initial = replay ?: initial)
 }
 
 /**

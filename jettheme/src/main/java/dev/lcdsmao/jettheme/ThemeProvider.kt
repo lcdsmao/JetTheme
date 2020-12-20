@@ -17,7 +17,7 @@ inline fun <reified T : ThemeSpec> ProvideTheme(
 ) {
   val themeController = rememberThemeController(themeConfig)
   Providers(AmbientThemeController provides themeController) {
-    val theme = AmbientThemeController.current.themeState<T>().value
+    val theme = AmbientThemeController.current.themeState<T?>(null).value
     if (theme != null) {
       content(theme)
     }
