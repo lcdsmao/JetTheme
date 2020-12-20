@@ -6,9 +6,11 @@ import androidx.compose.runtime.collectAsState
 import dev.lcdsmao.jettheme.internal.rememberInMemoryThemeController
 import dev.lcdsmao.jettheme.internal.rememberPersistentThemeController
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
+import kotlin.reflect.safeCast
 
 /**
  * [ThemeController] manages the theme for the component tree under the [ProvideTheme].
@@ -41,7 +43,13 @@ interface ThemeController {
  */
 @Composable
 inline fun <reified T : ThemeSpec> ThemeController.themeState(initial: T? = null): State<T?> {
-  return themeFlow.filterIsInstance<T>().collectAsState(initial = initial)
+  val themeFlow = themeFlow
+  val initialValue = if (themeFlow is SharedFlow) {
+    themeFlow.replayCache.firstOrNull()?.let { T::class.safeCast(it) } ?: initial
+  } else {
+    initial
+  }
+  return themeFlow.filterIsInstance<T>().collectAsState(initial = initialValue)
 }
 
 /**
