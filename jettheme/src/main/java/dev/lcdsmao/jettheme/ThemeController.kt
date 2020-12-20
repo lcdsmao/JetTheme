@@ -7,6 +7,8 @@ import dev.lcdsmao.jettheme.internal.rememberInMemoryThemeController
 import dev.lcdsmao.jettheme.internal.rememberPersistentThemeController
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 /**
  * [ThemeController] manages the theme for the component tree under the [ProvideTheme].
@@ -64,14 +66,21 @@ fun ThemeController.setThemeBasedOnSystemSettings() {
 }
 
 /**
- * Returns [ThemeController.themeId].
+ * Returns a property delegate to set/get themeId.
  */
-operator fun ThemeController.component1(): String = themeId
+operator fun ThemeController.provideDelegate(
+  thisRef: Any?,
+  prop: KProperty<*>,
+): ReadWriteProperty<Any?, String> = object : ReadWriteProperty<Any?, String> {
 
-/**
- * Returns [ThemeController.setThemeId] as a lambda.
- */
-operator fun ThemeController.component2(): (themeId: String) -> Unit = ::setThemeId
+  override fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {
+    setThemeId(value)
+  }
+
+  override fun getValue(thisRef: Any?, property: KProperty<*>): String {
+    return themeId
+  }
+}
 
 @PublishedApi
 @Composable

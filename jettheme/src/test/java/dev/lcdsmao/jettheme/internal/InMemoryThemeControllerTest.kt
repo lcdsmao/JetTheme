@@ -7,6 +7,7 @@ import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 
 @ExperimentalCoroutinesApi
 class InMemoryThemeControllerTest : StringSpec({
@@ -26,11 +27,11 @@ class InMemoryThemeControllerTest : StringSpec({
 
   "Set valid theme should success" {
     controller.setThemeId("id_other")
-    controller.themeFlow.value shouldBe DummyTheme(id = "id_other")
+    controller.themeFlow.first() shouldBe DummyTheme(id = "id_other")
     controller.themeId shouldBe "id_other"
 
     controller.setThemeId(ThemeIds.Default)
-    controller.themeFlow.value shouldBe DummyTheme(id = ThemeIds.Default)
+    controller.themeFlow.first() shouldBe DummyTheme(id = ThemeIds.Default)
     controller.themeId shouldBe ThemeIds.Default
   }
 

@@ -11,6 +11,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.lcdsmao.jettheme.testfixtures.android.sleepAndWait
 import org.junit.Rule
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -50,7 +51,7 @@ class MaterialThemeProviderTest {
       }
     }
 
-    composeRule.waitForIdle()
+    composeRule.sleepAndWait()
     assertEquals(expectColors.primary, colors.primary)
     assertEquals(expectColors.background, colors.background)
     assertEquals(expectTypography.h1, typography.h1)
