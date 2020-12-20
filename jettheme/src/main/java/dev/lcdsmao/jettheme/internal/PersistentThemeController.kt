@@ -23,9 +23,9 @@ import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun rememberPersistentThemeController(
-  config: ThemeConfig.Persistence,
-): ThemeController {
+internal fun <T : ThemeSpec> rememberPersistentThemeController(
+  config: ThemeConfig.Persistence<T>,
+): ThemeController<T> {
   val context = AmbientContext.current
   val coroutineScope = rememberCoroutineScope()
   val themeIdBasedOnSystem = themeIdBasedOnSystemSettings(config.darkModeThemeId)
@@ -40,13 +40,13 @@ internal fun rememberPersistentThemeController(
   }
 }
 
-internal class PersistentThemeController(
+internal class PersistentThemeController<T : ThemeSpec>(
   private val coroutineScope: CoroutineScope,
   private val themeDataStore: ThemeDataStore,
-  private val themePack: ThemePack,
+  private val themePack: ThemePack<T>,
   private val themeIdBasedOnSystem: String,
   dataStoreKey: String?,
-) : ThemeController {
+) : ThemeController<T> {
 
   private val key = dataStoreKey?.let { preferencesKey(it) }
     ?: ThemeDataStore.AppThemeKey
@@ -54,7 +54,7 @@ internal class PersistentThemeController(
   private var _themeId: String by mutableStateOf(ThemeIds.Default)
   override val themeId: String get() = _themeId
 
-  override val themeFlow: Flow<ThemeSpec> = themeDataStore.themeIdFlow(key)
+  override val themeFlow: Flow<T> = themeDataStore.themeIdFlow(key)
     .map { id -> getTheme(id) }
     .onEach { _themeId = it.id }
     .shareIn(coroutineScope, started = SharingStarted.Eagerly, replay = 1)
@@ -66,7 +66,7 @@ internal class PersistentThemeController(
     }
   }
 
-  private fun getTheme(id: String?): ThemeSpec {
+  private fun getTheme(id: String?): T {
     val specId = if (id == null || id == ThemeIds.SystemSettings) {
       themeIdBasedOnSystem
     } else {

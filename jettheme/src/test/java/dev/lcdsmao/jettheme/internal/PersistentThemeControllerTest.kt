@@ -21,7 +21,7 @@ import kotlinx.coroutines.test.TestCoroutineScope
 @ExperimentalCoroutinesApi
 class PersistentThemeControllerTest : StringSpec({
   val coroutineScope = TestCoroutineScope()
-  val themePack = buildThemePack {
+  val themePack = buildThemePack<DummyTheme> {
     theme(DummyTheme(ThemeIds.Default))
     theme(DummyTheme(ThemeIds.Dark))
     theme(DummyTheme("id_other"))
@@ -29,7 +29,7 @@ class PersistentThemeControllerTest : StringSpec({
   val themeIdBasedOnSystem = ThemeIds.Dark
   val dataStoreKey = preferencesKey<String>("Test")
   lateinit var themeDataStore: FakeThemeDataStore
-  lateinit var controller: PersistentThemeController
+  lateinit var controller: PersistentThemeController<DummyTheme>
 
   beforeEach {
     themeDataStore = FakeThemeDataStore()

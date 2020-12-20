@@ -34,14 +34,14 @@ class MaterialThemeSpecTest : StringSpec({
     themePack.size shouldBe 2
 
     themePack.default should instanceOf(MaterialThemeSpec::class)
-    with(themePack.default as MaterialThemeSpec) {
+    with(themePack.default) {
       colors shouldBeSameInstanceAs expectLightColors
       typography shouldBeSameInstanceAs expectTypography
       shapes shouldBeSameInstanceAs expectShapes
     }
 
     themePack[ThemeIds.Dark] should instanceOf(MaterialThemeSpec::class)
-    with(themePack[ThemeIds.Dark] as MaterialThemeSpec) {
+    with(themePack[ThemeIds.Dark]) {
       colors shouldBeSameInstanceAs expectDarkColors
       typography shouldBeSameInstanceAs expectTypography
       shapes shouldBeSameInstanceAs expectShapes

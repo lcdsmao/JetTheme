@@ -6,7 +6,7 @@ import io.kotest.matchers.shouldBe
 
 class ThemePackTest : StringSpec({
   "Build theme success" {
-    val themePack = buildThemePack {
+    val themePack = buildThemePack<DummyTheme> {
       theme(DummyTheme(id = ThemeIds.Default))
       theme(DummyTheme(id = "id_test"))
     }
@@ -24,7 +24,7 @@ class ThemePackTest : StringSpec({
 
   "Build theme without default id should fail" {
     shouldThrowAny {
-      buildThemePack {
+      buildThemePack<DummyTheme> {
         theme(DummyTheme(id = "id_test"))
       }
     }
@@ -32,7 +32,7 @@ class ThemePackTest : StringSpec({
 
   "Build theme with same ids should fail" {
     shouldThrowAny {
-      buildThemePack {
+      buildThemePack<DummyTheme> {
         theme(DummyTheme(id = ThemeIds.Default))
         theme(DummyTheme(id = ThemeIds.Default))
       }
@@ -41,7 +41,7 @@ class ThemePackTest : StringSpec({
 
   "Build theme with same system settings should fail" {
     shouldThrowAny {
-      buildThemePack {
+      buildThemePack<DummyTheme> {
         theme(DummyTheme(id = ThemeIds.Default))
         theme(DummyTheme(id = ThemeIds.SystemSettings))
       }
@@ -49,7 +49,7 @@ class ThemePackTest : StringSpec({
   }
 
   "Transformer should transform theme expect default" {
-    val themePack = buildThemePack {
+    val themePack = buildThemePack<DummyTheme> {
       theme(DummyTheme(id = ThemeIds.Default))
       theme(DummyTheme(id = "id_test"))
       transformer { spec, _ ->
@@ -64,7 +64,7 @@ class ThemePackTest : StringSpec({
   }
 
   "Next theme id should circle through themes" {
-    val themePack = buildThemePack {
+    val themePack = buildThemePack<DummyTheme> {
       theme(DummyTheme(id = ThemeIds.Default))
       theme(DummyTheme(id = "id_test_1"))
       theme(DummyTheme(id = "id_test_2"))
@@ -75,7 +75,7 @@ class ThemePackTest : StringSpec({
   }
 
   "Test id extension" {
-    val builder = ThemePackBuilder()
+    val builder = ThemePackBuilder(DummyTheme::class)
     builder.defaultId shouldBe ThemeIds.Default
     builder.darkId shouldBe ThemeIds.Dark
   }

@@ -18,7 +18,7 @@ class ThemeProviderTest {
   @get:Rule
   val composeRule = createComposeRule()
 
-  private val themePack = buildThemePack {
+  private val themePack = buildThemePack<DummyTheme> {
     theme(DummyTheme(id = defaultId, value = "Default"))
     theme(DummyTheme(id = darkId, value = "Dark"))
     theme(DummyTheme(id = "id_other", value = "Other"))
@@ -29,7 +29,7 @@ class ThemeProviderTest {
     var toThemeId = ThemeIds.Dark
 
     composeRule.setContent {
-      ProvideTheme<DummyTheme>(
+      ProvideTheme(
         themePack.persistenceConfig(
           persistenceKey = "test_key",
           darkModeThemeId = ThemeIds.Default,

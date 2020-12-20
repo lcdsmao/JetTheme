@@ -15,24 +15,24 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 @Composable
-internal fun rememberInMemoryThemeController(
-  config: ThemeConfig.InMemory,
-): ThemeController {
+internal fun <T : ThemeSpec> rememberInMemoryThemeController(
+  config: ThemeConfig.InMemory<T>,
+): ThemeController<T> {
   return remember(config) {
-    InMemoryThemeController(
+    InMemoryThemeController<T>(
       themePack = config.themePack,
       initialThemeId = config.initialThemeId,
     )
   }
 }
 
-internal class InMemoryThemeController(
-  private val themePack: ThemePack,
+internal class InMemoryThemeController<T : ThemeSpec>(
+  private val themePack: ThemePack<T>,
   initialThemeId: String,
-) : ThemeController {
+) : ThemeController<T> {
 
-  private val _themeFlow: MutableStateFlow<ThemeSpec> = MutableStateFlow(themePack[initialThemeId])
-  override val themeFlow: Flow<ThemeSpec> = _themeFlow.asStateFlow()
+  private val _themeFlow: MutableStateFlow<T> = MutableStateFlow(themePack[initialThemeId])
+  override val themeFlow: Flow<T> = _themeFlow.asStateFlow()
 
   private var _themeId: String by mutableStateOf(initialThemeId)
   override val themeId: String get() = _themeId
