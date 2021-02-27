@@ -13,11 +13,9 @@ android {
   }
   composeOptions {
     val composeVersion: String by rootProject.extra
-    val kotlinVersion: String by rootProject.extra
     kotlinCompilerExtensionVersion = composeVersion
-    kotlinCompilerVersion = kotlinVersion
   }
-  lintOptions {
+  lint {
     // FIXME: Lint error with android gradle plugins >= 7.0.0
     disable("SyntheticAccessor", "ConvertToWebp", "GoogleAppIndexingWarning")
   }
