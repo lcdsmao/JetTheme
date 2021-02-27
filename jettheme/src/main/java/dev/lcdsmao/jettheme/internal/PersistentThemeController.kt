@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.datastore.preferences.core.preferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import dev.lcdsmao.jettheme.ThemeConfig
 import dev.lcdsmao.jettheme.ThemeController
 import dev.lcdsmao.jettheme.ThemeIds
@@ -48,7 +48,7 @@ internal class PersistentThemeController<T : ThemeSpec>(
   dataStoreKey: String?,
 ) : ThemeController<T> {
 
-  private val key = dataStoreKey?.let { preferencesKey(it) }
+  private val key = dataStoreKey?.let { stringPreferencesKey(it) }
     ?: ThemeDataStore.AppThemeKey
 
   private var _themeId: String by mutableStateOf(ThemeIds.Default)
