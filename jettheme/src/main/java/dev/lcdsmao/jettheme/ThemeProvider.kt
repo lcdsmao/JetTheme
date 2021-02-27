@@ -1,12 +1,12 @@
 package dev.lcdsmao.jettheme
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Providers
-import androidx.compose.runtime.staticAmbientOf
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 
 /**
- * Binds a [ThemeController] with configuration [themeConfig] to the [AmbientThemeController] key.
- * Recompose the [content] with a crossfade animation when [ThemeController.themeFlow] value changed.
+ * Binds a [ThemeController] with configuration [themeConfig] to the [LocalThemeController] key.
+ * Recompose the [content] when [ThemeController.themeFlow] value changed.
  *
  * @param themeConfig the configuration for the [ThemeController].
  */
@@ -16,8 +16,8 @@ inline fun <reified T : ThemeSpec> ProvideTheme(
   crossinline content: @Composable (T) -> Unit,
 ) {
   val themeController = rememberThemeController(themeConfig)
-  Providers(AmbientThemeController provides themeController) {
-    val theme = AmbientThemeController.current.themeState<T?>(null).value
+  CompositionLocalProvider(LocalThemeController provides themeController) {
+    val theme = LocalThemeController.current.themeState<T?>(null).value
     if (theme != null) {
       content(theme)
     }
@@ -41,8 +41,8 @@ inline fun <reified T : ThemeSpec> ProvideAppTheme(
 )
 
 /**
- * Uses this ambient to retrieve the [ThemeController] in current component tree.
+ * Uses this composition local to retrieve the [ThemeController] in current component tree.
  */
-val AmbientThemeController = staticAmbientOf<ThemeController<out ThemeSpec>> {
+val LocalThemeController = staticCompositionLocalOf<ThemeController<out ThemeSpec>> {
   error("No ThemeController provided.")
 }

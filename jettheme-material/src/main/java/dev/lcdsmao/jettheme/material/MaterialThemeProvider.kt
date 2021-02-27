@@ -2,7 +2,7 @@ package dev.lcdsmao.jettheme.material
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import dev.lcdsmao.jettheme.AmbientThemeController
+import dev.lcdsmao.jettheme.LocalThemeController
 import dev.lcdsmao.jettheme.ProvideAppTheme
 import dev.lcdsmao.jettheme.ProvideTheme
 import dev.lcdsmao.jettheme.ThemeConfig
@@ -11,8 +11,8 @@ import dev.lcdsmao.jettheme.ThemePack
 
 /**
  * Theme material design version of [ProvideTheme].
- * Binds a [ThemeController] with configuration [themeConfig] to the [AmbientThemeController] key.
- * Recompose the [content] with a crossfade animation when [ThemeController.themeFlow] value changed.
+ * Binds a [ThemeController] with configuration [themeConfig] to the [LocalThemeController] key.
+ * Recompose the [content] when [ThemeController.themeFlow] value changed.
  *
  * @param themeConfig the configuration for the [ThemeController].
  */

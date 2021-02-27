@@ -29,18 +29,18 @@ import androidx.compose.material.Shapes
 import androidx.compose.material.Text
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Providers
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticAmbientOf
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import dev.lcdsmao.jettheme.AmbientThemeController
+import dev.lcdsmao.jettheme.LocalThemeController
 import dev.lcdsmao.jettheme.ProvideAppTheme
 import dev.lcdsmao.jettheme.ThemeSpec
 import dev.lcdsmao.jettheme.buildThemePack
@@ -93,7 +93,7 @@ fun CustomDesignSystemApp() {
         .background(SimpleTheme.colors.background)
         .padding(32.dp),
     ) {
-      var themeId by AmbientThemeController.current
+      var themeId by LocalThemeController.current
       Text(
         "Custom Design System",
         modifier = Modifier
@@ -110,12 +110,12 @@ fun CustomDesignSystemApp() {
 private fun ProvideSimpleTheme(
   content: @Composable () -> Unit,
 ) {
-  ProvideAppTheme<SimpleThemeSpec>(
+  ProvideAppTheme(
     themePack = AppTheme,
   ) { theme ->
     val colorPalette = remember { theme.colors.copy() }
     colorPalette.update(theme.colors)
-    Providers(AmbientSimpleColors provides colorPalette) {
+    CompositionLocalProvider(LocalSimpleColors provides colorPalette) {
       MaterialTheme(
         colors = debugColors(theme.colors.isDark),
         typography = theme.typography,
@@ -127,12 +127,12 @@ private fun ProvideSimpleTheme(
 }
 
 object SimpleTheme {
-  @Composable
   val colors: SimpleColors
-    get() = AmbientSimpleColors.current
+    @Composable
+    get() = LocalSimpleColors.current
 
-  @Composable
   val typography: Typography
+    @Composable
     get() = MaterialTheme.typography
 }
 
@@ -164,7 +164,9 @@ class SimpleColors(
   }
 }
 
-private val AmbientSimpleColors = staticAmbientOf<SimpleColors>()
+private val LocalSimpleColors = staticCompositionLocalOf<SimpleColors> {
+  error("No Colors")
+}
 
 private fun debugColors(
   darkTheme: Boolean,
