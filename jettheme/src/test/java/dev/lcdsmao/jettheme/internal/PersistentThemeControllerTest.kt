@@ -1,7 +1,8 @@
 package dev.lcdsmao.jettheme.internal
 
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.preferencesKey
+import androidx.datastore.preferences.core.preferencesOf
+import androidx.datastore.preferences.core.stringPreferencesKey
 import dev.lcdsmao.jettheme.DummyTheme
 import dev.lcdsmao.jettheme.ThemeIds
 import dev.lcdsmao.jettheme.buildThemePack
@@ -27,7 +28,7 @@ class PersistentThemeControllerTest : StringSpec({
     theme(DummyTheme("id_other"))
   }
   val themeIdBasedOnSystem = ThemeIds.Dark
-  val dataStoreKey = preferencesKey<String>("Test")
+  val dataStoreKey = stringPreferencesKey("Test")
   lateinit var themeDataStore: FakeThemeDataStore
   lateinit var controller: PersistentThemeController<DummyTheme>
 
@@ -45,10 +46,10 @@ class PersistentThemeControllerTest : StringSpec({
   "Test theme flow" {
     launch {
       with(themeDataStore.flow) {
-        emit(mapOf(dataStoreKey to null))
-        emit(mapOf(dataStoreKey to "id_other"))
-        emit(mapOf(dataStoreKey to "id_none"))
-        emit(mapOf(dataStoreKey to ThemeIds.SystemSettings))
+        emit(preferencesOf())
+        emit(preferencesOf(dataStoreKey to "id_other"))
+        emit(preferencesOf(dataStoreKey to "id_none"))
+        emit(preferencesOf(dataStoreKey to ThemeIds.SystemSettings))
       }
     }
     controller.themeFlow.take(4).toList() shouldContainInOrder listOf(
@@ -61,7 +62,7 @@ class PersistentThemeControllerTest : StringSpec({
 
   "Test theme id" {
     controller.themeId shouldBe ThemeIds.Default
-    themeDataStore.flow.emit(mapOf(dataStoreKey to "id_other"))
+    themeDataStore.flow.emit(preferencesOf(dataStoreKey to "id_other"))
     controller.themeId shouldBe "id_other"
   }
 
@@ -71,9 +72,9 @@ class PersistentThemeControllerTest : StringSpec({
     controller.setThemeId(ThemeIds.SystemSettings)
 
     themeDataStore.flow.replayCache shouldContainInOrder listOf(
-      mapOf(dataStoreKey to "id_other"),
-      mapOf(dataStoreKey to ThemeIds.Default),
-      mapOf(dataStoreKey to ThemeIds.SystemSettings),
+      preferencesOf(dataStoreKey to "id_other"),
+      preferencesOf(dataStoreKey to ThemeIds.Default),
+      preferencesOf(dataStoreKey to ThemeIds.SystemSettings),
     )
   }
 
@@ -86,12 +87,14 @@ class PersistentThemeControllerTest : StringSpec({
 
 private class FakeThemeDataStore : ThemeDataStore {
 
-  val flow: MutableSharedFlow<Map<Preferences.Key<String>, String?>> =
+  val flow: MutableSharedFlow<Preferences> =
     MutableSharedFlow(replay = 10, extraBufferCapacity = 10)
 
   override suspend fun setThemeId(key: Preferences.Key<String>, themeId: String) {
-    val cache = flow.replayCache.firstOrNull().orEmpty()
-    flow.emit(cache + (key to themeId))
+    val pref = flow.replayCache.firstOrNull() ?: preferencesOf()
+    val mutPref = pref.toMutablePreferences()
+    mutPref += (key to themeId)
+    flow.emit(mutPref.toPreferences())
   }
 
   override fun themeIdFlow(key: Preferences.Key<String>): Flow<String?> {
