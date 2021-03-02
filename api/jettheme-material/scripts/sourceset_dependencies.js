@@ -1,0 +1,1 @@
+sourceset_dependencies = '{":jettheme-material:dokkaHtml/androidTestRelease": [], ":jettheme-material:dokkaHtml/debug": [], ":jettheme-material:dokkaHtml/main": [], ":jettheme-material:dokkaHtml/release": []}'
