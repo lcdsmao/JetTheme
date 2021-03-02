@@ -50,7 +50,7 @@ fun TestedExtension.androidCommonConfig() {
   }
 
   lintOptions {
-    isWarningsAsErrors = true
+    isWarningsAsErrors = false
     isAbortOnError = true
   }
 

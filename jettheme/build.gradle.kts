@@ -18,9 +18,7 @@ android {
   }
   composeOptions {
     val composeVersion: String by rootProject.extra
-    val kotlinVersion: String by rootProject.extra
     kotlinCompilerExtensionVersion = composeVersion
-    kotlinCompilerVersion = kotlinVersion
   }
 }
 

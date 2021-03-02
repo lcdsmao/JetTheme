@@ -15,7 +15,7 @@ import kotlin.reflect.KProperty
  * [ThemeController] manages the theme for the component tree under the [ProvideTheme].
  *
  * @see ProvideTheme
- * @see AmbientThemeController
+ * @see LocalThemeController
  */
 interface ThemeController<T : ThemeSpec> {
 

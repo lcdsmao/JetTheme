@@ -1,6 +1,7 @@
 package dev.lcdsmao.jettheme.sample
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -40,7 +40,9 @@ class MainActivity : AppCompatActivity() {
 @Composable
 private fun Entry(navController: NavController) {
   Column(
-    modifier = Modifier.fillMaxSize().background(Color.White),
+    modifier = Modifier
+      .fillMaxSize()
+      .background(Color.White),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.Center,
   ) {
