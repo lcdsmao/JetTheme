@@ -10,8 +10,8 @@
   <a href="https://github.com/lcdsmao/JetTheme/actions">
     <img src="https://github.com/lcdsmao/JetTheme/workflows/CI/badge.svg"/>
   </a>
-  <a href="https://bintray.com/lcdsmao/maven/jettheme/_latestVersion">
-    <img src="https://api.bintray.com/packages/lcdsmao/maven/jettheme/images/download.svg"/>
+  <a href="https://search.maven.org/artifact/dev.lcdsmao.jettheme/jettheme/">
+    <img src="https://img.shields.io/maven-central/v/dev.lcdsmao.jettheme/jettheme"/>
   </a>
 </p>
 
