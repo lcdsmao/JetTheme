@@ -53,6 +53,7 @@ captures/
 .idea/kotlinScripting.xml
 .idea/$CACHE_FILE$
 .idea/.name
+.idea/deploymentTargetDropDown.xml
 # Android Studio 3 in .gitignore file.
 .idea/caches
 .idea/modules.xml
