@@ -10,7 +10,6 @@ allprojects {
   repositories {
     google()
     mavenCentral()
-    jcenter()
   }
 }
 
@@ -28,10 +27,6 @@ subprojects {
     }
   }
 }
-
-val versionProperties = loadProperties("versions.properties")
-val kotlinVersion by extra(versionProperties["version.kotlin"])
-val composeVersion by extra(versionProperties["version.androidx.compose.ui"])
 
 tasks.dokkaHtmlMultiModule.configure {
   outputDirectory.set(rootDir.resolve("docs/api"))

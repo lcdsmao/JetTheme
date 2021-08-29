@@ -1,3 +1,4 @@
+import de.fayard.refreshVersions.core.versionFor
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -15,8 +16,7 @@ android {
     compose = true
   }
   composeOptions {
-    val composeVersion: String by rootProject.extra
-    kotlinCompilerExtensionVersion = composeVersion
+    kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.ui)
   }
 }
 

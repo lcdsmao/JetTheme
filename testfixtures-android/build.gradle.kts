@@ -1,3 +1,5 @@
+import de.fayard.refreshVersions.core.versionFor
+
 plugins {
   `module-config`
   com.android.library
@@ -12,13 +14,12 @@ android {
     compose = true
   }
   composeOptions {
-    val composeVersion: String by rootProject.extra
-    kotlinCompilerExtensionVersion = composeVersion
+    kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.ui)
   }
 
-  lint {
-    disable("InvalidPackage")
-  }
+  // lint {
+  //   disable("InvalidPackage")
+  // }
 }
 
 dependencies {
