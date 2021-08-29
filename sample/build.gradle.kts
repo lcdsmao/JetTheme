@@ -7,9 +7,6 @@ plugins {
 }
 
 android {
-  kotlinOptions {
-    useIR = true
-  }
   buildFeatures {
     compose = true
   }

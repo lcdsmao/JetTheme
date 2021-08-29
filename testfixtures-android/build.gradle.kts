@@ -7,9 +7,6 @@ plugins {
 }
 
 android {
-  kotlinOptions {
-    useIR = true
-  }
   buildFeatures {
     compose = true
   }
@@ -17,9 +14,9 @@ android {
     kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.ui)
   }
 
-  // lint {
-  //   disable("InvalidPackage")
-  // }
+  lint {
+    disable += setOf("InvalidPackage")
+  }
 }
 
 dependencies {

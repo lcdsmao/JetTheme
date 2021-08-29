@@ -1,8 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.android.build.api.extension.AndroidComponentsExtension
-import com.android.build.api.variant.Variant
-import com.android.build.api.variant.VariantBuilder
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.TestedExtension
@@ -16,7 +13,6 @@ project.afterEvaluate {
     findByType<AppExtension>()?.androidAppConfig()
     findByType<LibraryExtension>()?.androidLibraryConfig()
     findByType<TestedExtension>()?.androidCommonConfig()
-    findByType(AndroidComponentsExtension::class)?.androidComponentsConfig()
   }
   commonConfig()
 }
@@ -25,8 +21,8 @@ fun TestedExtension.androidCommonConfig() {
   setCompileSdkVersion(AndroidSdk.compileSdk)
 
   defaultConfig {
-    minSdkVersion(AndroidSdk.minSdk)
-    targetSdkVersion(AndroidSdk.targetSdk)
+    minSdk = AndroidSdk.minSdk
+    targetSdk = AndroidSdk.targetSdk
 
     compileOptions {
       sourceCompatibility = JavaVersion.VERSION_1_8
@@ -34,7 +30,7 @@ fun TestedExtension.androidCommonConfig() {
     }
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    testInstrumentationRunnerArgument("clearPackageData", "true")
+    testInstrumentationRunnerArguments["clearPackageData"] = "true"
 
     consumerProguardFiles("consumer-rules.pro")
   }
@@ -47,11 +43,6 @@ fun TestedExtension.androidCommonConfig() {
         "proguard-rules.pro"
       )
     }
-  }
-
-  lintOptions {
-    isWarningsAsErrors = false
-    isAbortOnError = true
   }
 
   testOptions {
@@ -81,14 +72,9 @@ fun LibraryExtension.androidLibraryConfig() {
   buildFeatures {
     buildConfig = false
   }
-}
-
-fun AndroidComponentsExtension<out VariantBuilder, out Variant>.androidComponentsConfig() {
-  if (isKotlinSourceSetsEmpty("test")) {
-    beforeUnitTest { it.enabled = false }
-  }
-  if (isKotlinSourceSetsEmpty("androidTest")) {
-    beforeAndroidTest { it.enabled = false }
+  lint {
+    warningsAsErrors = false
+    abortOnError = true
   }
 }
 
