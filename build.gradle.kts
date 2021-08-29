@@ -1,9 +1,10 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.konan.properties.loadProperties
 
 plugins {
   `detekt-config`
   id("org.jetbrains.dokka")
-  id("com.vanniktech.maven.publish") apply false
+  id("com.vanniktech.maven.publish")
 }
 
 allprojects {
@@ -24,6 +25,12 @@ subprojects {
         rootProject.file(value).absolutePath
       }
       else -> value
+    }
+  }
+
+  plugins.withId("com.vanniktech.maven.publish") {
+    mavenPublish {
+      sonatypeHost = SonatypeHost.S01
     }
   }
 }

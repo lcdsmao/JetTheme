@@ -5,6 +5,7 @@ plugins {
   `module-config`
   com.android.library
   `kotlin-android`
+  id("com.vanniktech.maven.publish")
 }
 
 android {
