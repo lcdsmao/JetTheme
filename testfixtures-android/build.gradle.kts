@@ -29,6 +29,6 @@ dependencies {
 
   implementation(AndroidX.test.coreKtx)
   implementation(AndroidX.test.runner)
-  implementation(Libs.AndroidX.Compose.uiTest)
-  implementation(Libs.AndroidX.Compose.uiTestJunit4)
+  implementation(AndroidX.compose.ui.test)
+  implementation(AndroidX.compose.ui.testJunit4)
 }
