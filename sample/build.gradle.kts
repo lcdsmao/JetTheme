@@ -16,7 +16,7 @@ android {
 }
 
 dependencies {
-  implementation(project(":jettheme-material"))
+  implementation(projects.jetthemeMaterial)
 
   implementation(Kotlin.stdlib.jdk8)
   implementation(AndroidX.appCompat)
