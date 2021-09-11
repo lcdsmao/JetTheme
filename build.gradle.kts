@@ -1,16 +1,16 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.konan.properties.loadProperties
 
 plugins {
   `detekt-config`
   id("org.jetbrains.dokka")
-  id("com.vanniktech.maven.publish") apply false
+  id("com.vanniktech.maven.publish")
 }
 
 allprojects {
   repositories {
     google()
     mavenCentral()
-    jcenter()
   }
 }
 
@@ -27,11 +27,13 @@ subprojects {
       else -> value
     }
   }
-}
 
-val versionProperties = loadProperties("versions.properties")
-val kotlinVersion by extra(versionProperties["version.kotlin"])
-val composeVersion by extra(versionProperties["version.androidx.compose.ui"])
+  plugins.withId("com.vanniktech.maven.publish") {
+    mavenPublish {
+      sonatypeHost = SonatypeHost.S01
+    }
+  }
+}
 
 tasks.dokkaHtmlMultiModule.configure {
   outputDirectory.set(rootDir.resolve("docs/api"))

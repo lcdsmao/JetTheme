@@ -1,3 +1,5 @@
+import de.fayard.refreshVersions.core.versionFor
+
 plugins {
   `module-config`
   com.android.library
@@ -5,19 +7,15 @@ plugins {
 }
 
 android {
-  kotlinOptions {
-    useIR = true
-  }
   buildFeatures {
     compose = true
   }
   composeOptions {
-    val composeVersion: String by rootProject.extra
-    kotlinCompilerExtensionVersion = composeVersion
+    kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.ui)
   }
 
   lint {
-    disable("InvalidPackage")
+    disable += setOf("InvalidPackage")
   }
 }
 
@@ -31,6 +29,6 @@ dependencies {
 
   implementation(AndroidX.test.coreKtx)
   implementation(AndroidX.test.runner)
-  implementation(Libs.AndroidX.Compose.uiTest)
-  implementation(Libs.AndroidX.Compose.uiTestJunit4)
+  implementation(AndroidX.compose.ui.test)
+  implementation(AndroidX.compose.ui.testJunit4)
 }

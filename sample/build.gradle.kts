@@ -1,3 +1,5 @@
+import de.fayard.refreshVersions.core.versionFor
+
 plugins {
   `module-config`
   com.android.application
@@ -5,15 +7,11 @@ plugins {
 }
 
 android {
-  kotlinOptions {
-    useIR = true
-  }
   buildFeatures {
     compose = true
   }
   composeOptions {
-    val composeVersion: String by rootProject.extra
-    kotlinCompilerExtensionVersion = composeVersion
+    kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.ui)
   }
 }
 
@@ -26,6 +24,6 @@ dependencies {
 
   implementation(AndroidX.compose.ui)
   implementation(AndroidX.compose.material)
-  implementation(Libs.AndroidX.Compose.navigation)
-  implementation(Libs.AndroidX.Compose.activity)
+  implementation(AndroidX.navigation.compose)
+  implementation(AndroidX.activity.compose)
 }

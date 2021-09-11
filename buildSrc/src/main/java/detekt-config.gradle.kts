@@ -24,7 +24,7 @@ subprojects {
   }
 
   detekt {
-    input = files(
+    source = files(
       DetektExtension.DEFAULT_SRC_DIR_JAVA,
       "src/test/java",
       DetektExtension.DEFAULT_SRC_DIR_KOTLIN,

@@ -1,3 +1,4 @@
+import de.fayard.refreshVersions.core.versionFor
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -8,15 +9,11 @@ plugins {
 }
 
 android {
-  kotlinOptions {
-    useIR = true
-  }
   buildFeatures {
     compose = true
   }
   composeOptions {
-    val composeVersion: String by rootProject.extra
-    kotlinCompilerExtensionVersion = composeVersion
+    kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.ui)
   }
 }
 
@@ -36,10 +33,12 @@ dependencies {
   androidTestImplementation(project(":testfixtures-android"))
   androidTestImplementation(AndroidX.test.coreKtx)
   androidTestImplementation(AndroidX.test.runner)
-  androidTestImplementation(Libs.AndroidX.Compose.uiTest)
-  androidTestImplementation(Libs.AndroidX.Compose.uiTestJunit4)
+  androidTestImplementation(AndroidX.compose.ui.test)
+  androidTestImplementation(AndroidX.compose.ui.testJunit4)
   androidTestImplementation(Kotlin.Test.junit)
   androidTestUtil(AndroidX.test.orchestrator)
+
+  debugImplementation(AndroidX.compose.ui.testManifest)
 }
 
 tasks.withType<KotlinCompile> {
