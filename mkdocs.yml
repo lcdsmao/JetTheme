@@ -22,9 +22,7 @@ nav:
   - "Overview": index.md
   - "Own Design System": own_design_system.md
   - "Changelog": changelog.md
-  - "API Docs":
-      - "jettheme": api/jettheme/jettheme/index.html
-      - "jettheme-material": api/jettheme-material/jettheme-material/index.html
+  - "API Docs": api/jettheme/index.html
 
 markdown_extensions:
   - admonition
