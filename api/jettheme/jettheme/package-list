@@ -1,0 +1,51 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:dev.lcdsmao.jettheme////PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/index.html
+$dokka.location:dev.lcdsmao.jettheme//LocalThemeController/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-local-theme-controller.html
+$dokka.location:dev.lcdsmao.jettheme//ProvideAppTheme/#dev.lcdsmao.jettheme.ThemePack[TypeParam(bounds=[dev.lcdsmao.jettheme.ThemeSpec])]#kotlin.Function1[TypeParam(bounds=[dev.lcdsmao.jettheme.ThemeSpec]),kotlin.Unit]/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-provide-app-theme.html
+$dokka.location:dev.lcdsmao.jettheme//ProvideTheme/#dev.lcdsmao.jettheme.ThemeConfig[TypeParam(bounds=[dev.lcdsmao.jettheme.ThemeSpec])]#kotlin.Function1[TypeParam(bounds=[dev.lcdsmao.jettheme.ThemeSpec]),kotlin.Unit]/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-provide-theme.html
+$dokka.location:dev.lcdsmao.jettheme//buildThemePack/#kotlin.Function1[dev.lcdsmao.jettheme.ThemePackBuilder[TypeParam(bounds=[dev.lcdsmao.jettheme.ThemeSpec])],kotlin.Unit]/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/build-theme-pack.html
+$dokka.location:dev.lcdsmao.jettheme//darkId/dev.lcdsmao.jettheme.ThemePackBuilder[*]#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/dark-id.html
+$dokka.location:dev.lcdsmao.jettheme//defaultId/dev.lcdsmao.jettheme.ThemePackBuilder[*]#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/default-id.html
+$dokka.location:dev.lcdsmao.jettheme//inMemoryConfig/dev.lcdsmao.jettheme.ThemePack[TypeParam(bounds=[dev.lcdsmao.jettheme.ThemeSpec])]#kotlin.String/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/in-memory-config.html
+$dokka.location:dev.lcdsmao.jettheme//nextThemeId/dev.lcdsmao.jettheme.ThemePack[*]#kotlin.String/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/next-theme-id.html
+$dokka.location:dev.lcdsmao.jettheme//persistenceConfig/dev.lcdsmao.jettheme.ThemePack[TypeParam(bounds=[dev.lcdsmao.jettheme.ThemeSpec])]#kotlin.String?#kotlin.String/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/persistence-config.html
+$dokka.location:dev.lcdsmao.jettheme//provideDelegate/dev.lcdsmao.jettheme.ThemeController[*]#kotlin.Any?#kotlin.reflect.KProperty[*]/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/provide-delegate.html
+$dokka.location:dev.lcdsmao.jettheme//setDarkModeTheme/dev.lcdsmao.jettheme.ThemeController[*]#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/set-dark-mode-theme.html
+$dokka.location:dev.lcdsmao.jettheme//setDefaultTheme/dev.lcdsmao.jettheme.ThemeController[*]#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/set-default-theme.html
+$dokka.location:dev.lcdsmao.jettheme//setThemeBasedOnSystemSettings/dev.lcdsmao.jettheme.ThemeController[*]#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/set-theme-based-on-system-settings.html
+$dokka.location:dev.lcdsmao.jettheme//themeIdBasedOnSystemSettings/#kotlin.String/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/theme-id-based-on-system-settings.html
+$dokka.location:dev.lcdsmao.jettheme//themeState/dev.lcdsmao.jettheme.ThemeController[dev.lcdsmao.jettheme.ThemeSpec]#TypeParam(bounds=[dev.lcdsmao.jettheme.ThemeSpec?])/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/theme-state.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeConfig.InMemory///PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-config/-in-memory/index.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeConfig.InMemory/InMemory/#dev.lcdsmao.jettheme.ThemePack[TypeParam(bounds=[dev.lcdsmao.jettheme.ThemeSpec])]#kotlin.String/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-config/-in-memory/-in-memory.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeConfig.InMemory/initialThemeId/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-config/-in-memory/initial-theme-id.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeConfig.InMemory/themePack/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-config/-in-memory/theme-pack.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeConfig.Persistence///PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-config/-persistence/index.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeConfig.Persistence/Persistence/#dev.lcdsmao.jettheme.ThemePack[TypeParam(bounds=[dev.lcdsmao.jettheme.ThemeSpec])]#kotlin.String?#kotlin.String/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-config/-persistence/-persistence.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeConfig.Persistence/darkModeThemeId/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-config/-persistence/dark-mode-theme-id.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeConfig.Persistence/persistenceKey/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-config/-persistence/persistence-key.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeConfig.Persistence/themePack/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-config/-persistence/theme-pack.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeConfig///PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-config/index.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeConfig/themePack/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-config/theme-pack.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeController///PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-controller/index.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeController/setThemeId/#kotlin.String/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-controller/set-theme-id.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeController/themeFlow/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-controller/theme-flow.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeController/themeId/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-controller/theme-id.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeIds///PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-ids/index.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeIds/Dark/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-ids/-dark.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeIds/Default/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-ids/-default.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeIds/SystemSettings/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-ids/-system-settings.html
+$dokka.location:dev.lcdsmao.jettheme/ThemePack///PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-pack/index.html
+$dokka.location:dev.lcdsmao.jettheme/ThemePack/contains/#kotlin.String/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-pack/contains.html
+$dokka.location:dev.lcdsmao.jettheme/ThemePack/default/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-pack/default.html
+$dokka.location:dev.lcdsmao.jettheme/ThemePack/get/#kotlin.String/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-pack/get.html
+$dokka.location:dev.lcdsmao.jettheme/ThemePack/size/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-pack/size.html
+$dokka.location:dev.lcdsmao.jettheme/ThemePack/toList/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-pack/to-list.html
+$dokka.location:dev.lcdsmao.jettheme/ThemePack/toString/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-pack/to-string.html
+$dokka.location:dev.lcdsmao.jettheme/ThemePackBuilder///PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-pack-builder/index.html
+$dokka.location:dev.lcdsmao.jettheme/ThemePackBuilder/theme/#dev.lcdsmao.jettheme.ThemeSpec/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-pack-builder/theme.html
+$dokka.location:dev.lcdsmao.jettheme/ThemePackBuilder/transformer/#kotlin.Function2[dev.lcdsmao.jettheme.ThemeSpec,dev.lcdsmao.jettheme.ThemeSpec,TypeParam(bounds=[dev.lcdsmao.jettheme.ThemeSpec])]/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-pack-builder/transformer.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeSpec///PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-spec/index.html
+$dokka.location:dev.lcdsmao.jettheme/ThemeSpec/id/#/PointingToDeclaration/jettheme/dev.lcdsmao.jettheme/-theme-spec/id.html
+dev.lcdsmao.jettheme
+

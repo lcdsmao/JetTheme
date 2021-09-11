@@ -1,0 +1,14 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:dev.lcdsmao.jettheme.material////PointingToDeclaration/jettheme-material/dev.lcdsmao.jettheme.material/index.html
+$dokka.location:dev.lcdsmao.jettheme.material//ProvideAppMaterialTheme/#dev.lcdsmao.jettheme.ThemePack[dev.lcdsmao.jettheme.material.MaterialThemeSpec]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/jettheme-material/dev.lcdsmao.jettheme.material/-provide-app-material-theme.html
+$dokka.location:dev.lcdsmao.jettheme.material//ProvideMaterialTheme/#dev.lcdsmao.jettheme.ThemeConfig[dev.lcdsmao.jettheme.material.MaterialThemeSpec]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/jettheme-material/dev.lcdsmao.jettheme.material/-provide-material-theme.html
+$dokka.location:dev.lcdsmao.jettheme.material//buildMaterialThemePack/#kotlin.Function1[dev.lcdsmao.jettheme.ThemePackBuilder[dev.lcdsmao.jettheme.material.MaterialThemeSpec],kotlin.Unit]/PointingToDeclaration/jettheme-material/dev.lcdsmao.jettheme.material/build-material-theme-pack.html
+$dokka.location:dev.lcdsmao.jettheme.material//defaultMaterialTheme/dev.lcdsmao.jettheme.ThemePackBuilder[dev.lcdsmao.jettheme.material.MaterialThemeSpec]#androidx.compose.material.Colors#androidx.compose.material.Typography#androidx.compose.material.Shapes/PointingToDeclaration/jettheme-material/dev.lcdsmao.jettheme.material/default-material-theme.html
+$dokka.location:dev.lcdsmao.jettheme.material//materialTheme/dev.lcdsmao.jettheme.ThemePackBuilder[dev.lcdsmao.jettheme.material.MaterialThemeSpec]#kotlin.String#androidx.compose.material.Colors?#androidx.compose.material.Typography?#androidx.compose.material.Shapes?/PointingToDeclaration/jettheme-material/dev.lcdsmao.jettheme.material/material-theme.html
+$dokka.location:dev.lcdsmao.jettheme.material/MaterialThemeSpec///PointingToDeclaration/jettheme-material/dev.lcdsmao.jettheme.material/-material-theme-spec/index.html
+$dokka.location:dev.lcdsmao.jettheme.material/MaterialThemeSpec/colors/#/PointingToDeclaration/jettheme-material/dev.lcdsmao.jettheme.material/-material-theme-spec/colors.html
+$dokka.location:dev.lcdsmao.jettheme.material/MaterialThemeSpec/shapes/#/PointingToDeclaration/jettheme-material/dev.lcdsmao.jettheme.material/-material-theme-spec/shapes.html
+$dokka.location:dev.lcdsmao.jettheme.material/MaterialThemeSpec/typography/#/PointingToDeclaration/jettheme-material/dev.lcdsmao.jettheme.material/-material-theme-spec/typography.html
+dev.lcdsmao.jettheme.material
+
