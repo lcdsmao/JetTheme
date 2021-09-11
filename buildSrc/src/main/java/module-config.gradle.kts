@@ -4,7 +4,6 @@ import com.android.build.gradle.AppExtension
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.TestedExtension
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -101,9 +100,4 @@ fun Project.commonConfig() {
     }
     useJUnitPlatform()
   }
-}
-
-fun Project.isKotlinSourceSetsEmpty(name: String): Boolean {
-  return extensions.findByType<KotlinAndroidProjectExtension>()?.sourceSets
-    ?.findByName(name)?.kotlin?.files.isNullOrEmpty()
 }
