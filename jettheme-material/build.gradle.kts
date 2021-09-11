@@ -5,6 +5,7 @@ plugins {
   `module-config`
   com.android.library
   `kotlin-android`
+  id("org.jetbrains.dokka")
   id("com.vanniktech.maven.publish")
 }
 
