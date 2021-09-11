@@ -37,6 +37,8 @@ dependencies {
   androidTestImplementation(AndroidX.compose.ui.testJunit4)
   androidTestImplementation(Kotlin.Test.junit)
   androidTestUtil(AndroidX.test.orchestrator)
+
+  debugImplementation(AndroidX.compose.ui.testManifest)
 }
 
 tasks.withType<KotlinCompile> {
