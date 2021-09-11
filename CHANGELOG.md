@@ -1,5 +1,11 @@
 # Changelog
 
+#### [1.0.0] - Sep 11, 2021
+
+- Update Kotlin to 1.5.21
+- Update Compose to 1.0.1
+- Update DataStore to 1.0.0
+
 #### [1.0.0-alpha06] - Mar 2, 2021
 
 - Update Kotlin to 1.4.30
