@@ -18,7 +18,7 @@ android {
 }
 
 dependencies {
-  api(projects.jettheme)
+  api(project(":jettheme"))
 
   implementation(Kotlin.stdlib.jdk8)
   implementation(AndroidX.appCompat)
@@ -30,7 +30,7 @@ dependencies {
   testImplementation(Testing.Kotest.runner.junit5)
   testImplementation(Testing.Kotest.assertions.core)
 
-  androidTestImplementation(projects.testfixturesAndroid)
+  androidTestImplementation(project(":testfixtures-android"))
   androidTestImplementation(AndroidX.test.coreKtx)
   androidTestImplementation(AndroidX.test.runner)
   androidTestImplementation(AndroidX.compose.ui.test)

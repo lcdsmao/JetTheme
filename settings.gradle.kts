@@ -1,5 +1,3 @@
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
 pluginManagement {
   repositories {
     gradlePluginPortal()
@@ -11,6 +9,8 @@ pluginManagement {
 plugins {
     id("de.fayard.refreshVersions") version "0.20.0"
 }
+
+rootProject.name = "JetTheme"
 
 include(
   "sample",
